@@ -6,6 +6,7 @@ import StyleLoading from './StyleLoading';
 import StyleSignUp from './StyleSignUp';
 import StyleLogin from './StyleLogin';
 import StyleFlatItemMain from './StyleFlatItemMain';
+import StyleAddItem from './StyleAddItem';
 
 const AppStyle = {
   StyleCommon,
@@ -14,5 +15,6 @@ const AppStyle = {
   StyleSignUp,
   StyleLogin,
   StyleFlatItemMain,
+  StyleAddItem,
 };
 export default AppStyle;

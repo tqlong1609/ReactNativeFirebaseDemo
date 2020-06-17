@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList} from 'react-native';
+import {Text, View, FlatList, TouchableOpacity} from 'react-native';
 import FlatItemMain from './FlatItemMain';
 // style
 import AppStyle from '../theme';
@@ -24,14 +24,25 @@ export class Main extends Component {
       ],
     };
   }
+
+  clickAdd = () => {
+    this.props.navigation.navigate('AddItemApp');
+  };
+
   render() {
     return (
       <View style={AppStyle.StyleMain.container}>
         <FlatList
+          // style={AppStyle.StyleMain.flatList}
           data={this.state.data}
           keyExtractor={(item) => item.key}
           renderItem={({item}) => <FlatItemMain value={item} />}
         />
+        <TouchableOpacity
+          style={AppStyle.StyleMain.btnAdd}
+          onPress={this.clickAdd}>
+          <Text>Add</Text>
+        </TouchableOpacity>
       </View>
     );
   }
