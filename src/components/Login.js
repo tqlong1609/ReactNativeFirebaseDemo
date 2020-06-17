@@ -7,23 +7,33 @@ import FirebaseConst from '../common/FilebaseConst';
 import {AlertApp} from '../untils/AlertApp';
 
 export default class Login extends React.Component {
-  state = {email: '', password: '', errorMessage: null};
+  constructor(props) {
+    super(props);
+    this.state = {email: '', password: '', errorMessage: null};
+  }
+
+  signIn = () => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => {
+        this.props.navigation.navigate('MainApp');
+      })
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        AlertApp(errorCode, errorMessage);
+        // ...
+      });
+  };
+
   handleLogin = () => {
-    if (firebase.apps.length === 0) firebase.initializeApp(FirebaseConst);
-    else {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then(() => {
-          this.props.navigation.navigate('MainApp');
-        })
-        .catch(function (error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          AlertApp(errorCode, errorMessage);
-          // ...
-        });
+    if (firebase.apps.length === 0) {
+      firebase.initializeApp(FirebaseConst);
+      this.signIn();
+    } else {
+      this.signIn();
     }
   };
   render() {
