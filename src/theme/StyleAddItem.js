@@ -6,9 +6,11 @@ const Style = StyleSheet.create({
     marginTop: 50,
   },
   image: {
-    backgroundColor: 'red',
     width: 150,
     height: 150,
+    borderColor: 'black',
+    borderWidth: 1,
+    resizeMode: 'stretch',
   },
   btnUpload: {
     justifyContent: 'center',
