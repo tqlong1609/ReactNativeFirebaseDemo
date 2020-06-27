@@ -1,9 +1,8 @@
 import firebase from 'firebase';
 import {AlertApp} from '../../lib/utils/AlertApp';
-import {SIGN_IN} from '../../actions/actionTypes';
+import {SIGN_IN} from '../../store/actionTypes';
 
 class HandleLogin {
-  
   signIn = (email, password) => {
     firebases
       .auth()
@@ -39,8 +38,8 @@ class HandleLogin {
 
   mapStateToProps = (state) => {
     return {
-      error: state.error,
-      logined: state.logined,
+      error: state.login.error,
+      logined: state.login.logined,
     };
   };
 }

@@ -25,7 +25,9 @@ class Login extends React.Component {
     return (
       <View style={LoginStyle.container}>
         <Text>Login</Text>
-        {this.props.error !== '' && <Text style={{color: 'red'}}>asd</Text>}
+        {this.props.error !== '' && (
+          <Text style={{color: 'red'}}>{this.props.error}</Text>
+        )}
         <TextInput
           style={LoginStyle.textInput}
           autoCapitalize="none"

@@ -4,9 +4,6 @@ import FlatItemMain from './FlatItemMain';
 // style
 import AppStyle from '../styles';
 
-//config
-import firebase from '../config/FirebaseConfig';
-
 export class Main extends Component {
   constructor(props) {
     super(props);
