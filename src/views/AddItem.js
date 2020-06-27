@@ -9,10 +9,11 @@ import {
   ImagePic,
   Platform,
 } from 'react-native';
-import StyleApp from '../theme';
+import StyleApp from '../styles';
 import ImagePicker from 'react-native-image-picker';
 import HandleAddItem from '../containers/handleAddItem';
 import ImageLoad from 'react-native-image-placeholder';
+import {call} from 'react-native-reanimated';
 
 const options = {
   title: 'Select Avatar',
@@ -28,13 +29,32 @@ export class AddItem extends Component {
     super(props);
     this.state = {
       urlImage: '',
+      urlImageFireBase: '',
+      name: '',
+      address: '',
+      time: '',
+      cost: '',
     };
   }
-  clickAdd = () => {};
+  clickAdd = () => {
+    this.handleUploadImageFireBase(this.state.urlImageFireBase).then((url) => {
+      let arr = {
+        uri: url,
+        name: this.state.name,
+        address: this.state.address,
+        time: this.state.time,
+        cost: this.state.cost,
+      };
+      HandleAddItem.uploadContentToFireBase(arr);
+    });
+  };
+
+  handleUploadImageFireBase = (uri) => {
+    HandleAddItem.handleWarningSettingtimmer();
+    return HandleAddItem.uploadImage(uri);
+  };
   clickUpload = () => {
     ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -42,16 +62,13 @@ export class AddItem extends Component {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
+        // console.log(response.uri);
+        this.setState({
+          urlImage: 'data:image/jpeg;base64,' + response.data,
+          urlImageFireBase: response.uri,
+        });
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-        HandleAddItem.handleWarningSettingtimmer();
-        HandleAddItem.uploadImage(response.uri)
-          .then((url) => {
-            this.setState({urlImage: url});
-          })
-          .catch((error) => {
-            console.log(error);
-          });
       }
     });
   };
@@ -97,20 +114,30 @@ export class AddItem extends Component {
           <View style={StyleApp.StyleAddItem.containerContent}>
             <View style={StyleApp.StyleAddItem.containerText}>
               <Text style={StyleApp.StyleAddItem.textHeader}>Name:</Text>
-              <TextInput style={StyleApp.StyleAddItem.textContent} />
+              <TextInput
+                style={StyleApp.StyleAddItem.textContent}
+                onChangeText={(text) => this.setState({name: text})}
+              />
             </View>
             <View style={StyleApp.StyleAddItem.containerText}>
               <Text style={StyleApp.StyleAddItem.textHeader}>Address:</Text>
-              <TextInput style={StyleApp.StyleAddItem.textContent} />
+              <TextInput
+                style={StyleApp.StyleAddItem.textContent}
+                onChangeText={(text) => this.setState({address: text})}
+              />
             </View>
             <View style={StyleApp.StyleAddItem.containerText}>
               <Text style={StyleApp.StyleAddItem.textHeader}>Time:</Text>
-              <TextInput style={StyleApp.StyleAddItem.textContent} />
+              <TextInput
+                style={StyleApp.StyleAddItem.textContent}
+                onChangeText={(text) => this.setState({time: text})}
+              />
             </View>
             <View style={StyleApp.StyleAddItem.containerText}>
               <Text style={StyleApp.StyleAddItem.textHeader}>Cost:</Text>
               <TextInput
                 style={StyleApp.StyleAddItem.textContent}
+                onChangeText={(text) => this.setState({cost: text})}
                 keyboardType={'numeric'}
               />
             </View>

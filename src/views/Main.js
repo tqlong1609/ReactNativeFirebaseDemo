@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, FlatList, TouchableOpacity} from 'react-native';
 import FlatItemMain from './FlatItemMain';
 // style
-import AppStyle from '../theme';
+import AppStyle from '../styles';
 
 //config
 import firebase from '../config/FirebaseConfig';

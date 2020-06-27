@@ -1,17 +1,22 @@
 import {Platform, InteractionManager} from 'react-native';
 import firebase from 'firebase';
 import RNFetchBlob from 'react-native-fetch-blob';
+import FilebaseConst from '../lib/cons/FilebaseConst';
 
 const _setTimeout = global.setTimeout;
 const _clearTimeout = global.clearTimeout;
 const MAX_TIMER_DURATION_MS = 60 * 1000;
-
 const Blob = RNFetchBlob.polyfill.Blob;
 const fs = RNFetchBlob.fs;
+
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 window.Blob = Blob;
 
 class HandleAddItem {
+  uploadContentToFireBase = (content) => {
+    console.log(content);
+    firebase.database().ref(FilebaseConst.NameRoot).push(content);
+  };
   uploadImage = (uri, mime = 'image/jpeg', name) => {
     return new Promise((resolve, reject) => {
       let imgUri = uri;

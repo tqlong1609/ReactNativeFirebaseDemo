@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, Image} from 'react-native';
-import StyleApp from '../theme';
+import StyleApp from '../styles';
 export class FlatItemMain extends Component {
   constructor(props) {
     super(props);

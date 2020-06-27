@@ -8,4 +8,6 @@ const FilebaseConst = {
   appId: '1:951296790724:web:122c314b07fa55c29bf991',
 };
 
-export default FilebaseConst;
+const NameRoot = 'InforProduct';
+
+export default {FilebaseConst, NameRoot};
