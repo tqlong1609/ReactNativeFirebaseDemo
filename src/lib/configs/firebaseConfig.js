@@ -1,4 +1,4 @@
-const FilebaseConst = {
+const FilebaseConfig = {
   apiKey: 'AIzaSyC1mcv6B5iqj5VqzkNsJ5xYLohFoxBkdy0',
   authDomain: 'myproject-bd094.firebaseapp.com',
   databaseURL: 'https://myproject-bd094.firebaseio.com',
@@ -8,6 +8,4 @@ const FilebaseConst = {
   appId: '1:951296790724:web:122c314b07fa55c29bf991',
 };
 
-const NameRoot = 'InforProduct';
-
-export default {FilebaseConst, NameRoot};
+export default FilebaseConfig;

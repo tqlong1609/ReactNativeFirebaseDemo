@@ -18,6 +18,7 @@ class Login extends React.Component {
       console.log('success');
       return null;
     }
+    console.log(_props.error);
     return {error: _props.error};
   }
 
@@ -26,7 +27,9 @@ class Login extends React.Component {
       <View style={LoginStyle.container}>
         <Text>Login</Text>
         {this.props.error !== '' && (
-          <Text style={{color: 'red'}}>{this.props.error}</Text>
+          <Text style={{color: 'red', textAlign: 'center'}}>
+            {this.props.error}
+          </Text>
         )}
         <TextInput
           style={LoginStyle.textInput}
