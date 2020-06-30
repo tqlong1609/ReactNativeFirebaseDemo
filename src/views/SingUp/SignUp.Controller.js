@@ -1,27 +1,38 @@
-import firebase from 'firebase';
-import {AlertApp} from '../../lib/utils/AlertApp';
-// import FirebaseConst from '../../lib/cons';
-
+//Todo: sửa lổi tự động login
+import {SIGN_UP} from '../../store/actionTypes';
+import {
+  ERROR_EMPTY_INPUT,
+  ERROR_NOT_CONFIRM_PASSWORD,
+} from '../../lib/configs/nameErrors';
 class HandleSignUp {
-  // handleSignUp = (email, password) => {
-  //   if (firebase.apps.length === 0) firebase.initializeApp(FirebaseConst);
-  //   else {
-  //     firebase
-  //       .auth()
-  //       .createUserWithEmailAndPassword(email, password)
-  //       .then(() => {
-  //         AlertApp('Success', 'SignUp success!');
-  //         this.props.navigation.navigate('LoginApp');
-  //       })
-  //       .catch(function (error) {
-  //         // Handle Errors here.
-  //         var errorCode = error.code;
-  //         var errorMessage = error.message;
-  //         AlertApp('Error', errorMessage);
-  //         // ...
-  //       });
-  //   }
-  // };
+  mapDispatchToProps = (dispatch) => {
+    return {
+      onSignUp: (emailVal, passwordVal) =>
+        dispatch({
+          type: SIGN_UP,
+          value: {email: emailVal, password: passwordVal},
+        }),
+    };
+  };
+
+  mapStateToProps = (state) => {
+    // console.log(state);
+    return {
+      error: state.signUp.error,
+      isSignUp: state.signUp.isSignUp,
+    };
+  };
+
+
+  checkEmptyInput = (email, password, confirmPassword) => {
+    if (email === '' && password === '' && confirmPassword === '') {
+      throw Error(ERROR_EMPTY_INPUT);
+    }
+  };
+
+  checkConfirmPassword = (password, confirmPassword) => {
+    if (password !== confirmPassword) throw Error(ERROR_NOT_CONFIRM_PASSWORD);
+  };
 }
 
 export default new HandleSignUp();

@@ -1,16 +1,16 @@
 import {Alert} from 'react-native';
 
-export function AlertApp(title, content) {
+export function AlertApp(title, content, callback) {
   Alert.alert(
     title,
     content,
     [
       {
         text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
+        onPress: () => callback('Cancel'),
         style: 'cancel',
       },
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
+      {text: 'OK', onPress: () => callback('OK')},
     ],
     {cancelable: false},
   );

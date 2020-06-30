@@ -1,9 +1,10 @@
 // Login.js
 import React from 'react';
-import {Text, TextInput, View, Button, TouchableOpacity} from 'react-native';
+import {Text, TextInput, View, TouchableOpacity} from 'react-native';
 import LoginStyle from './Login.Style';
 import LoginController from './Login.Controller';
 import {connect} from 'react-redux';
+import {SIGN_UP_SCREEN,MAIN_SCREEN} from '../../lib/configs/nameScreen';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -15,11 +16,10 @@ class Login extends React.Component {
       return null;
     }
     if (_props.logined) {
-      console.log('success');
+      _props.navigation.navigate(MAIN_SCREEN);
       return null;
     }
-    console.log(_props.error);
-    return {error: _props.error};
+    return {error: _props.error, logined: _props.logined};
   }
 
   render() {
@@ -55,7 +55,9 @@ class Login extends React.Component {
         </TouchableOpacity>
         <TouchableOpacity
           style={LoginStyle.btnSignUp}
-          onPress={() => this.props.navigation.navigate('SignUpApp')}>
+          onPress={() =>
+            this.props.navigation.navigate(SIGN_UP_SCREEN)
+          }>
           <Text style={LoginStyle.txtSignUp}>
             Don't have an account? Sign Up
           </Text>

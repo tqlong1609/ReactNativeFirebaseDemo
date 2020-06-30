@@ -12,7 +12,7 @@ class HandleLogin {
   };
 
   mapStateToProps = (state) => {
-    console.log(state);
+    // console.log(state);
     return {
       error: state.login.error,
       logined: state.login.logined,

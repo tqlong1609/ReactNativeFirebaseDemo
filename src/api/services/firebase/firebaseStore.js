@@ -13,12 +13,19 @@ class FirebaseServices {
   initFirebase = () => {
     firebase.initializeApp(Config);
   };
-  loginWithEmail = (userParam) => {
-    console.log('firebase user', userParam);
-    // this.initFirebase();
+  loginWithEmailAndPassword = (userParam) => {
     return firebase
       .auth()
       .signInWithEmailAndPassword(
+        userParam.value.email,
+        userParam.value.password,
+      )
+      .then((response) => response);
+  };
+  signUpWithEmailAndPassword = (userParam) => {
+    return firebase
+      .auth()
+      .createUserWithEmailAndPassword(
         userParam.value.email,
         userParam.value.password,
       )

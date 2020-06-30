@@ -3,24 +3,14 @@ import {
   SIGN_IN,
   SIGN_IN_ASYN_SUCCESS,
   SIGN_IN_ASYN_FAIL,
+  SIGN_UP,
 } from '../../store/actionTypes';
-import FirebaseServices from '../../api/services/firebase/firebaseStore';
-const rootSaga = function* someSaga() {
-  yield takeEvery(SIGN_IN, login);
-};
 
-function* login(dispatch) {
-  try {
-    const response = yield call(FirebaseServices.loginWithEmail, dispatch);
-    // console.log('User Saga Response', JSON.stringify(response));
-    yield put({
-      type: SIGN_IN_ASYN_SUCCESS,
-      value: response,
-    });
-  } catch (error) {
-    console.log('error: ' + error);
-    yield put({type: SIGN_IN_ASYN_FAIL, value: error});
-  }
-}
+import * as Login from './Login.Sagas';
+import * as SignUp from './SignUp.Sagas';
+const rootSaga = function* someSaga() {
+  yield takeEvery(SIGN_IN, Login.login);
+  yield takeEvery(SIGN_UP, SignUp.signUp);
+};
 
 export default rootSaga;

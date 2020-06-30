@@ -1,4 +1,7 @@
 import {StyleSheet} from 'react-native';
+import StyleApp from '../../styles';
+import {TEXT_BUTTON} from '../../styles/colors';
+import {MARGIN_MEDIUM, FONT_SIZE_MEDIUM} from '../../styles/sizes';
 
 const styles = StyleSheet.create({
   container: {
@@ -7,11 +10,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textInput: {
-    height: 40,
-    width: '90%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginTop: 8,
+    ...StyleApp.TextInput.txtNormal,
+  },
+  btnSignUp: {
+    ...StyleApp.Button.btnPrimary,
+    margin: MARGIN_MEDIUM,
+  },
+  btnLogin: {
+    ...StyleApp.Button.btnPrimary,
+  },
+  txtSignUp: {
+    color: TEXT_BUTTON,
+    fontSize: FONT_SIZE_MEDIUM,
+  },
+  txtLogin: {
+    color: TEXT_BUTTON,
+    fontSize: FONT_SIZE_MEDIUM,
   },
 });
 

@@ -1,21 +1,68 @@
 // SignUp.js
 import React from 'react';
-import {Text, TextInput, View, Button} from 'react-native';
+import {Text, TextInput, View, TouchableOpacity} from 'react-native';
 import SignUpController from './SignUp.Controller';
 import SignUpStyle from './SignUp.Style';
-
-export default class SignUp extends React.Component {
+import {LOGIN_SCREEN, MAIN_SCREEN} from '../../lib/configs/nameScreen';
+import {connect} from 'react-redux';
+import {AlertApp} from '../../lib/utils/AlertApp';
+class SignUp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {email: '', password: '', errorMessage: null};
+    this.state = {
+      email: '',
+      password: '',
+      confirmPassword: '',
+      errorMessage: '',
+      isSignUp: false,
+    };
   }
 
+  static getDerivedStateFromProps(_props, _state) {
+    if (_state.isSignUp === _props.isSignUp) {
+      return null;
+    }
+    if (_props.isSignUp) {
+      AlertApp('SignUp Success', 'Do you want sign up again ?', (value) => {
+        if (value === 'OK') {
+          _props.navigation.navigate(LOGIN_SCREEN);
+        } else {
+          return {errorMessage: '', isSignUp: false};
+        }
+      });
+      return null;
+    }
+    return {errorMessage: _props.error, isSignUp: _props.isSignUp};
+  }
+
+
+  onSignUp = () => {
+    try {
+      SignUpController.checkEmptyInput(
+        this.state.email,
+        this.state.password,
+        this.state.confirmPassword,
+      );
+      SignUpController.checkConfirmPassword(
+        this.state.password,
+        this.state.confirmPassword,
+      );
+      this.props.onSignUp(this.state.email, this.state.password);
+    } catch (error) {
+      let errorMessage = error.toString();
+      this.setState({errorMessage: errorMessage});
+    }
+  };
+
   render() {
+    console.log(this.state.errorMessage);
     return (
       <View style={SignUpStyle.container}>
         <Text>Sign Up</Text>
-        {this.state.errorMessage && (
-          <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
+        {this.state.errorMessage !== '' && (
+          <Text style={{color: 'red', textAlign: 'center'}}>
+            {this.state.errorMessage}
+          </Text>
         )}
         <TextInput
           placeholder="Email"
@@ -32,17 +79,31 @@ export default class SignUp extends React.Component {
           onChangeText={(password) => this.setState({password})}
           value={this.state.password}
         />
-        <Button
-          title="Sign Up"
-          onPress={() =>
-            SignUpController.handleSignUp(this.state.email, this.state.password)
-          }
+        <TextInput
+          secureTextEntry
+          placeholder="Confirm Password"
+          autoCapitalize="none"
+          style={SignUpStyle.textInput}
+          onChangeText={(confirmPassword) => this.setState({confirmPassword})}
+          value={this.state.confirmPassword}
         />
-        <Button
-          title="Already have an account? Login"
-          onPress={() => this.props.navigation.navigate('LoginApp')}
-        />
+        <TouchableOpacity
+          style={SignUpStyle.btnSignUp}
+          onPress={() => this.onSignUp()}>
+          <Text style={SignUpStyle.txtSignUp}>Sign Up</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={SignUpStyle.btnLogin}
+          onPress={() => this.props.navigation.navigate(LOGIN_SCREEN)}>
+          <Text style={SignUpStyle.txtLogin}>
+            Do you have an account? Login
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
 }
+export default connect(
+  SignUpController.mapStateToProps,
+  SignUpController.mapDispatchToProps,
+)(SignUp);
