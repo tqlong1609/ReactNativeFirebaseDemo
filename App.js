@@ -7,6 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import MainApp from './src/views/Main/Main';
 import LoginApp from './src/views/Login/Login';
 import SignUpApp from './src/views/SingUp/SignUp';
+import AddItemAdd from './src/views/AddItem/AddItem'
 // import AddItemApp from './src/views/AddItem';
 import * as NameScreen from './src/lib/configs/nameScreen';
 
@@ -20,6 +21,7 @@ export class App extends Component {
           <Stack.Screen name={NameScreen.LOGIN_SCREEN} component={LoginApp} />
           <Stack.Screen name={NameScreen.MAIN_SCREEN} component={MainApp} />
           <Stack.Screen name={NameScreen.SIGN_UP_SCREEN} component={SignUpApp} />
+          <Stack.Screen name={NameScreen.ADD_ITEM_SCREEN} component={AddItemAdd} />
         </Stack.Navigator>
       </NavigationContainer>
     );

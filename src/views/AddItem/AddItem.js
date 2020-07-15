@@ -9,9 +9,9 @@ import {
   ImagePic,
   Platform,
 } from 'react-native';
-import StyleApp from '../styles';
+import StyleApp from '../../styles';
 import ImagePicker from 'react-native-image-picker';
-import HandleAddItem from '../containers/handleAddItem';
+import HandleAddItem from '../../containers/handleAddItem';
 import ImageLoad from 'react-native-image-placeholder';
 import {call} from 'react-native-reanimated';
 
@@ -92,7 +92,7 @@ export class AddItem extends Component {
                 case '':
                   return (
                     <Image
-                      source={require('../assets/img/high_priority_127px.png')}
+                      source={require('../../assets/img/high_priority_127px.png')}
                     />
                   );
                 default:
