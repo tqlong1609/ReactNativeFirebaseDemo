@@ -1,4 +1,4 @@
-import {ADD_ITEM} from '../../store/actionTypes';
+import {ADD_ITEM, RESET_STATE} from '../../store/actionTypes';
 import ImagePicker from 'react-native-image-picker';
 const options = {
   title: 'Select Avatar',
@@ -29,6 +29,10 @@ class HandleAddItem {
   };
   mapDispatchToProps = (dispatch) => {
     return {
+      resetData: () =>
+        dispatch({
+          type: RESET_STATE,
+        }),
       handleUploadImageFireBase: (
         urlImageFireBase,
         name,
@@ -50,8 +54,10 @@ class HandleAddItem {
   };
 
   mapStateToProps = (state) => {
-    // console.log(state);
-    return {};
+    return {
+      error: state.addItem.error,
+      isAdded: state.addItem.isAdded,
+    };
   };
 }
 

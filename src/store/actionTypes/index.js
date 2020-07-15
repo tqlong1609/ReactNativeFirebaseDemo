@@ -7,3 +7,6 @@ export const SIGN_UP_ASYN_SUCCESS = 'SIGN_UP_ASYN_SUCCESS';
 export const SIGN_UP_ASYN_FAIL = 'SIGN_UP_ASYN_FAIL';
 
 export const ADD_ITEM = 'ADD_ITEM';
+export const ADD_ITEM_ASYN_SUCCESS = 'ADD_ITEM_ASYN_SUCCESS';
+export const ADD_ITEM_ASYN_FAIL = 'ADD_ITEM_ASYN_FAIL';
+export const RESET_STATE = "RESET_STATE";

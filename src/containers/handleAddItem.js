@@ -15,7 +15,6 @@ window.Blob = Blob;
 
 class HandleAddItem {
   uploadContentToFireBase = (content) => {
-    console.log(content);
     firebase.database().ref(Const.NameRoot).push(content);
   };
   uploadImage = (uri, mime = 'image/jpeg', name) => {

@@ -4,7 +4,7 @@ import {Text, TextInput, View, TouchableOpacity} from 'react-native';
 import LoginStyle from './Login.Style';
 import LoginController from './Login.Controller';
 import {connect} from 'react-redux';
-import {SIGN_UP_SCREEN,MAIN_SCREEN} from '../../lib/configs/nameScreen';
+import {SIGN_UP_SCREEN, MAIN_SCREEN} from '../../lib/configs/nameScreen';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -55,9 +55,7 @@ class Login extends React.Component {
         </TouchableOpacity>
         <TouchableOpacity
           style={LoginStyle.btnSignUp}
-          onPress={() =>
-            this.props.navigation.navigate(SIGN_UP_SCREEN)
-          }>
+          onPress={() => this.props.navigation.navigate(SIGN_UP_SCREEN)}>
           <Text style={LoginStyle.txtSignUp}>
             Don't have an account? Sign Up
           </Text>

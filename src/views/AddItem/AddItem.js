@@ -15,6 +15,7 @@ import HandleAddItem from '../../containers/handleAddItem';
 import ImageLoad from 'react-native-image-placeholder';
 import AddItemStyle from './AddItem.Style';
 import AddItemController from './AddItem.Controller';
+import {MAIN_SCREEN} from '../../lib/configs/nameScreen';
 
 export class AddItem extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ export class AddItem extends Component {
       address: '',
       time: '',
       cost: '',
+      isAdded: false,
     };
   }
   clickAdd = () => {
@@ -36,22 +38,8 @@ export class AddItem extends Component {
       this.state.time,
       this.state.cost,
     );
-    // this.handleUploadImageFireBase(this.state.urlImageFireBase).then((url) => {
-    //   let arr = {
-    //     uri: url,
-    //     name: this.state.name,
-    //     address: this.state.address,
-    //     time: this.state.time,
-    //     cost: this.state.cost,
-    //   };
-    //   HandleAddItem.uploadContentToFireBase(arr);
-    // });
   };
 
-  handleUploadImageFireBase = (uri) => {
-    HandleAddItem.handleWarningSettingtimmer();
-    return HandleAddItem.uploadImage(uri);
-  };
   clickUpload = () => {
     AddItemController.uploadImagePicker((urlImage, urlImageFireBase) => {
       this.setState({
@@ -60,6 +48,20 @@ export class AddItem extends Component {
       });
     });
   };
+
+  static getDerivedStateFromProps(_props, _state) {
+    if (_state.isAdded === _props.isAdded) {
+      return null;
+    }
+    if (_props.isAdded) {
+      //TODO: Performance not good, todo another way
+      _props.resetData();
+      // console.log('ok baby');
+      _props.navigation.navigate(MAIN_SCREEN);
+      return null;
+    }
+    return {error: _props.error, isAdded: _props.isAdded};
+  }
   render() {
     // console.log(this.state.urlImage);
     const {urlImage} = this.state;
