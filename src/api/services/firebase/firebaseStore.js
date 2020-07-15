@@ -1,5 +1,7 @@
 import firebase from 'firebase';
 import Config from '../../../lib/configs/firebaseConfig';
+import Const from '../../../lib/const/Filebase.const';
+import {call, put} from 'redux-saga/effects';
 
 class FirebaseServices {
   constructor() {
@@ -30,6 +32,28 @@ class FirebaseServices {
         userParam.value.password,
       )
       .then((response) => response);
+  };
+
+  loadData = () => {
+    return firebase.database().ref(Const.NameRoot);
+    // return data.val();
+    // firebase
+    //   .database()
+    //   .ref(Const.NameRoot)
+    //   .on('value', (snapshot) => {
+    //     const messageObject = snapshot.val();
+
+    //     if (messageObject) {
+    //       const messageList = Object.keys(messageObject).map((key) => ({
+    //         ...messageObject[key],
+    //         uid: key,
+    //       }));
+    //       // messageList.forEach((value) => console.log(value));
+    //       return messageList;
+    //     } else {
+    //       console.log('empty');
+    //     }
+    //   });
   };
 }
 export default new FirebaseServices();

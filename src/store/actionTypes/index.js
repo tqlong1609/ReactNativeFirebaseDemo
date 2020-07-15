@@ -10,3 +10,9 @@ export const ADD_ITEM = 'ADD_ITEM';
 export const ADD_ITEM_ASYN_SUCCESS = 'ADD_ITEM_ASYN_SUCCESS';
 export const ADD_ITEM_ASYN_FAIL = 'ADD_ITEM_ASYN_FAIL';
 export const RESET_STATE = "RESET_STATE";
+
+export const LOAD_DATA = 'LOAD_DATA';
+export const LOAD_DATA_ASYN_SUCCESS = 'LOAD_DATA_ASYN_SUCCESS';
+export const LOAD_DATA_ASYN_FAIL = 'LOAD_DATA_ASYN_FAIL';
+
+

@@ -1,47 +1,49 @@
 import React, {Component} from 'react';
 import {Text, View, FlatList, TouchableOpacity} from 'react-native';
-import AppStyle from '../../styles';
 import FlatItemMain from '../../containers/FlatItemMain';
 import {ADD_ITEM_SCREEN} from '../../lib/configs/nameScreen';
+import MainStyle from './Main.Styles';
+import MainController from './Main.Controller';
+import {connect} from 'react-redux';
+
 export class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [
-        {
-          key: '1',
-          uriImage: 'a',
-          name: 'name',
-          address: 'address',
-          timeOpen: '2:00',
-          timeClose: '3:00',
-          cost: '20.000',
-        },
-      ],
+      data: [],
+      error: '',
     };
   }
-
+  static getDerivedStateFromProps(_props, _state) {
+    // if (_state.data === _props.data) {
+    //   return null;
+    // }
+    return {error: _props.error, data: _props.arrData};
+  }
   clickAdd = () => {
     this.props.navigation.navigate(ADD_ITEM_SCREEN);
   };
 
+  componentDidMount() {
+    this.props.onLoad();
+  }
+
   render() {
     return (
-      <View style={AppStyle.StyleMain.container}>
+      <View style={MainStyle.container}>
         <FlatList
-          // style={AppStyle.StyleMain.flatList}
           data={this.state.data}
           keyExtractor={(item) => item.key}
           renderItem={({item}) => <FlatItemMain value={item} />}
         />
-        <TouchableOpacity
-          style={AppStyle.StyleMain.btnAdd}
-          onPress={this.clickAdd}>
+        <TouchableOpacity style={MainStyle.btnAdd} onPress={this.clickAdd}>
           <Text>Add</Text>
         </TouchableOpacity>
       </View>
     );
   }
 }
-
-export default Main;
+export default connect(
+  MainController.mapStateToProps,
+  MainController.mapDispatchToProps,
+)(Main);
