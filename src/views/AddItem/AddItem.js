@@ -9,20 +9,12 @@ import {
   ImagePic,
   Platform,
 } from 'react-native';
-import StyleApp from '../../styles';
-import ImagePicker from 'react-native-image-picker';
+import {connect} from 'react-redux';
+
 import HandleAddItem from '../../containers/handleAddItem';
 import ImageLoad from 'react-native-image-placeholder';
 import AddItemStyle from './AddItem.Style';
-
-const options = {
-  title: 'Select Avatar',
-  customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-  },
-};
+import AddItemController from './AddItem.Controller';
 
 export class AddItem extends Component {
   constructor(props) {
@@ -37,16 +29,23 @@ export class AddItem extends Component {
     };
   }
   clickAdd = () => {
-    this.handleUploadImageFireBase(this.state.urlImageFireBase).then((url) => {
-      let arr = {
-        uri: url,
-        name: this.state.name,
-        address: this.state.address,
-        time: this.state.time,
-        cost: this.state.cost,
-      };
-      HandleAddItem.uploadContentToFireBase(arr);
-    });
+    this.props.handleUploadImageFireBase(
+      this.state.urlImageFireBase,
+      this.state.name,
+      this.state.address,
+      this.state.time,
+      this.state.cost,
+    );
+    // this.handleUploadImageFireBase(this.state.urlImageFireBase).then((url) => {
+    //   let arr = {
+    //     uri: url,
+    //     name: this.state.name,
+    //     address: this.state.address,
+    //     time: this.state.time,
+    //     cost: this.state.cost,
+    //   };
+    //   HandleAddItem.uploadContentToFireBase(arr);
+    // });
   };
 
   handleUploadImageFireBase = (uri) => {
@@ -54,22 +53,11 @@ export class AddItem extends Component {
     return HandleAddItem.uploadImage(uri);
   };
   clickUpload = () => {
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        // console.log(response.uri);
-        this.setState({
-          urlImage: 'data:image/jpeg;base64,' + response.data,
-          urlImageFireBase: response.uri,
-        });
-        // You can also display the image using data:
-        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-      }
+    AddItemController.uploadImagePicker((urlImage, urlImageFireBase) => {
+      this.setState({
+        urlImage: urlImage,
+        urlImageFireBase: urlImageFireBase,
+      });
     });
   };
   render() {
@@ -155,5 +143,7 @@ export class AddItem extends Component {
     );
   }
 }
-
-export default AddItem;
+export default connect(
+  AddItemController.mapStateToProps,
+  AddItemController.mapDispatchToProps,
+)(AddItem);
