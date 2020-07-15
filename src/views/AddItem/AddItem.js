@@ -13,7 +13,7 @@ import StyleApp from '../../styles';
 import ImagePicker from 'react-native-image-picker';
 import HandleAddItem from '../../containers/handleAddItem';
 import ImageLoad from 'react-native-image-placeholder';
-import {call} from 'react-native-reanimated';
+import AddItemStyle from './AddItem.Style';
 
 const options = {
   title: 'Select Avatar',
@@ -78,13 +78,13 @@ export class AddItem extends Component {
     return (
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : null}
-        style={{flex: 1}}>
+        style={AddItemStyle.container}>
         <View
           style={{
             flex: 1,
             justifyContent: 'flex-end',
           }}>
-          <View style={StyleApp.StyleAddItem.containerImage}>
+          <View style={AddItemStyle.containerImage}>
             {(() => {
               switch (urlImage) {
                 case null:
@@ -98,7 +98,7 @@ export class AddItem extends Component {
                 default:
                   return (
                     <ImageLoad
-                      style={StyleApp.StyleAddItem.image}
+                      style={AddItemStyle.image}
                       loadingStyle={{size: 'large', color: 'red'}}
                       source={{uri: urlImage}}
                     />
@@ -106,44 +106,44 @@ export class AddItem extends Component {
               }
             })()}
             <TouchableOpacity
-              style={StyleApp.StyleAddItem.btnUpload}
+              style={AddItemStyle.btnUpload}
               onPress={this.clickUpload}>
               <Text>Upload</Text>
             </TouchableOpacity>
           </View>
-          <View style={StyleApp.StyleAddItem.containerContent}>
-            <View style={StyleApp.StyleAddItem.containerText}>
-              <Text style={StyleApp.StyleAddItem.textHeader}>Name:</Text>
+          <View style={AddItemStyle.containerContent}>
+            <View style={AddItemStyle.containerText}>
+              <Text style={AddItemStyle.textHeader}>Name:</Text>
               <TextInput
-                style={StyleApp.StyleAddItem.textContent}
+                style={AddItemStyle.textContent}
                 onChangeText={(text) => this.setState({name: text})}
               />
             </View>
-            <View style={StyleApp.StyleAddItem.containerText}>
-              <Text style={StyleApp.StyleAddItem.textHeader}>Address:</Text>
+            <View style={AddItemStyle.containerText}>
+              <Text style={AddItemStyle.textHeader}>Address:</Text>
               <TextInput
-                style={StyleApp.StyleAddItem.textContent}
+                style={AddItemStyle.textContent}
                 onChangeText={(text) => this.setState({address: text})}
               />
             </View>
-            <View style={StyleApp.StyleAddItem.containerText}>
-              <Text style={StyleApp.StyleAddItem.textHeader}>Time:</Text>
+            <View style={AddItemStyle.containerText}>
+              <Text style={AddItemStyle.textHeader}>Time:</Text>
               <TextInput
-                style={StyleApp.StyleAddItem.textContent}
+                style={AddItemStyle.textContent}
                 onChangeText={(text) => this.setState({time: text})}
               />
             </View>
-            <View style={StyleApp.StyleAddItem.containerText}>
-              <Text style={StyleApp.StyleAddItem.textHeader}>Cost:</Text>
+            <View style={AddItemStyle.containerText}>
+              <Text style={AddItemStyle.textHeader}>Cost:</Text>
               <TextInput
-                style={StyleApp.StyleAddItem.textContent}
+                style={AddItemStyle.textContent}
                 onChangeText={(text) => this.setState({cost: text})}
                 keyboardType={'numeric'}
               />
             </View>
-            <View style={StyleApp.StyleAddItem.containerButton}>
+            <View style={AddItemStyle.containerButton}>
               <TouchableOpacity
-                style={StyleApp.StyleAddItem.btnAdd}
+                style={AddItemStyle.btnAdd}
                 onPress={this.clickAdd}>
                 <Text>Add</Text>
               </TouchableOpacity>
