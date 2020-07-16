@@ -24,11 +24,11 @@ export class Main extends Component {
     this.props.navigation.navigate(ADD_ITEM_SCREEN);
   };
 
-  componentDidMount() {
-    this.props.onLoad();
-  }
+  componentDidMount() {}
 
   render() {
+    this.props.onLoad();
+
     return (
       <View style={MainStyle.container}>
         <FlatList

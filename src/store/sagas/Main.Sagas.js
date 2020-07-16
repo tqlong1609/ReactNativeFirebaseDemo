@@ -12,9 +12,11 @@ function* loadData(dispatch) {
     const ref = FirebaseServices.loadData();
     const data = yield call([ref, ref.once], 'value');
     value = data.val();
+
     yield put({type: LOAD_DATA_ASYN_SUCCESS, value: value});
   } catch (error) {
-    yield put({type: LOAD_DATA_ASYN_FAIL, value: error});
+    console.log(error);
+    //   yield put({type: LOAD_DATA_ASYN_FAIL, value: error});
   }
 }
 

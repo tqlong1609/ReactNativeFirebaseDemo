@@ -26,23 +26,17 @@ export class FlatItemMain extends Component {
     const urlImage = this.state.value.urlImageFireBase;
     return (
       <View style={StyleApp.StyleFlatItemMain.container}>
-        {/* <Image
-          style={StyleApp.StyleFlatItemMain.image}
-          source={{
-            uri:
-              '',
-          }}
-        /> */}
+        
         {(() => {
           switch (urlImage) {
             case null:
               return null;
             case '':
-            // return (
-            //   <Image
-            //     source={require('../../assets/img/high_priority_127px.png')}
-            //   />
-            // );
+            return (
+              <Image
+                source={require('../assets/img/high_priority_127px.png')}
+              />
+            );
             default:
               return (
                 <ImageLoad
@@ -59,7 +53,7 @@ export class FlatItemMain extends Component {
           </Text>
           <Text>{this.state.value.address}</Text>
           <Text>
-            {this.state.value.timeOpen} - {this.state.value.timeClose}
+            {this.state.value.time}
           </Text>
           <Text>Cost: {this.state.value.cost}</Text>
         </View>

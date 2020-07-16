@@ -13,6 +13,7 @@ const Style = StyleSheet.create({
     flex: 2,
     width: 100,
     height: 100,
+    margin: 5,
   },
   containerContent: {
     flex: 6,
