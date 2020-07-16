@@ -6,6 +6,7 @@ import SignUpStyle from './SignUp.Style';
 import {LOGIN_SCREEN, MAIN_SCREEN} from '../../lib/configs/nameScreen';
 import {connect} from 'react-redux';
 import {AlertApp} from '../../lib/utils/AlertApp';
+import {translate} from '../../lib/locales';
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -23,18 +24,22 @@ class SignUp extends React.Component {
       return null;
     }
     if (_props.isSignUp) {
-      AlertApp('SignUp Success', 'Do you want sign up again ?', (value) => {
-        if (value === 'OK') {
-          _props.navigation.navigate(LOGIN_SCREEN);
-        } else {
-          return {errorMessage: '', isSignUp: false};
-        }
-      });
+      _props.resetData();
+      AlertApp(
+        translate('SignUp Success'),
+        translate('Do you want login ?'),
+        (value) => {
+          if (value === 'OK') {
+            _props.navigation.navigate(LOGIN_SCREEN);
+          } else {
+            return {errorMessage: '', isSignUp: false};
+          }
+        },
+      );
       return null;
     }
     return {errorMessage: _props.error, isSignUp: _props.isSignUp};
   }
-
 
   onSignUp = () => {
     try {
@@ -58,14 +63,14 @@ class SignUp extends React.Component {
     console.log(this.state.errorMessage);
     return (
       <View style={SignUpStyle.container}>
-        <Text>Sign Up</Text>
+        <Text>{translate('Sign Up')}</Text>
         {this.state.errorMessage !== '' && (
           <Text style={{color: 'red', textAlign: 'center'}}>
             {this.state.errorMessage}
           </Text>
         )}
         <TextInput
-          placeholder="Email"
+          placeholder={translate('Email')}
           autoCapitalize="none"
           style={SignUpStyle.textInput}
           onChangeText={(email) => this.setState({email})}
@@ -73,7 +78,7 @@ class SignUp extends React.Component {
         />
         <TextInput
           secureTextEntry
-          placeholder="Password"
+          placeholder={translate('Password')}
           autoCapitalize="none"
           style={SignUpStyle.textInput}
           onChangeText={(password) => this.setState({password})}
@@ -81,7 +86,7 @@ class SignUp extends React.Component {
         />
         <TextInput
           secureTextEntry
-          placeholder="Confirm Password"
+          placeholder={translate('Confirm Password')}
           autoCapitalize="none"
           style={SignUpStyle.textInput}
           onChangeText={(confirmPassword) => this.setState({confirmPassword})}
@@ -90,13 +95,13 @@ class SignUp extends React.Component {
         <TouchableOpacity
           style={SignUpStyle.btnSignUp}
           onPress={() => this.onSignUp()}>
-          <Text style={SignUpStyle.txtSignUp}>Sign Up</Text>
+          <Text style={SignUpStyle.txtSignUp}>{translate('Sign Up')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={SignUpStyle.btnLogin}
           onPress={() => this.props.navigation.navigate(LOGIN_SCREEN)}>
           <Text style={SignUpStyle.txtLogin}>
-            Do you have an account? Login
+            {translate('Do you have an account? Login')}
           </Text>
         </TouchableOpacity>
       </View>

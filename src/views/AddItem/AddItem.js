@@ -16,7 +16,7 @@ import ImageLoad from 'react-native-image-placeholder';
 import AddItemStyle from './AddItem.Style';
 import AddItemController from './AddItem.Controller';
 import {MAIN_SCREEN} from '../../lib/configs/nameScreen';
-
+import {translate} from '../../lib/locales';
 export class AddItem extends Component {
   constructor(props) {
     super(props);
@@ -98,33 +98,35 @@ export class AddItem extends Component {
             <TouchableOpacity
               style={AddItemStyle.btnUpload}
               onPress={this.clickUpload}>
-              <Text>Upload</Text>
+              <Text>{translate('Upload')}</Text>
             </TouchableOpacity>
           </View>
           <View style={AddItemStyle.containerContent}>
             <View style={AddItemStyle.containerText}>
-              <Text style={AddItemStyle.textHeader}>Name:</Text>
+              <Text style={AddItemStyle.textHeader}>{translate('Name')}:</Text>
               <TextInput
                 style={AddItemStyle.textContent}
                 onChangeText={(text) => this.setState({name: text})}
               />
             </View>
             <View style={AddItemStyle.containerText}>
-              <Text style={AddItemStyle.textHeader}>Address:</Text>
+              <Text style={AddItemStyle.textHeader}>
+                {translate('Address')}:
+              </Text>
               <TextInput
                 style={AddItemStyle.textContent}
                 onChangeText={(text) => this.setState({address: text})}
               />
             </View>
             <View style={AddItemStyle.containerText}>
-              <Text style={AddItemStyle.textHeader}>Time:</Text>
+              <Text style={AddItemStyle.textHeader}>{translate('Time')}:</Text>
               <TextInput
                 style={AddItemStyle.textContent}
                 onChangeText={(text) => this.setState({time: text})}
               />
             </View>
             <View style={AddItemStyle.containerText}>
-              <Text style={AddItemStyle.textHeader}>Cost:</Text>
+              <Text style={AddItemStyle.textHeader}>{translate('Cost')}:</Text>
               <TextInput
                 style={AddItemStyle.textContent}
                 onChangeText={(text) => this.setState({cost: text})}
@@ -135,7 +137,7 @@ export class AddItem extends Component {
               <TouchableOpacity
                 style={AddItemStyle.btnAdd}
                 onPress={this.clickAdd}>
-                <Text>Add</Text>
+                <Text>{translate('Add')}</Text>
               </TouchableOpacity>
             </View>
           </View>

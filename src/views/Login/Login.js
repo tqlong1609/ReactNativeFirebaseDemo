@@ -5,6 +5,7 @@ import LoginStyle from './Login.Style';
 import LoginController from './Login.Controller';
 import {connect} from 'react-redux';
 import {SIGN_UP_SCREEN, MAIN_SCREEN} from '../../lib/configs/nameScreen';
+import {translate} from '../../lib/locales';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -16,6 +17,7 @@ class Login extends React.Component {
       return null;
     }
     if (_props.logined) {
+      _props.resetData();
       _props.navigation.navigate(MAIN_SCREEN);
       return null;
     }
@@ -25,7 +27,7 @@ class Login extends React.Component {
   render() {
     return (
       <View style={LoginStyle.container}>
-        <Text>Login</Text>
+        <Text>{translate('Login')}</Text>
         {this.props.error !== '' && (
           <Text style={{color: 'red', textAlign: 'center'}}>
             {this.props.error}
@@ -34,7 +36,7 @@ class Login extends React.Component {
         <TextInput
           style={LoginStyle.textInput}
           autoCapitalize="none"
-          placeholder="Email"
+          placeholder={translate('Email')}
           onChangeText={(email) => this.setState({email})}
           value={this.state.email}
         />
@@ -42,7 +44,7 @@ class Login extends React.Component {
           secureTextEntry
           style={LoginStyle.textInput}
           autoCapitalize="none"
-          placeholder="Password"
+          placeholder={translate('Password')}
           onChangeText={(password) => this.setState({password})}
           value={this.state.password}
         />
@@ -51,13 +53,13 @@ class Login extends React.Component {
           onPress={() =>
             this.props.onSignIn(this.state.email, this.state.password)
           }>
-          <Text style={LoginStyle.txtLogin}>Login</Text>
+          <Text style={LoginStyle.txtLogin}>{translate('Login')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={LoginStyle.btnSignUp}
           onPress={() => this.props.navigation.navigate(SIGN_UP_SCREEN)}>
           <Text style={LoginStyle.txtSignUp}>
-            Don't have an account? Sign Up
+            {translate("Don't have an account? Sign Up")}
           </Text>
         </TouchableOpacity>
       </View>

@@ -37,11 +37,11 @@ export class App extends Component {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name={translate(NameScreen.LOGIN_SCREEN)}
+            name={NameScreen.LOGIN_SCREEN}
             component={LoginApp}
           />
           <Stack.Screen
-            name={translate(NameScreen.MAIN_SCREEN)}
+            name={NameScreen.MAIN_SCREEN}
             component={MainApp}
           />
           <Stack.Screen

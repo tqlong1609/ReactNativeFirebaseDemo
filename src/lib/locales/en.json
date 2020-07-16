@@ -1,4 +1,18 @@
 {
     "Login": "Login",
-    "Main": "Main"
+    "Main": "Main",
+    "Email": "Email",
+    "Password": "Password",
+    "Don't have an account? Sign Up": "Don't have an account? Sign Up",
+    "SignUp Success": "SignUp Success",
+    "Do you want login ?": "Do you want login ?",
+    "Sign Up": "Sign Up",
+    "Confirm Password": "Confirm Password",
+    "Do you have an account? Login": "Do you have an account? Login",
+    "Add": "Add",
+    "Upload": "Upload",
+    "Name": "Name",
+    "Address": "Address",
+    "Time": "Time",
+    "Cost": "Cost"
 }

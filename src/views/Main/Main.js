@@ -5,7 +5,7 @@ import {ADD_ITEM_SCREEN} from '../../lib/configs/nameScreen';
 import MainStyle from './Main.Styles';
 import MainController from './Main.Controller';
 import {connect} from 'react-redux';
-
+import {translate} from '../../lib/locales';
 export class Main extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +37,7 @@ export class Main extends Component {
           renderItem={({item}) => <FlatItemMain value={item} />}
         />
         <TouchableOpacity style={MainStyle.btnAdd} onPress={this.clickAdd}>
-          <Text>Add</Text>
+          <Text>{translate('Add')}</Text>
         </TouchableOpacity>
       </View>
     );

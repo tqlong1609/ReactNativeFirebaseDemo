@@ -1,4 +1,18 @@
 {
     "Login": "Đăng Nhập",
-    "Main": "Trang Chủ"
+    "Main": "Trang Chủ",
+    "Email": "Email",
+    "Password": "Mật khẩu",
+    "Don't have an account? Sign Up": "Bạn Chưa có tài khoản? Đăng ký ngay",
+    "SignUp Success": "Đăng ký thành công",
+    "Do you want login ?": "Bạn có muốn đăng nhập ?",
+    "Sign Up": "Đăng ký",
+    "Confirm Password": "Xác nhận mật khẩu",
+    "Do you have an account? Login": "Bạn đã có tài khoản ? Đăng nhập ngay",
+    "Add": "Thêm",
+    "Upload": "Chọn hình",
+    "Name": "Tên",
+    "Address": "Địa chỉ",
+    "Time": "Thời gian",
+    "Cost": "Giá"
 }

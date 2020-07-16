@@ -1,8 +1,15 @@
-import {SIGN_IN_ASYN_SUCCESS, SIGN_IN_ASYN_FAIL} from '../actionTypes';
+import {
+  SIGN_IN_ASYN_SUCCESS,
+  SIGN_IN_ASYN_FAIL,
+  RESET_STATE_SIGN_IN,
+} from '../actionTypes';
 import State from '../state';
 const loginReducer = (state = State.LoginState, action) => {
   const newState = {...state};
   switch (action.type) {
+    case RESET_STATE_SIGN_IN:
+      newState.logined = false;
+      break;
     case SIGN_IN_ASYN_SUCCESS:
       newState.logined = true;
       break;
