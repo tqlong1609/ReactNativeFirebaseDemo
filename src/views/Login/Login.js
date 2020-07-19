@@ -6,10 +6,18 @@ import LoginController from './Login.Controller';
 import {connect} from 'react-redux';
 import {SIGN_UP_SCREEN, MAIN_SCREEN} from '../../lib/configs/nameScreen';
 import {translate} from '../../lib/locales';
+import {Picker} from '@react-native-community/picker';
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {email: '', password: '', error: '', logined: false};
+    this.state = {
+      email: '',
+      password: '',
+      error: '',
+      logined: false,
+      selectedValue: 'en',
+      setSelectedValue: 'en',
+    };
   }
 
   static getDerivedStateFromProps(_props, _state) {
@@ -21,8 +29,15 @@ class Login extends React.Component {
       _props.navigation.navigate(MAIN_SCREEN);
       return null;
     }
-    return {error: _props.error, logined: _props.logined};
+    return {error: _props.error, logined: _props.logine};
   }
+  onSignIn = () => {
+    this.props.onSignIn(this.state.email, this.state.password);
+  };
+
+  setSelectedValue = (itemValue) => {
+    this.setState({selectedValue: itemValue});
+  };
 
   render() {
     return (
@@ -50,9 +65,7 @@ class Login extends React.Component {
         />
         <TouchableOpacity
           style={LoginStyle.btnLogin}
-          onPress={() =>
-            this.props.onSignIn(this.state.email, this.state.password)
-          }>
+          onPress={() => this.onSignIn()}>
           <Text style={LoginStyle.txtLogin}>{translate('Login')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -62,6 +75,15 @@ class Login extends React.Component {
             {translate("Don't have an account? Sign Up")}
           </Text>
         </TouchableOpacity>
+        <Picker
+          selectedValue={this.state.selectedValue}
+          style={{height: 50, width: 150}}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setSelectedValue(itemValue)
+          }>
+          <Picker.Item label="Java" value="java" />
+          <Picker.Item label="JavaScript" value="js" />
+        </Picker>
       </View>
     );
   }

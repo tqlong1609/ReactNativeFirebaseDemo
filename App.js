@@ -22,11 +22,14 @@ export class App extends Component {
     setI18nConfig(); // set initial config
   }
   componentDidMount() {
-    RNLocalize.addEventListener('change', this.handleLocalizationChange);
+    RNLocalize.addEventListener('change', () => this.handleLocalizationChange);
   }
 
   componentWillUnmount() {
-    RNLocalize.removeEventListener('change', this.handleLocalizationChange);
+    RNLocalize.removeEventListener(
+      'change',
+      () => this.handleLocalizationChange,
+    );
   }
   handleLocalizationChange = () => {
     setI18nConfig();
@@ -36,14 +39,8 @@ export class App extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
-            name={NameScreen.LOGIN_SCREEN}
-            component={LoginApp}
-          />
-          <Stack.Screen
-            name={NameScreen.MAIN_SCREEN}
-            component={MainApp}
-          />
+          <Stack.Screen name={NameScreen.LOGIN_SCREEN} component={LoginApp} />
+          <Stack.Screen name={NameScreen.MAIN_SCREEN} component={MainApp} />
           <Stack.Screen
             name={NameScreen.SIGN_UP_SCREEN}
             component={SignUpApp}

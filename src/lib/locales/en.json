@@ -14,5 +14,6 @@
     "Name": "Name",
     "Address": "Address",
     "Time": "Time",
-    "Cost": "Cost"
+    "Cost": "Cost",
+    "Change Languages" : "Change Languages"
 }

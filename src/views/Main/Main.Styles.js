@@ -15,6 +15,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
   },
+  btnChangeLanguaes:{
+    ...StyleApp.Button.btnPrimary,
+    width: 200,
+    height: 50,
+    borderColor: 'black',
+    borderWidth: 1,
+    margin: MARGIN_SMALL,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
   container: {
     display: 'flex',
     flex: 1,

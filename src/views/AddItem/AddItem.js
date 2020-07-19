@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   ImagePic,
   Platform,
+  ScrollView,
 } from 'react-native';
 import {connect} from 'react-redux';
 
@@ -66,84 +67,92 @@ export class AddItem extends Component {
     // console.log(this.state.urlImage);
     const {urlImage} = this.state;
     return (
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : null}
-        style={AddItemStyle.container}>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'flex-end',
-          }}>
-          <View style={AddItemStyle.containerImage}>
-            {(() => {
-              switch (urlImage) {
-                case null:
-                  return null;
-                case '':
-                  return (
-                    <Image
-                      source={require('../../assets/img/high_priority_127px.png')}
-                    />
-                  );
-                default:
-                  return (
-                    <ImageLoad
-                      style={AddItemStyle.image}
-                      loadingStyle={{size: 'large', color: 'red'}}
-                      source={{uri: urlImage}}
-                    />
-                  );
-              }
-            })()}
-            <TouchableOpacity
-              style={AddItemStyle.btnUpload}
-              onPress={this.clickUpload}>
-              <Text>{translate('Upload')}</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={AddItemStyle.containerContent}>
-            <View style={AddItemStyle.containerText}>
-              <Text style={AddItemStyle.textHeader}>{translate('Name')}:</Text>
-              <TextInput
-                style={AddItemStyle.textContent}
-                onChangeText={(text) => this.setState({name: text})}
-              />
-            </View>
-            <View style={AddItemStyle.containerText}>
-              <Text style={AddItemStyle.textHeader}>
-                {translate('Address')}:
-              </Text>
-              <TextInput
-                style={AddItemStyle.textContent}
-                onChangeText={(text) => this.setState({address: text})}
-              />
-            </View>
-            <View style={AddItemStyle.containerText}>
-              <Text style={AddItemStyle.textHeader}>{translate('Time')}:</Text>
-              <TextInput
-                style={AddItemStyle.textContent}
-                onChangeText={(text) => this.setState({time: text})}
-              />
-            </View>
-            <View style={AddItemStyle.containerText}>
-              <Text style={AddItemStyle.textHeader}>{translate('Cost')}:</Text>
-              <TextInput
-                style={AddItemStyle.textContent}
-                onChangeText={(text) => this.setState({cost: text})}
-                keyboardType={'numeric'}
-              />
-            </View>
-            <View style={AddItemStyle.containerButton}>
+      <ScrollView>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : null}
+          style={AddItemStyle.container}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'flex-end',
+            }}>
+            <View style={AddItemStyle.containerImage}>
+              {(() => {
+                switch (urlImage) {
+                  case null:
+                    return null;
+                  case '':
+                    return (
+                      <Image
+                        source={require('../../assets/img/high_priority_127px.png')}
+                      />
+                    );
+                  default:
+                    return (
+                      <ImageLoad
+                        style={AddItemStyle.image}
+                        loadingStyle={{size: 'large', color: 'red'}}
+                        source={{uri: urlImage}}
+                      />
+                    );
+                }
+              })()}
               <TouchableOpacity
-                style={AddItemStyle.btnAdd}
-                onPress={this.clickAdd}>
-                <Text>{translate('Add')}</Text>
+                style={AddItemStyle.btnUpload}
+                onPress={this.clickUpload}>
+                <Text>{translate('Upload')}</Text>
               </TouchableOpacity>
             </View>
+            <View style={AddItemStyle.containerContent}>
+              <View style={AddItemStyle.containerText}>
+                <Text style={AddItemStyle.textHeader}>
+                  {translate('Name')}:
+                </Text>
+                <TextInput
+                  style={AddItemStyle.textContent}
+                  onChangeText={(text) => this.setState({name: text})}
+                />
+              </View>
+              <View style={AddItemStyle.containerText}>
+                <Text style={AddItemStyle.textHeader}>
+                  {translate('Address')}:
+                </Text>
+                <TextInput
+                  style={AddItemStyle.textContent}
+                  onChangeText={(text) => this.setState({address: text})}
+                />
+              </View>
+              <View style={AddItemStyle.containerText}>
+                <Text style={AddItemStyle.textHeader}>
+                  {translate('Time')}:
+                </Text>
+                <TextInput
+                  style={AddItemStyle.textContent}
+                  onChangeText={(text) => this.setState({time: text})}
+                />
+              </View>
+              <View style={AddItemStyle.containerText}>
+                <Text style={AddItemStyle.textHeader}>
+                  {translate('Cost')}:
+                </Text>
+                <TextInput
+                  style={AddItemStyle.textContent}
+                  onChangeText={(text) => this.setState({cost: text})}
+                  keyboardType={'numeric'}
+                />
+              </View>
+              <View style={AddItemStyle.containerButton}>
+                <TouchableOpacity
+                  style={AddItemStyle.btnAdd}
+                  onPress={this.clickAdd}>
+                  <Text>{translate('Add')}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={{flex: 1}} />
           </View>
-          <View style={{flex: 1}} />
-        </View>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </ScrollView>
     );
   }
 }
