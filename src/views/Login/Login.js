@@ -7,9 +7,11 @@ import {connect} from 'react-redux';
 import {SIGN_UP_SCREEN, MAIN_SCREEN} from '../../lib/configs/nameScreen';
 import {translate} from '../../lib/locales';
 import {Picker} from '@react-native-community/picker';
+import {OverLayLoading} from '../../containers/OverlayLoading';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+    console.log('------------------------------------');
     this.state = {
       email: '',
       password: '',
@@ -17,21 +19,53 @@ class Login extends React.Component {
       logined: false,
       selectedValue: 'en',
       setSelectedValue: 'en',
+      isLoading: false,
     };
   }
 
   static getDerivedStateFromProps(_props, _state) {
-    if (_state.logined === _props.logined) {
-      return null;
-    }
-    if (_props.logined) {
-      _props.resetData();
-      _props.navigation.navigate(MAIN_SCREEN);
-      return null;
-    }
+    // console.log('1234 ' + _state.isLoading);
+    // if()
     return {error: _props.error, logined: _props.logine};
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.logined && nextProps.error != '') {
+      nextState.isLoading = false;
+      this.props.resetData();
+      this.props.navigation.navigate(MAIN_SCREEN);
+    }
+    // nextState.isLoading = true;
+    console.log('shouldComponentUpdate ' + this.state.isLoading);
+    // if (!nextProps.logined && nextState.isLoading && nextProps.error != '') {
+    //   console.log('stop');
+    //   // nextState.isLoading = false;
+    // }
+    return true;
+  }
+
+  hideLoading = () => {
+    console.log('hideLoading ');
+    this.setState({isLoading: false});
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log(
+      'componentDidUpdate ' + this.state.isLoading + ' ' + prevState.isLoading,
+    );
+    if (prevState.isLoading) {
+      this.hideLoading();
+    }
+  }
+  componentDidMount() {
+    // console.log('123 ' + this.state.isLoading);
+    // if (this.state.isLoading) {
+    //   this.hideLoading();
+    // }
+  }
   onSignIn = () => {
+    this.setState({isLoading: true});
+    console.log('onSignIn ' + this.state.isLoading);
+
     this.props.onSignIn(this.state.email, this.state.password);
   };
 
@@ -40,8 +74,10 @@ class Login extends React.Component {
   };
 
   render() {
+    console.log('render' + this.state.isLoading);
     return (
       <View style={LoginStyle.container}>
+        {this.state.isLoading && <OverLayLoading />}
         <Text>{translate('Login')}</Text>
         {this.props.error !== '' && (
           <Text style={{color: 'red', textAlign: 'center'}}>
