@@ -9,6 +9,7 @@ const loginReducer = (state = State.LoginState, action) => {
   switch (action.type) {
     case RESET_STATE_SIGN_IN:
       newState.logined = false;
+      newState.error = '';
       break;
     case SIGN_IN_ASYN_SUCCESS:
       newState.logined = true;
