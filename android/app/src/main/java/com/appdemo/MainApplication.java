@@ -15,6 +15,7 @@ import java.util.List;
 import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage; 
 import com.reactnativecommunity.picker.RNCPickerPackage;
+import com.airbnb.android.react.lottie.LottiePackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           packages.add(new RNCPickerPackage());
+          packages.add(new LottiePackage());
           return packages;
         }
 

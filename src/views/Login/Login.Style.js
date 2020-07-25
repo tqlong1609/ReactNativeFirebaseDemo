@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import StyleApp from '../../styles';
-import {MARGIN_MEDIUM,FONT_SIZE_MEDIUM} from '../../styles/sizes';
-import {TEXT_BUTTON} from '../../styles/colors';
+import {MARGIN_MEDIUM, FONT_SIZE_MEDIUM} from '../../styles/sizes';
+import {TEXT_BUTTON, BACKGROUND_SCREEN} from '../../styles/colors';
 const styles = StyleSheet.create({
   btnLogin: {
     ...StyleApp.Button.btnPrimary,
@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
   },

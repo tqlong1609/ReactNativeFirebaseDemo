@@ -1,6 +1,6 @@
 // Login.js
 import React from 'react';
-import {Text, TextInput, View, TouchableOpacity, Pressable} from 'react-native';
+import {Text, TextInput, View, TouchableOpacity,SafeAreaView} from 'react-native';
 import LoginStyle from './Login.Style';
 import LoginController from './Login.Controller';
 import {connect} from 'react-redux';
