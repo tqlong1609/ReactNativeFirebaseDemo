@@ -1,12 +1,20 @@
 // Login.js
 import React from 'react';
-import {Text, TextInput, View, TouchableOpacity,SafeAreaView} from 'react-native';
+import {
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+} from 'react-native';
 import LoginStyle from './Login.Style';
 import LoginController from './Login.Controller';
 import {connect} from 'react-redux';
 import {SIGN_UP_SCREEN, MAIN_SCREEN} from '../../lib/configs/nameScreen';
 import {translate} from '../../lib/locales';
 import {Picker} from '@react-native-community/picker';
+import LottieView from 'lottie-react-native';
 import {OverLayLoading} from '../../containers/OverlayLoading';
 class Login extends React.Component {
   constructor(props) {
@@ -23,7 +31,6 @@ class Login extends React.Component {
   }
 
   static getDerivedStateFromProps(_props, _state) {
-    let newError = _props.error;
     return {error: _props.error, logined: _props.logine};
   }
   shouldComponentUpdate(nextProps, nextState) {
@@ -61,48 +68,57 @@ class Login extends React.Component {
     return (
       <View style={LoginStyle.container}>
         {this.state.isLoading && <OverLayLoading />}
-        <Text>{translate('Login')}</Text>
-        {this.state.error !== '' && (
-          <Text style={{color: 'red', textAlign: 'center'}}>
-            {this.state.error}
-          </Text>
-        )}
-        <TextInput
-          style={LoginStyle.textInput}
-          autoCapitalize="none"
-          placeholder={translate('Email')}
-          onChangeText={(email) => this.setState({email})}
-          value={this.state.email}
-        />
-        <TextInput
-          secureTextEntry
-          style={LoginStyle.textInput}
-          autoCapitalize="none"
-          placeholder={translate('Password')}
-          onChangeText={(password) => this.setState({password})}
-          value={this.state.password}
-        />
-        <TouchableOpacity
-          style={LoginStyle.btnLogin}
-          onPress={() => this.onSignIn()}>
-          <Text style={LoginStyle.txtLogin}>{translate('Login')}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={LoginStyle.btnSignUp}
-          onPress={() => this.props.navigation.navigate(SIGN_UP_SCREEN)}>
-          <Text style={LoginStyle.txtSignUp}>
-            {translate("Don't have an account? Sign Up")}
-          </Text>
-        </TouchableOpacity>
-        <Picker
-          selectedValue={this.state.selectedValue}
-          style={{height: 50, width: 150}}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setSelectedValue(itemValue)
-          }>
-          <Picker.Item label="Java" value="java" />
-          <Picker.Item label="JavaScript" value="js" />
-        </Picker>
+        <ScrollView style={LoginStyle.scrollContainer}>
+          <LottieView
+            style={LoginStyle.imageLogo}
+            source={require('../../assets/json/19782-listening-to-music.json')}
+            autoPlay
+            loop
+          />
+          {this.state.error !== '' && (
+            <Text style={LoginStyle.txtError}>{this.state.error}</Text>
+          )}
+
+          <TextInput
+            style={LoginStyle.textInputEmail}
+            autoCapitalize="none"
+            placeholder={translate('Email')}
+            onChangeText={(email) => this.setState({email})}
+            value={this.state.email}
+          />
+          <TextInput
+            secureTextEntry
+            style={LoginStyle.textInputPassword}
+            autoCapitalize="none"
+            placeholder={translate('Password')}
+            onChangeText={(password) => this.setState({password})}
+            value={this.state.password}
+          />
+          <TouchableOpacity
+            style={LoginStyle.btnLogin}
+            onPress={() => this.onSignIn()}>
+            <Text style={LoginStyle.txtLogin}>{translate('Login')}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={LoginStyle.btnFacebook}>
+            
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={LoginStyle.btnSignUp}
+            onPress={() => this.props.navigation.navigate(SIGN_UP_SCREEN)}>
+            <Text style={LoginStyle.txtSignUp}>
+              {translate("Don't have an account? Sign Up")}
+            </Text>
+          </TouchableOpacity>
+          <Picker
+            selectedValue={this.state.selectedValue}
+            style={LoginStyle.pickerLanguage}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setSelectedValue(itemValue)
+            }>
+            <Picker.Item label="Java" value="java" />
+            <Picker.Item label="JavaScript" value="js" />
+          </Picker>
+        </ScrollView>
       </View>
     );
   }

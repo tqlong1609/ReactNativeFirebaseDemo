@@ -1,14 +1,13 @@
 import {StyleSheet} from 'react-native';
-import {BACKGROUND_BUTTON} from './colors';
+import {BODER_BOTTOM_INPUT} from './colors';
 import {PADDING_MEDIUM, PADDING_MEDIUM_1} from './sizes';
 
 const Styles = StyleSheet.create({
   txtNormal: {
-    height: 40,
+    height: 50,
     width: '90%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginTop: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: BODER_BOTTOM_INPUT,
   },
 });
 
