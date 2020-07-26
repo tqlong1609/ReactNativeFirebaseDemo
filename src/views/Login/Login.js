@@ -16,8 +16,6 @@ import {translate} from '../../lib/locales';
 import {Picker} from '@react-native-community/picker';
 import LottieView from 'lottie-react-native';
 import {OverLayLoading} from '../../containers/OverlayLoading';
-import firebase from 'firebase';
-import {LoginManager, AccessToken} from 'react-native-fbsdk';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -58,34 +56,16 @@ class Login extends React.Component {
     this.props.resetData();
     this.props.onSignIn(this.state.email, this.state.password);
   };
+  onSignInWithFacebook = () => {
+    this.setState({isLoading: true, error: ''});
+    this.props.resetData();
+    this.props.onClickFacebook();
+  };
 
   setSelectedValue = (itemValue) => {
     this.setState({selectedValue: itemValue});
   };
-  onClickFacebook = () => {
-    LoginManager.logInWithPermissions(['public_profile'])
-      .then((result) => {
-        if (result.isCancelled) {
-          return Promise.reject(new Error('The user cancelled the request'));
-        }
-        console.log(
-          `Login success with permission: ${result.grantedPermissions.toString()}`,
-        );
-        return AccessToken.getCurrentAccessToken();
-      })
-      .then((data) => {
-        const credential = firebase.auth.FacebookAuthProvider.credential(
-          data.accessToken,
-        );
-        return firebase.auth().signInWithCredential(credential);
-      })
-      .then((currentUser) => {
-        console.log(currentUser);
-      })
-      .catch((error) => {
-        console.log(`Facebook login fail with error ${error}`);
-      });
-  };
+
   render() {
     console.log('render');
 
@@ -125,7 +105,7 @@ class Login extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={LoginStyle.btnFacebook}
-            onPress={() => this.onClickFacebook()}></TouchableOpacity>
+            onPress={() => this.onSignInWithFacebook()}></TouchableOpacity>
           <TouchableOpacity
             style={LoginStyle.btnSignUp}
             onPress={() => this.props.navigation.navigate(SIGN_UP_SCREEN)}>

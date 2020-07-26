@@ -1,4 +1,8 @@
-import {SIGN_IN,RESET_STATE_SIGN_IN} from '../../store/actionTypes';
+import {
+  SIGN_IN,
+  RESET_STATE_SIGN_IN,
+  SIGN_IN_WITH_FACEBOOK,
+} from '../../store/actionTypes';
 
 class HandleLogin {
   mapDispatchToProps = (dispatch) => {
@@ -11,6 +15,10 @@ class HandleLogin {
         dispatch({
           type: SIGN_IN,
           value: {email: emailVal, password: passwordVal},
+        }),
+      onClickFacebook: () =>
+        dispatch({
+          type: SIGN_IN_WITH_FACEBOOK,
         }),
     };
   };

@@ -1,6 +1,8 @@
 import firebase from 'firebase';
 import Config from '../../../lib/configs/firebaseConfig';
 import Const from '../../../lib/const/Filebase.const';
+import {LoginManager, AccessToken} from 'react-native-fbsdk';
+
 import {call, put} from 'redux-saga/effects';
 
 class FirebaseServices {
@@ -33,7 +35,28 @@ class FirebaseServices {
       )
       .then((response) => response);
   };
-
+  signUpWithFacebookApi = () => {
+    return LoginManager.logInWithPermissions(['public_profile'])
+      .then((result) => {
+        if (result.isCancelled) {
+          return Promise.reject(new Error('The user cancelled the request'));
+        }
+        console.log(
+          `Login success with permission: ${result.grantedPermissions.toString()}`,
+        );
+        return AccessToken.getCurrentAccessToken();
+      })
+      .then((data) => {
+        const credential = firebase.auth.FacebookAuthProvider.credential(
+          data.accessToken,
+        );
+        return firebase.auth().signInWithCredential(credential);
+      })
+      .then((response) => response);
+    // .catch((error) => {
+    //   console.log(`Facebook login fail with error ${error}`);
+    // });
+  };
   loadData = () => {
     return firebase.database().ref(Const.NameRoot);
     // return new Promise((resolve) => {

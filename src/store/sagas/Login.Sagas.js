@@ -19,4 +19,20 @@ function* login(dispatch) {
   }
 }
 
-export {login};
+function* loginWithFacebook(dispatch) {
+  try {
+    const response = yield call(
+      FirebaseServices.signUpWithFacebookApi,
+      dispatch,
+    );
+    yield put({
+      type: SIGN_IN_ASYN_SUCCESS,
+      value: response,
+    });
+  } catch (error) {
+    console.log('error: ' + error);
+    yield put({type: SIGN_IN_ASYN_FAIL, value: error});
+  }
+}
+
+export {login, loginWithFacebook};
