@@ -16,8 +16,8 @@ import {translate} from '../../lib/locales';
 import {Picker} from '@react-native-community/picker';
 import LottieView from 'lottie-react-native';
 import {OverLayLoading} from '../../containers/OverlayLoading';
-
-import {LoginManager} from 'react-native-fbsdk';
+import firebase from 'firebase';
+import {LoginManager, AccessToken} from 'react-native-fbsdk';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -55,7 +55,6 @@ class Login extends React.Component {
   }
   onSignIn = () => {
     this.setState({isLoading: true, error: ''});
-    console.log('onSignIn');
     this.props.resetData();
     this.props.onSignIn(this.state.email, this.state.password);
   };
@@ -64,21 +63,28 @@ class Login extends React.Component {
     this.setState({selectedValue: itemValue});
   };
   onClickFacebook = () => {
-    LoginManager.logInWithPermissions(['public_profile']).then(
-      function (result) {
+    LoginManager.logInWithPermissions(['public_profile'])
+      .then((result) => {
         if (result.isCancelled) {
-          console.log('Login cancelled');
-        } else {
-          console.log(
-            'Login success with permissions: ' +
-              result.grantedPermissions.toString(),
-          );
+          return Promise.reject(new Error('The user cancelled the request'));
         }
-      },
-      function (error) {
-        console.log('Login fail with error: ' + error);
-      },
-    );
+        console.log(
+          `Login success with permission: ${result.grantedPermissions.toString()}`,
+        );
+        return AccessToken.getCurrentAccessToken();
+      })
+      .then((data) => {
+        const credential = firebase.auth.FacebookAuthProvider.credential(
+          data.accessToken,
+        );
+        return firebase.auth().signInWithCredential(credential);
+      })
+      .then((currentUser) => {
+        console.log(currentUser);
+      })
+      .catch((error) => {
+        console.log(`Facebook login fail with error ${error}`);
+      });
   };
   render() {
     console.log('render');
