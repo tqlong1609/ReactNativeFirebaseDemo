@@ -11,14 +11,12 @@ import {
 import LoginStyle from './Login.Style';
 import LoginController from './Login.Controller';
 import {connect} from 'react-redux';
-import {SIGN_UP_SCREEN, MAIN_SCREEN} from '../../lib/configs/nameScreen';
-import {translate} from '../../lib/locales';
+import {SIGN_UP_SCREEN,MAIN_SCREEN} from '../../lib/configs/nameScreen';
 import {Picker} from '@react-native-community/picker';
 import LottieView from 'lottie-react-native';
 import {OverLayLoading} from '../../containers/OverlayLoading';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {withTranslation} from 'react-i18next';
-import i18n from '../../lib/locales/i18n';
 import Header from '../../containers/Header';
 import * as Const from '../../lib/const/Languages.const';
 
@@ -36,50 +34,20 @@ class Login extends React.Component {
       uriImageFlag: Const.listLanguages[0],
     };
   }
+
   static getDerivedStateFromProps(_props, _state) {
     return {error: _props.error, logined: _props.logine};
   }
+
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.logined) {
-      nextState.isLoading = false;
-      this.props.resetData();
-      this.props.navigation.navigate(MAIN_SCREEN);
-      return false;
-    }
-    return true;
+    return LoginController.checkLogin(this, nextProps, nextState);
   }
-  hideLoading = () => {
-    this.setState({isLoading: false});
-  };
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.isLoading) {
-      this.hideLoading();
+      LoginController.hideLoading(this);
     }
   }
-  onSignIn = () => {
-    this.setState({isLoading: true, error: ''});
-    this.props.resetData();
-    this.props.onSignIn(this.state.email, this.state.password);
-  };
-  onSignInWithFacebook = () => {
-    this.setState({isLoading: true, error: ''});
-    this.props.resetData();
-    this.props.onClickFacebook();
-  };
-  changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
-  setSelectedValue = (itemValue) => {
-    let uriImageFlag = '';
-    Const.listLanguages.forEach((element) => {
-      if (element.lang === this.state.selectedValue) {
-        uriImageFlag = element.urlImage;
-      }
-    });
-    this.setState({selectedValue: itemValue, uriImageFlag: uriImageFlag});
-    this.changeLanguage(itemValue);
-  };
 
   render() {
     const {t, tReady} = this.props;
@@ -123,12 +91,12 @@ class Login extends React.Component {
           </View>
           <TouchableOpacity
             style={LoginStyle.btnLogin}
-            onPress={() => this.onSignIn()}>
+            onPress={() => LoginController.onSignIn(this)}>
             <Text style={LoginStyle.txtLogin}>{t('Login')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={LoginStyle.btnFacebook}
-            onPress={() => this.onSignInWithFacebook()}>
+            onPress={() => LoginController.onSignInWithFacebook(this)}>
             <View style={{flexDirection: 'row'}}>
               <Icon name="facebook" style={LoginStyle.iconFacebook} />
               <Text style={LoginStyle.txtFacebook}>
@@ -152,7 +120,7 @@ class Login extends React.Component {
               selectedValue={this.state.selectedValue}
               style={LoginStyle.pickerLanguage}
               onValueChange={(itemValue, itemIndex) =>
-                this.setSelectedValue(itemValue)
+                LoginController.setSelectedValue(this, itemValue)
               }>
               <Picker.Item label="English" value="en" />
               <Picker.Item label="Vietnamese" value="vi" />

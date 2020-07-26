@@ -3,6 +3,9 @@ import {
   RESET_STATE_SIGN_IN,
   SIGN_IN_WITH_FACEBOOK,
 } from '../../store/actionTypes';
+import * as Const from '../../lib/const/Languages.const';
+import i18n from '../../lib/locales/i18n';
+import {MAIN_SCREEN} from '../../lib/configs/nameScreen';
 
 class HandleLogin {
   mapDispatchToProps = (dispatch) => {
@@ -23,8 +26,48 @@ class HandleLogin {
     };
   };
 
+  checkLogin = (context,nextProps, nextState) => {
+    if (nextProps.logined) {
+      nextState.isLoading = false;
+      context.props.resetData();
+      context.props.navigation.navigate(MAIN_SCREEN);
+      return false;
+    }
+    return true;
+  };
+
+  hideLoading = (context) => {
+    context.setState({isLoading: false});
+  };
+
+  changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+
+  setSelectedValue = (context, itemValue) => {
+    let uriImageFlag = '';
+    Const.listLanguages.forEach((element) => {
+      if (element.lang === context.state.selectedValue) {
+        uriImageFlag = element.urlImage;
+      }
+    });
+    context.setState({selectedValue: itemValue, uriImageFlag: uriImageFlag});
+    this.changeLanguage(itemValue);
+  };
+
+  onSignIn = (context) => {
+    context.setState({isLoading: true, error: ''});
+    context.props.resetData();
+    context.props.onSignIn(context.state.email, context.state.password);
+  };
+
+  onSignInWithFacebook = (context) => {
+    context.setState({isLoading: true, error: ''});
+    context.props.resetData();
+    context.props.onClickFacebook();
+  };
+
   mapStateToProps = (state) => {
-    // console.log(state);
     return {
       error: state.login.error,
       logined: state.login.logined,

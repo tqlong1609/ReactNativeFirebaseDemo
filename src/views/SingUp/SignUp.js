@@ -11,8 +11,6 @@ import SignUpController from './SignUp.Controller';
 import SignUpStyle from './SignUp.Style';
 import {LOGIN_SCREEN, MAIN_SCREEN} from '../../lib/configs/nameScreen';
 import {connect} from 'react-redux';
-import {AlertApp} from '../../lib/utils/AlertApp';
-import {translate} from '../../lib/locales';
 import LottieView from 'lottie-react-native';
 import {OverLayLoading} from '../../containers/OverlayLoading';
 import {withTranslation} from 'react-i18next';
@@ -30,62 +28,26 @@ class SignUp extends React.Component {
       isLoading: false,
     };
   }
+
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.isSignUp) {
-      nextState.isLoading = false;
-      this.props.resetData();
-      this.props.navigation.navigate(MAIN_SCREEN);
-      return false;
-    }
-    return true;
+    return SignUpController.checkSignUp(this, nextProps, nextState);
   }
-  hideLoading = () => {
-    this.setState({isLoading: false, errorMessage: ''});
-  };
+
   componentDidUpdate(prevProps, prevState) {
     if (prevState.isLoading) {
-      this.hideLoading();
+      SignUpController.hideLoading(this);
     }
   }
-  static getDerivedStateFromProps(_props, _state) {
-    console.log('_prop: ' + _props.errorMessage);
-    console.log('_state: ' + _state.errorMessage);
 
+  static getDerivedStateFromProps(_props, _state) {
     if (
       _props.errorMessage === _state.errorMessage ||
       _state.errorMessage === ''
     ) {
       return {errorMessage: _props.errorMessage, isSignUp: _props.isSignUp};
     }
-    console.log(_props.errorMessage);
     return null;
   }
-
-  onSignUp = () => {
-    try {
-      SignUpController.checkEmptyInput(
-        this.state.name,
-        this.state.email,
-        this.state.password,
-        this.state.confirmPassword,
-      );
-      SignUpController.checkConfirmPassword(
-        this.state.password,
-        this.state.confirmPassword,
-      );
-      this.setState({isLoading: true, error: ''});
-      this.props.resetData();
-      this.props.onSignUp(
-        this.state.name,
-        this.state.email,
-        this.state.password,
-      );
-    } catch (error) {
-      let errorMessage = error.toString();
-      console.log(errorMessage);
-      this.setState({errorMessage: errorMessage});
-    }
-  };
 
   render() {
     const {t, tReady} = this.props;
@@ -105,15 +67,12 @@ class SignUp extends React.Component {
           )}
           <TextInput
             placeholder={t('Name')}
-            autoCapitalize="none"
             style={SignUpStyle.textInput}
             onChangeText={(name) => this.setState({name})}
             value={this.state.name}
           />
           <TextInput
-            placeholder={translate('Email')}
-            autoCapitalize="none"
-            autoCompleteType="email"
+            placeholder={t('Email')}
             keyboardType="email-address"
             style={SignUpStyle.textInput}
             onChangeText={(email) => this.setState({email})}
@@ -121,7 +80,7 @@ class SignUp extends React.Component {
           />
           <TextInput
             secureTextEntry
-            placeholder={translate('Password')}
+            placeholder={t('Password')}
             autoCapitalize="none"
             style={SignUpStyle.textInput}
             onChangeText={(password) => this.setState({password})}
@@ -137,7 +96,7 @@ class SignUp extends React.Component {
           />
           <TouchableOpacity
             style={SignUpStyle.btnSignUp}
-            onPress={() => this.onSignUp()}>
+            onPress={() => SignUpController.onSignUp(this)}>
             <Text style={SignUpStyle.txtSignUp}>{t('Sign Up')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
