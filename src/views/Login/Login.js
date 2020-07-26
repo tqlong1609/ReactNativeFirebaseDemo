@@ -16,6 +16,7 @@ import {translate} from '../../lib/locales';
 import {Picker} from '@react-native-community/picker';
 import LottieView from 'lottie-react-native';
 import {OverLayLoading} from '../../containers/OverlayLoading';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -82,22 +83,30 @@ class Login extends React.Component {
           {this.state.error !== '' && (
             <Text style={LoginStyle.txtError}>{this.state.error}</Text>
           )}
-
-          <TextInput
-            style={LoginStyle.textInputEmail}
-            autoCapitalize="none"
-            placeholder={translate('Email')}
-            onChangeText={(email) => this.setState({email})}
-            value={this.state.email}
-          />
-          <TextInput
-            secureTextEntry
-            style={LoginStyle.textInputPassword}
-            autoCapitalize="none"
-            placeholder={translate('Password')}
-            onChangeText={(password) => this.setState({password})}
-            value={this.state.password}
-          />
+          <View style={LoginStyle.containerTextInput}>
+            <Icon name="envelope" style={LoginStyle.iconEmail} />
+            <TextInput
+              style={LoginStyle.textInputEmail}
+              autoCapitalize="none"
+              autoCompleteType="email"
+              keyboardType="email-address"
+              placeholder={translate('Email')}
+              onChangeText={(email) => this.setState({email})}
+              value={this.state.email}
+            />
+          </View>
+          <View style={LoginStyle.containerTextInput}>
+            <Icon name="lock" style={LoginStyle.iconEmail} />
+            <TextInput
+              secureTextEntry
+              style={LoginStyle.textInputPassword}
+              autoCapitalize="none"
+              autoCompleteType="password"
+              placeholder={translate('Password')}
+              onChangeText={(password) => this.setState({password})}
+              value={this.state.password}
+            />
+          </View>
           <TouchableOpacity
             style={LoginStyle.btnLogin}
             onPress={() => this.onSignIn()}>
@@ -105,7 +114,28 @@ class Login extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={LoginStyle.btnFacebook}
-            onPress={() => this.onSignInWithFacebook()}></TouchableOpacity>
+            onPress={() => this.onSignInWithFacebook()}>
+            <View style={{flexDirection: 'row'}}>
+              <Icon name="facebook" style={LoginStyle.iconFacebook} />
+              <Text style={LoginStyle.txtFacebook}>Login with facebook</Text>
+            </View>
+          </TouchableOpacity>
+          {/* <LoginButton
+            style={LoginStyle.btnFacebook}
+            onLoginFinished={(error, result) => {
+              if (error) {
+                console.log('login has error: ' + result.error);
+              } else if (result.isCancelled) {
+                console.log('login is cancelled.');
+              } else {
+                AccessToken.getCurrentAccessToken().then((data) => {
+                  console.log(data.accessToken.toString());
+                });
+              }
+            }}
+            onLogoutFinished={() => console.log('logout.')}
+          /> */}
+
           <TouchableOpacity
             style={LoginStyle.btnSignUp}
             onPress={() => this.props.navigation.navigate(SIGN_UP_SCREEN)}>
@@ -119,8 +149,8 @@ class Login extends React.Component {
             onValueChange={(itemValue, itemIndex) =>
               this.setSelectedValue(itemValue)
             }>
-            <Picker.Item label="Java" value="java" />
-            <Picker.Item label="JavaScript" value="js" />
+            <Picker.Item label="English" value="en" />
+            <Picker.Item label="Vietnamese" value="vi" />
           </Picker>
         </ScrollView>
       </View>

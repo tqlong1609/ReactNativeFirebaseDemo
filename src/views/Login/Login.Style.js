@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import StyleApp from '../../styles';
+import * as Color from '../../styles/colors';
 import {
   MARGIN_MEDIUM,
   FONT_SIZE_MEDIUM,
@@ -8,6 +9,7 @@ import {
   MARGIN_LARGE,
 } from '../../styles/sizes';
 import {TEXT_BUTTON, BACKGROUND_SCREEN} from '../../styles/colors';
+import Styles from '../../styles/Button.Styles';
 const styles = StyleSheet.create({
   scrollContainer: {
     backgroundColor: 'white',
@@ -23,7 +25,7 @@ const styles = StyleSheet.create({
   pickerLanguage: {
     marginTop: MARGIN_MEDIUM,
     height: 50,
-    width: 150,
+    width: 200,
     alignSelf: 'center',
   },
 
@@ -31,8 +33,7 @@ const styles = StyleSheet.create({
     ...StyleApp.Button.btnPrimary,
     alignSelf: 'center',
     width: '90%',
-    marginTop: MARGIN_MEDIUM,
-
+    marginTop: MARGIN_LARGE,
     borderRadius: BODER_MEDIUM,
     height: HEIGHT_SMALL_MEDIUM,
   },
@@ -46,8 +47,9 @@ const styles = StyleSheet.create({
     marginTop: MARGIN_MEDIUM,
   },
   txtSignUp: {
+    textDecorationLine:'underline',
     color: 'black',
-    fontSize: FONT_SIZE_MEDIUM,
+    fontSize: 15,
     alignSelf: 'center',
   },
   btnFacebook: {
@@ -57,13 +59,36 @@ const styles = StyleSheet.create({
     borderRadius: BODER_MEDIUM,
     marginTop: MARGIN_MEDIUM,
     height: HEIGHT_SMALL_MEDIUM,
-    backgroundColor: '#4267B2',
+    backgroundColor: '#6482C0',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconFacebook: {
+    ...StyleApp.Icon.iconDefault,
+    color: Color.FACEBOOK,
+    fontSize: 30,
+    alignSelf: 'center',
+  },
+  iconEmail: {
+    ...StyleApp.Icon.iconDefault,
+    color: Color.BACKGROUND_SCREEN,
+    alignSelf: 'center',
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  txtFacebook: {
+    color: 'white',
+    fontSize: FONT_SIZE_MEDIUM,
+    alignSelf: 'center',
+    marginLeft: MARGIN_MEDIUM,
+    marginRight: MARGIN_MEDIUM,
+  },
+  containerTextInput: {
+    flexDirection: 'row',
+    marginTop: 10,
   },
   container: {
     flex: 1,
-    // backgroundColor: 'white',
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
   textInputEmail: {
     ...StyleApp.TextInput.txtNormal,
@@ -72,8 +97,6 @@ const styles = StyleSheet.create({
   textInputPassword: {
     ...StyleApp.TextInput.txtNormal,
     alignSelf: 'center',
-    marginTop: MARGIN_MEDIUM,
-    marginBottom: MARGIN_LARGE,
   },
 });
 
