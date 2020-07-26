@@ -16,6 +16,8 @@ import {translate} from '../../lib/locales';
 import {Picker} from '@react-native-community/picker';
 import LottieView from 'lottie-react-native';
 import {OverLayLoading} from '../../containers/OverlayLoading';
+
+import {LoginManager} from 'react-native-fbsdk';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -61,7 +63,23 @@ class Login extends React.Component {
   setSelectedValue = (itemValue) => {
     this.setState({selectedValue: itemValue});
   };
-
+  onClickFacebook = () => {
+    LoginManager.logInWithPermissions(['public_profile']).then(
+      function (result) {
+        if (result.isCancelled) {
+          console.log('Login cancelled');
+        } else {
+          console.log(
+            'Login success with permissions: ' +
+              result.grantedPermissions.toString(),
+          );
+        }
+      },
+      function (error) {
+        console.log('Login fail with error: ' + error);
+      },
+    );
+  };
   render() {
     console.log('render');
 
@@ -99,9 +117,9 @@ class Login extends React.Component {
             onPress={() => this.onSignIn()}>
             <Text style={LoginStyle.txtLogin}>{translate('Login')}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={LoginStyle.btnFacebook}>
-            
-          </TouchableOpacity>
+          <TouchableOpacity
+            style={LoginStyle.btnFacebook}
+            onPress={() => this.onClickFacebook()}></TouchableOpacity>
           <TouchableOpacity
             style={LoginStyle.btnSignUp}
             onPress={() => this.props.navigation.navigate(SIGN_UP_SCREEN)}>
