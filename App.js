@@ -14,7 +14,8 @@ import * as Const from './src/lib/const';
 import * as NameScreen from './src/lib/configs/nameScreen';
 
 import {setI18nConfig, translate} from './src/lib/locales';
-
+import './src/lib/locales/i18n';
+import {withTranslation} from 'react-i18next';
 const Stack = createStackNavigator();
 
 export class App extends Component {
@@ -42,6 +43,7 @@ export class App extends Component {
   };
   render() {
     const {currentScreen} = this.state;
+    const {t, i18n} = this.props;
     let screen =
       currentScreen === NameScreen.SPLASH_SCREEN ? (
         <Stack.Screen
@@ -54,6 +56,7 @@ export class App extends Component {
           name={NameScreen.LOGIN_SCREEN}
           component={LoginApp}
           options={{
+            headerShown: false,
             headerTintColor: 'white',
             headerStyle: {backgroundColor: BACKGROUND_SCREEN},
           }}
@@ -68,6 +71,7 @@ export class App extends Component {
             name={NameScreen.SIGN_UP_SCREEN}
             component={SignUpApp}
             options={{
+              headerShown: false,
               headerTintColor: 'white',
               headerStyle: {backgroundColor: BACKGROUND_SCREEN},
             }}

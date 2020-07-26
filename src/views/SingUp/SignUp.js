@@ -15,7 +15,8 @@ import {AlertApp} from '../../lib/utils/AlertApp';
 import {translate} from '../../lib/locales';
 import LottieView from 'lottie-react-native';
 import {OverLayLoading} from '../../containers/OverlayLoading';
-
+import {withTranslation} from 'react-i18next';
+import Header from '../../containers/Header';
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -87,10 +88,12 @@ class SignUp extends React.Component {
   };
 
   render() {
+    const {t, tReady} = this.props;
     return (
       <View style={SignUpStyle.container}>
         {this.state.isLoading && <OverLayLoading />}
         <ScrollView style={SignUpStyle.scrollContainer}>
+          <Header title={t('Sign Up')} />
           <LottieView
             style={SignUpStyle.imageLogo}
             source={require('../../assets/json/11067-registration-animation.json')}
@@ -101,7 +104,7 @@ class SignUp extends React.Component {
             <Text style={SignUpStyle.textError}>{this.state.errorMessage}</Text>
           )}
           <TextInput
-            placeholder={translate('Name')}
+            placeholder={t('Name')}
             autoCapitalize="none"
             style={SignUpStyle.textInput}
             onChangeText={(name) => this.setState({name})}
@@ -126,7 +129,7 @@ class SignUp extends React.Component {
           />
           <TextInput
             secureTextEntry
-            placeholder={translate('Confirm Password')}
+            placeholder={t('Confirm Password')}
             autoCapitalize="none"
             style={SignUpStyle.textInput}
             onChangeText={(confirmPassword) => this.setState({confirmPassword})}
@@ -135,13 +138,13 @@ class SignUp extends React.Component {
           <TouchableOpacity
             style={SignUpStyle.btnSignUp}
             onPress={() => this.onSignUp()}>
-            <Text style={SignUpStyle.txtSignUp}>{translate('Sign Up')}</Text>
+            <Text style={SignUpStyle.txtSignUp}>{t('Sign Up')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={SignUpStyle.btnLogin}
             onPress={() => this.props.navigation.navigate(LOGIN_SCREEN)}>
             <Text style={SignUpStyle.txtLogin}>
-              {translate('Do you have an account? Login')}
+              {t('Do you have an account? Login')}
             </Text>
           </TouchableOpacity>
         </ScrollView>
@@ -152,4 +155,4 @@ class SignUp extends React.Component {
 export default connect(
   SignUpController.mapStateToProps,
   SignUpController.mapDispatchToProps,
-)(SignUp);
+)(withTranslation()(SignUp));
