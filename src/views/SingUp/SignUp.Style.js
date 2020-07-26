@@ -1,32 +1,30 @@
 import {StyleSheet} from 'react-native';
 import StyleApp from '../../styles';
-import {TEXT_BUTTON} from '../../styles/colors';
-import {MARGIN_MEDIUM, FONT_SIZE_MEDIUM} from '../../styles/sizes';
+import * as Color from '../../styles/colors';
+import * as Size from '../../styles/sizes';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+  imageLogo: {...StyleApp.Icon.iconLogo},
+  textError: {
+    ...StyleApp.Text.textError,
   },
   textInput: {
     ...StyleApp.TextInput.txtNormal,
   },
   btnSignUp: {
     ...StyleApp.Button.btnPrimary,
-    margin: MARGIN_MEDIUM,
-  },
-  btnLogin: {
-    ...StyleApp.Button.btnPrimary,
+    marginTop: Size.MARGIN_LARGE,
   },
   txtSignUp: {
-    color: TEXT_BUTTON,
-    fontSize: FONT_SIZE_MEDIUM,
+    ...StyleApp.Text.textDefault,
   },
   txtLogin: {
-    color: TEXT_BUTTON,
-    fontSize: FONT_SIZE_MEDIUM,
+    ...StyleApp.Text.textUnderline,
   },
+  btnLogin: {marginTop: Size.MARGIN_MEDIUM},
 });
 
 export default styles;

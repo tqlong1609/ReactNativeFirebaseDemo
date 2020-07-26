@@ -67,6 +67,10 @@ export class App extends Component {
           <Stack.Screen
             name={NameScreen.SIGN_UP_SCREEN}
             component={SignUpApp}
+            options={{
+              headerTintColor: 'white',
+              headerStyle: {backgroundColor: BACKGROUND_SCREEN},
+            }}
           />
           <Stack.Screen
             name={NameScreen.ADD_ITEM_SCREEN}

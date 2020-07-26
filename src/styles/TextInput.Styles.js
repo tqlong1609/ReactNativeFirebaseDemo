@@ -8,6 +8,7 @@ const Styles = StyleSheet.create({
     width: '80%',
     borderBottomWidth: 1,
     borderBottomColor: BODER_BOTTOM_INPUT,
+    alignSelf: 'center',
   },
 });
 

@@ -1,16 +1,25 @@
 // SignUp.js
 import React from 'react';
-import {Text, TextInput, View, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import SignUpController from './SignUp.Controller';
 import SignUpStyle from './SignUp.Style';
 import {LOGIN_SCREEN, MAIN_SCREEN} from '../../lib/configs/nameScreen';
 import {connect} from 'react-redux';
 import {AlertApp} from '../../lib/utils/AlertApp';
 import {translate} from '../../lib/locales';
+import LottieView from 'lottie-react-native';
+
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -62,16 +71,29 @@ class SignUp extends React.Component {
   render() {
     console.log(this.state.errorMessage);
     return (
-      <View style={SignUpStyle.container}>
-        <Text>{translate('Sign Up')}</Text>
+      <ScrollView style={SignUpStyle.container}>
+        <LottieView
+          style={SignUpStyle.imageLogo}
+          source={require('../../assets/json/11067-registration-animation.json')}
+          autoPlay
+          loop
+        />
         {this.state.errorMessage !== '' && (
-          <Text style={{color: 'red', textAlign: 'center'}}>
-            {this.state.errorMessage}
-          </Text>
+          <Text style={SignUpStyle.textError}>{this.state.errorMessage}</Text>
         )}
+        <TextInput
+          // placeholder={translate('Email')}
+          placeholder={translate('Name')}
+          autoCapitalize="none"
+          style={SignUpStyle.textInput}
+          onChangeText={(name) => this.setState({name})}
+          value={this.state.name}
+        />
         <TextInput
           placeholder={translate('Email')}
           autoCapitalize="none"
+          autoCompleteType="email"
+          keyboardType="email-address"
           style={SignUpStyle.textInput}
           onChangeText={(email) => this.setState({email})}
           value={this.state.email}
@@ -104,7 +126,8 @@ class SignUp extends React.Component {
             {translate('Do you have an account? Login')}
           </Text>
         </TouchableOpacity>
-      </View>
+        {/* </ScrollView> */}
+      </ScrollView>
     );
   }
 }

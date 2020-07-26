@@ -1,87 +1,49 @@
 import {StyleSheet} from 'react-native';
 import StyleApp from '../../styles';
 import * as Color from '../../styles/colors';
-import {
-  MARGIN_MEDIUM,
-  FONT_SIZE_MEDIUM,
-  BODER_MEDIUM,
-  HEIGHT_SMALL_MEDIUM,
-  MARGIN_LARGE,
-} from '../../styles/sizes';
-import {TEXT_BUTTON, BACKGROUND_SCREEN} from '../../styles/colors';
-import Styles from '../../styles/Button.Styles';
+import * as Size from '../../styles/sizes';
 const styles = StyleSheet.create({
   scrollContainer: {
     backgroundColor: 'white',
     flex: 1,
   },
-  txtError: {color: 'red', textAlign: 'center'},
+  txtError: {...StyleApp.Text.textError},
   imageLogo: {
-    width: 250,
-    height: 250,
-    marginBottom: -20,
-    alignSelf: 'center',
+    ...StyleApp.Icon.iconLogo,
   },
   pickerLanguage: {
-    marginTop: MARGIN_MEDIUM,
-    height: 50,
-    width: 200,
-    alignSelf: 'center',
+    ...StyleApp.Picker.pickerDefault,
   },
 
   btnLogin: {
     ...StyleApp.Button.btnPrimary,
-    alignSelf: 'center',
-    width: '90%',
-    marginTop: MARGIN_LARGE,
-    borderRadius: BODER_MEDIUM,
-    height: HEIGHT_SMALL_MEDIUM,
+    marginTop: Size.MARGIN_LARGE,
   },
   txtLogin: {
-    color: TEXT_BUTTON,
-    fontSize: FONT_SIZE_MEDIUM,
-    alignSelf: 'center',
+    ...StyleApp.Text.textDefault,
   },
   btnSignUp: {
-    alignSelf: 'center',
-    marginTop: MARGIN_MEDIUM,
+    marginTop: Size.MARGIN_MEDIUM,
   },
   txtSignUp: {
-    textDecorationLine:'underline',
-    color: 'black',
-    fontSize: 15,
-    alignSelf: 'center',
+    ...StyleApp.Text.textUnderline,
+    marginBottom: Size.MARGIN_LARGE,
   },
   btnFacebook: {
     ...StyleApp.Button.btnPrimary,
-    alignSelf: 'center',
-    width: '90%',
-    borderRadius: BODER_MEDIUM,
-    marginTop: MARGIN_MEDIUM,
-    height: HEIGHT_SMALL_MEDIUM,
-    backgroundColor: '#6482C0',
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginTop: Size.MARGIN_MEDIUM,
+    backgroundColor: Color.SHINING_FACEBOOK,
   },
   iconFacebook: {
     ...StyleApp.Icon.iconDefault,
     color: Color.FACEBOOK,
-    fontSize: 30,
-    alignSelf: 'center',
   },
-  iconEmail: {
+  iconLogin: {
     ...StyleApp.Icon.iconDefault,
-    color: Color.BACKGROUND_SCREEN,
-    alignSelf: 'center',
-    marginLeft: 10,
-    marginRight: 10,
   },
+
   txtFacebook: {
-    color: 'white',
-    fontSize: FONT_SIZE_MEDIUM,
-    alignSelf: 'center',
-    marginLeft: MARGIN_MEDIUM,
-    marginRight: MARGIN_MEDIUM,
+    ...StyleApp.Text.textDefault,
   },
   containerTextInput: {
     flexDirection: 'row',
@@ -90,13 +52,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  textInputEmail: {
+  textInputLogin: {
     ...StyleApp.TextInput.txtNormal,
-    alignSelf: 'center',
-  },
-  textInputPassword: {
-    ...StyleApp.TextInput.txtNormal,
-    alignSelf: 'center',
   },
 });
 

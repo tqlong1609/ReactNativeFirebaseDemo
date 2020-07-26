@@ -84,9 +84,9 @@ class Login extends React.Component {
             <Text style={LoginStyle.txtError}>{this.state.error}</Text>
           )}
           <View style={LoginStyle.containerTextInput}>
-            <Icon name="envelope" style={LoginStyle.iconEmail} />
+            <Icon name="envelope" style={LoginStyle.iconLogin} />
             <TextInput
-              style={LoginStyle.textInputEmail}
+              style={LoginStyle.textInputLogin}
               autoCapitalize="none"
               autoCompleteType="email"
               keyboardType="email-address"
@@ -96,10 +96,10 @@ class Login extends React.Component {
             />
           </View>
           <View style={LoginStyle.containerTextInput}>
-            <Icon name="lock" style={LoginStyle.iconEmail} />
+            <Icon name="lock" style={LoginStyle.iconLogin} />
             <TextInput
               secureTextEntry
-              style={LoginStyle.textInputPassword}
+              style={LoginStyle.textInputLogin}
               autoCapitalize="none"
               autoCompleteType="password"
               placeholder={translate('Password')}
@@ -120,22 +120,6 @@ class Login extends React.Component {
               <Text style={LoginStyle.txtFacebook}>Login with facebook</Text>
             </View>
           </TouchableOpacity>
-          {/* <LoginButton
-            style={LoginStyle.btnFacebook}
-            onLoginFinished={(error, result) => {
-              if (error) {
-                console.log('login has error: ' + result.error);
-              } else if (result.isCancelled) {
-                console.log('login is cancelled.');
-              } else {
-                AccessToken.getCurrentAccessToken().then((data) => {
-                  console.log(data.accessToken.toString());
-                });
-              }
-            }}
-            onLogoutFinished={() => console.log('logout.')}
-          /> */}
-
           <TouchableOpacity
             style={LoginStyle.btnSignUp}
             onPress={() => this.props.navigation.navigate(SIGN_UP_SCREEN)}>
