@@ -7,6 +7,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  scrollContainer: {
+    flex: 1,
+  },
   imageLogo: {...StyleApp.Icon.iconLogo},
   textError: {
     ...StyleApp.Text.textError,

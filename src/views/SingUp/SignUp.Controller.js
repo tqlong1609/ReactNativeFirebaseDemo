@@ -1,5 +1,4 @@
-//Todo: sửa lổi tự động login
-import {SIGN_UP,RESET_STATE_SIGN_UP} from '../../store/actionTypes';
+import {SIGN_UP, RESET_STATE_SIGN_UP} from '../../store/actionTypes';
 import {
   ERROR_EMPTY_INPUT,
   ERROR_NOT_CONFIRM_PASSWORD,
@@ -11,24 +10,28 @@ class HandleSignUp {
         dispatch({
           type: RESET_STATE_SIGN_UP,
         }),
-      onSignUp: (emailVal, passwordVal) =>
+      onSignUp: (name, emailVal, passwordVal) =>
         dispatch({
           type: SIGN_UP,
-          value: {email: emailVal, password: passwordVal},
+          value: {name: name, email: emailVal, password: passwordVal},
         }),
     };
   };
 
   mapStateToProps = (state) => {
-    // console.log(state);
     return {
-      error: state.signUp.error,
+      errorMessage: state.signUp.error,
       isSignUp: state.signUp.isSignUp,
     };
   };
 
-  checkEmptyInput = (email, password, confirmPassword) => {
-    if (email === '' && password === '' && confirmPassword === '') {
+  checkEmptyInput = (name, email, password, confirmPassword) => {
+    if (
+      name === '' ||
+      email === '' ||
+      password === '' ||
+      confirmPassword === ''
+    ) {
       throw Error(ERROR_EMPTY_INPUT);
     }
   };

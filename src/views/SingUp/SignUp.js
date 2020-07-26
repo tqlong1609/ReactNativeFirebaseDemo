@@ -14,6 +14,7 @@ import {connect} from 'react-redux';
 import {AlertApp} from '../../lib/utils/AlertApp';
 import {translate} from '../../lib/locales';
 import LottieView from 'lottie-react-native';
+import {OverLayLoading} from '../../containers/OverlayLoading';
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -25,34 +26,44 @@ class SignUp extends React.Component {
       confirmPassword: '',
       errorMessage: '',
       isSignUp: false,
+      isLoading: false,
     };
   }
-
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.isSignUp) {
+      nextState.isLoading = false;
+      this.props.resetData();
+      this.props.navigation.navigate(MAIN_SCREEN);
+      return false;
+    }
+    return true;
+  }
+  hideLoading = () => {
+    this.setState({isLoading: false, errorMessage: ''});
+  };
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.isLoading) {
+      this.hideLoading();
+    }
+  }
   static getDerivedStateFromProps(_props, _state) {
-    if (_state.isSignUp === _props.isSignUp) {
-      return null;
+    console.log('_prop: ' + _props.errorMessage);
+    console.log('_state: ' + _state.errorMessage);
+
+    if (
+      _props.errorMessage === _state.errorMessage ||
+      _state.errorMessage === ''
+    ) {
+      return {errorMessage: _props.errorMessage, isSignUp: _props.isSignUp};
     }
-    if (_props.isSignUp) {
-      _props.resetData();
-      AlertApp(
-        translate('SignUp Success'),
-        translate('Do you want login ?'),
-        (value) => {
-          if (value === 'OK') {
-            _props.navigation.navigate(LOGIN_SCREEN);
-          } else {
-            return {errorMessage: '', isSignUp: false};
-          }
-        },
-      );
-      return null;
-    }
-    return {errorMessage: _props.error, isSignUp: _props.isSignUp};
+    console.log(_props.errorMessage);
+    return null;
   }
 
   onSignUp = () => {
     try {
       SignUpController.checkEmptyInput(
+        this.state.name,
         this.state.email,
         this.state.password,
         this.state.confirmPassword,
@@ -61,73 +72,80 @@ class SignUp extends React.Component {
         this.state.password,
         this.state.confirmPassword,
       );
-      this.props.onSignUp(this.state.email, this.state.password);
+      this.setState({isLoading: true, error: ''});
+      this.props.resetData();
+      this.props.onSignUp(
+        this.state.name,
+        this.state.email,
+        this.state.password,
+      );
     } catch (error) {
       let errorMessage = error.toString();
+      console.log(errorMessage);
       this.setState({errorMessage: errorMessage});
     }
   };
 
   render() {
-    console.log(this.state.errorMessage);
     return (
-      <ScrollView style={SignUpStyle.container}>
-        <LottieView
-          style={SignUpStyle.imageLogo}
-          source={require('../../assets/json/11067-registration-animation.json')}
-          autoPlay
-          loop
-        />
-        {this.state.errorMessage !== '' && (
-          <Text style={SignUpStyle.textError}>{this.state.errorMessage}</Text>
-        )}
-        <TextInput
-          // placeholder={translate('Email')}
-          placeholder={translate('Name')}
-          autoCapitalize="none"
-          style={SignUpStyle.textInput}
-          onChangeText={(name) => this.setState({name})}
-          value={this.state.name}
-        />
-        <TextInput
-          placeholder={translate('Email')}
-          autoCapitalize="none"
-          autoCompleteType="email"
-          keyboardType="email-address"
-          style={SignUpStyle.textInput}
-          onChangeText={(email) => this.setState({email})}
-          value={this.state.email}
-        />
-        <TextInput
-          secureTextEntry
-          placeholder={translate('Password')}
-          autoCapitalize="none"
-          style={SignUpStyle.textInput}
-          onChangeText={(password) => this.setState({password})}
-          value={this.state.password}
-        />
-        <TextInput
-          secureTextEntry
-          placeholder={translate('Confirm Password')}
-          autoCapitalize="none"
-          style={SignUpStyle.textInput}
-          onChangeText={(confirmPassword) => this.setState({confirmPassword})}
-          value={this.state.confirmPassword}
-        />
-        <TouchableOpacity
-          style={SignUpStyle.btnSignUp}
-          onPress={() => this.onSignUp()}>
-          <Text style={SignUpStyle.txtSignUp}>{translate('Sign Up')}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={SignUpStyle.btnLogin}
-          onPress={() => this.props.navigation.navigate(LOGIN_SCREEN)}>
-          <Text style={SignUpStyle.txtLogin}>
-            {translate('Do you have an account? Login')}
-          </Text>
-        </TouchableOpacity>
-        {/* </ScrollView> */}
-      </ScrollView>
+      <View style={SignUpStyle.container}>
+        {this.state.isLoading && <OverLayLoading />}
+        <ScrollView style={SignUpStyle.scrollContainer}>
+          <LottieView
+            style={SignUpStyle.imageLogo}
+            source={require('../../assets/json/11067-registration-animation.json')}
+            autoPlay
+            loop
+          />
+          {this.state.errorMessage !== '' && (
+            <Text style={SignUpStyle.textError}>{this.state.errorMessage}</Text>
+          )}
+          <TextInput
+            placeholder={translate('Name')}
+            autoCapitalize="none"
+            style={SignUpStyle.textInput}
+            onChangeText={(name) => this.setState({name})}
+            value={this.state.name}
+          />
+          <TextInput
+            placeholder={translate('Email')}
+            autoCapitalize="none"
+            autoCompleteType="email"
+            keyboardType="email-address"
+            style={SignUpStyle.textInput}
+            onChangeText={(email) => this.setState({email})}
+            value={this.state.email}
+          />
+          <TextInput
+            secureTextEntry
+            placeholder={translate('Password')}
+            autoCapitalize="none"
+            style={SignUpStyle.textInput}
+            onChangeText={(password) => this.setState({password})}
+            value={this.state.password}
+          />
+          <TextInput
+            secureTextEntry
+            placeholder={translate('Confirm Password')}
+            autoCapitalize="none"
+            style={SignUpStyle.textInput}
+            onChangeText={(confirmPassword) => this.setState({confirmPassword})}
+            value={this.state.confirmPassword}
+          />
+          <TouchableOpacity
+            style={SignUpStyle.btnSignUp}
+            onPress={() => this.onSignUp()}>
+            <Text style={SignUpStyle.txtSignUp}>{translate('Sign Up')}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={SignUpStyle.btnLogin}
+            onPress={() => this.props.navigation.navigate(LOGIN_SCREEN)}>
+            <Text style={SignUpStyle.txtLogin}>
+              {translate('Do you have an account? Login')}
+            </Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
     );
   }
 }
