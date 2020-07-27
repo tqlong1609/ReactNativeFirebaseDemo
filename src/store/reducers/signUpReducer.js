@@ -14,6 +14,7 @@ const signUpReducer = (state = State.SignUpState, action) => {
     }
     case SIGN_UP_ASYN_SUCCESS:
       newState.isSignUp = true;
+      // console.log('alo alo 123: ' + JSON.stringify(action.value));
       break;
     case SIGN_UP_ASYN_FAIL:
       newState.isSignUp = false;

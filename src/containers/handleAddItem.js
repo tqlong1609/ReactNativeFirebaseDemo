@@ -7,6 +7,7 @@ import Const from '../lib/const/Filebase.const';
 const _setTimeout = global.setTimeout;
 const _clearTimeout = global.clearTimeout;
 const MAX_TIMER_DURATION_MS = 60 * 1000;
+
 const Blob = RNFetchBlob.polyfill.Blob;
 const fs = RNFetchBlob.fs;
 
