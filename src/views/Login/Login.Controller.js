@@ -1,32 +1,23 @@
-import {
-  SIGN_IN,
-  RESET_STATE_SIGN_IN,
-  SIGN_IN_WITH_FACEBOOK,
-} from '../../store/actionTypes';
+
 import * as Const from '../../lib/const/Languages.const';
 import i18n from '../../lib/locales/i18n';
 import {MAIN_SCREEN} from '../../lib/configs/nameScreen';
-
+import {
+  onSignIn,
+  resetData,
+  onClickFacebook,
+} from '../../store/actionTypes/Login.action';
 class HandleLogin {
   mapDispatchToProps = (dispatch) => {
     return {
-      resetData: () =>
-        dispatch({
-          type: RESET_STATE_SIGN_IN,
-        }),
+      resetData: () => resetData(dispatch),
       onSignIn: (emailVal, passwordVal) =>
-        dispatch({
-          type: SIGN_IN,
-          value: {email: emailVal, password: passwordVal},
-        }),
-      onClickFacebook: () =>
-        dispatch({
-          type: SIGN_IN_WITH_FACEBOOK,
-        }),
+        onSignIn(dispatch, emailVal, passwordVal),
+      onClickFacebook: () => onClickFacebook(dispatch),
     };
   };
 
-  checkLogin = (context,nextProps, nextState) => {
+  checkLogin = (context, nextProps, nextState) => {
     if (nextProps.logined) {
       nextState.isLoading = false;
       context.props.resetData();

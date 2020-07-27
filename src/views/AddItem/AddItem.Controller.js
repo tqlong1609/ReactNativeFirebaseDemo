@@ -1,4 +1,4 @@
-import {ADD_ITEM, RESET_STATE} from '../../store/actionTypes';
+import {ADD_ITEM, RESET_STATE} from '../../store/actionTypes/action.const';
 import ImagePicker from 'react-native-image-picker';
 const options = {
   title: 'Select Avatar',

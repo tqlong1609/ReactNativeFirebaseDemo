@@ -5,7 +5,7 @@ import {
   ADD_ITEM,
   LOAD_DATA,
   SIGN_IN_WITH_FACEBOOK,
-} from '../../store/actionTypes';
+} from '../../store/actionTypes/action.const';
 
 import * as Login from './Login.Sagas';
 import * as SignUp from './SignUp.Sagas';

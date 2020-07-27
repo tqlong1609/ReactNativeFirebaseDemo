@@ -2,7 +2,7 @@ import {
   ADD_ITEM_ASYN_SUCCESS,
   ADD_ITEM_ASYN_FAIL,
   RESET_STATE,
-} from '../actionTypes';
+} from '../actionTypes/action.const';
 import State from '../state';
 const addItemReducer = (state = State.AddItemState, action) => {
   const newState = {...state};

@@ -2,7 +2,7 @@ import {
   SIGN_IN_ASYN_SUCCESS,
   SIGN_IN_ASYN_FAIL,
   RESET_STATE_SIGN_IN,
-} from '../actionTypes';
+} from '../actionTypes/action.const';
 import State from '../state';
 const loginReducer = (state = State.LoginState, action) => {
   const newState = {...state};

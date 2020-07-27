@@ -1,4 +1,4 @@
-import {LOAD_DATA} from '../../store/actionTypes';
+import {LOAD_DATA} from '../../store/actionTypes/action.const';
 
 class HandleMain {
   mapDispatchToProps = (dispatch) => {

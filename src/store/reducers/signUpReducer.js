@@ -2,7 +2,7 @@ import {
   SIGN_UP_ASYN_SUCCESS,
   SIGN_UP_ASYN_FAIL,
   RESET_STATE_SIGN_UP,
-} from '../actionTypes';
+} from '../actionTypes/action.const';
 import State from '../state';
 const signUpReducer = (state = State.SignUpState, action) => {
   const newState = {...state};

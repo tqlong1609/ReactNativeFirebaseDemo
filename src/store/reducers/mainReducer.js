@@ -1,4 +1,4 @@
-import {LOAD_DATA_ASYN_SUCCESS, LOAD_DATA_ASYN_FAIL} from '../actionTypes';
+import {LOAD_DATA_ASYN_SUCCESS, LOAD_DATA_ASYN_FAIL} from '../actionTypes/action.const';
 import State from '../state';
 const mainReducer = (state = State.MainState, action) => {
   const newState = {...state};

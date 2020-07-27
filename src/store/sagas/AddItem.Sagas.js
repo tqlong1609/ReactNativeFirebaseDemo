@@ -2,7 +2,7 @@ import HandleAddItem from '../../containers/handleAddItem';
 import {
   ADD_ITEM_ASYN_SUCCESS,
   ADD_ITEM_ASYN_FAIL,
-} from '../../store/actionTypes';
+} from '../../store/actionTypes/action.const';
 
 import {call, put} from 'redux-saga/effects';
 function* addItemWithFirebase(dispatch) {

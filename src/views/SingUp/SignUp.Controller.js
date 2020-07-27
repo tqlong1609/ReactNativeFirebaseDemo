@@ -1,6 +1,9 @@
-import {SIGN_UP, RESET_STATE_SIGN_UP} from '../../store/actionTypes';
+import {
+  SIGN_UP,
+  RESET_STATE_SIGN_UP,
+} from '../../store/actionTypes/action.const';
 import {MAIN_SCREEN} from '../../lib/configs/nameScreen';
-
+import {resetData} from '../../store/actionTypes/SignUp.action';
 import {
   ERROR_EMPTY_INPUT,
   ERROR_NOT_CONFIRM_PASSWORD,
@@ -8,15 +11,9 @@ import {
 class HandleSignUp {
   mapDispatchToProps = (dispatch) => {
     return {
-      resetData: () =>
-        dispatch({
-          type: RESET_STATE_SIGN_UP,
-        }),
+      resetData: () => resetData(dispatch),
       onSignUp: (name, emailVal, passwordVal) =>
-        dispatch({
-          type: SIGN_UP,
-          value: {name: name, email: emailVal, password: passwordVal},
-        }),
+        onSignUp(dispatch, name, emailVal, passwordVal),
     };
   };
 
