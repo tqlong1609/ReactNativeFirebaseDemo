@@ -1,7 +1,8 @@
 
 import * as Const from '../../lib/const/Languages.const';
 import i18n from '../../lib/locales/i18n';
-import {MAIN_SCREEN} from '../../lib/configs/nameScreen';
+import {MAIN_SCREEN} from '../../lib/const/Screen.const';
+
 import {
   onSignIn,
   resetData,

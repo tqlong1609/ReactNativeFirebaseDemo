@@ -11,7 +11,7 @@ import {
 import LoginStyle from './Login.Style';
 import LoginController from './Login.Controller';
 import {connect} from 'react-redux';
-import {SIGN_UP_SCREEN} from '../../lib/configs/nameScreen';
+import {SIGN_UP_SCREEN} from '../../lib/const/Screen.const';
 import {Picker} from '@react-native-community/picker';
 import LottieView from 'lottie-react-native';
 import {OverLayLoading} from '../../containers/OverlayLoading';

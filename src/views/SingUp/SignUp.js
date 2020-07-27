@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import SignUpController from './SignUp.Controller';
 import SignUpStyle from './SignUp.Style';
-import {LOGIN_SCREEN, MAIN_SCREEN} from '../../lib/configs/nameScreen';
+import {LOGIN_SCREEN, MAIN_SCREEN} from '../../lib/const/Screen.const';
 import {connect} from 'react-redux';
 import LottieView from 'lottie-react-native';
 import {OverLayLoading} from '../../containers/OverlayLoading';

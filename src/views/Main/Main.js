@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, FlatList, TouchableOpacity} from 'react-native';
 import FlatItemMain from '../../containers/FlatItemMain';
-import {ADD_ITEM_SCREEN} from '../../lib/configs/nameScreen';
+import {ADD_ITEM_SCREEN} from '../../lib/const/Screen.const';
 import MainStyle from './Main.Styles';
 import MainController from './Main.Controller';
 import {connect} from 'react-redux';

@@ -1,7 +1,6 @@
 import {Platform, InteractionManager} from 'react-native';
 import firebase from 'firebase';
 import RNFetchBlob from 'react-native-fetch-blob';
-// import {FilebaseConst} from '../lib/cons';
 import Const from '../lib/const/Filebase.const';
 
 const _setTimeout = global.setTimeout;
@@ -49,8 +48,6 @@ class HandleAddItem {
   };
   handleWarningSettingtimmer = () => {
     if (Platform.OS === 'android') {
-      // Work around issue `Setting a timer for long time`
-      // see: https://github.com/firebase/firebase-js-sdk/issues/97
       const timerFix = {};
       const runTask = (id, fn, ttl, args) => {
         const waitingTime = ttl - Date.now();

@@ -12,11 +12,10 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 
-import HandleAddItem from '../../containers/handleAddItem';
 import ImageLoad from 'react-native-image-placeholder';
 import AddItemStyle from './AddItem.Style';
 import AddItemController from './AddItem.Controller';
-import {MAIN_SCREEN} from '../../lib/configs/nameScreen';
+import {MAIN_SCREEN} from '../../lib/const/Screen.const';
 import {translate} from '../../lib/locales';
 export class AddItem extends Component {
   constructor(props) {

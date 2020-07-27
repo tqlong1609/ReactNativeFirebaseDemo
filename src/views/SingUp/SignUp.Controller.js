@@ -1,13 +1,10 @@
-import {
-  SIGN_UP,
-  RESET_STATE_SIGN_UP,
-} from '../../store/actionTypes/action.const';
-import {MAIN_SCREEN} from '../../lib/configs/nameScreen';
+
+import {MAIN_SCREEN} from '../../lib/const/Screen.const';
 import {resetData} from '../../store/actionTypes/SignUp.action';
 import {
   ERROR_EMPTY_INPUT,
   ERROR_NOT_CONFIRM_PASSWORD,
-} from '../../lib/configs/nameErrors';
+} from '../../lib/const/Error.const';
 class HandleSignUp {
   mapDispatchToProps = (dispatch) => {
     return {

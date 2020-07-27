@@ -5,17 +5,22 @@ import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, HeaderBackground} from '@react-navigation/stack';
 import {BACKGROUND_SCREEN} from './src/styles/colors';
+
+// view
 import MainApp from './src/views/Main/Main';
 import LoginApp from './src/views/Login/Login';
 import SignUpApp from './src/views/SingUp/SignUp';
 import AddItemAdd from './src/views/AddItem/AddItem';
 import Splash from './src/views/Splash/Splash';
-import * as Const from './src/lib/const';
-import * as NameScreen from './src/lib/configs/nameScreen';
 
+// const
+import * as ConstTime from './src/lib/const/Time.const';
+import * as NameScreen from './src/lib/const/Screen.const';
+
+// locale language
 import {setI18nConfig, translate} from './src/lib/locales';
 import './src/lib/locales/i18n';
-import {withTranslation} from 'react-i18next';
+
 const Stack = createStackNavigator();
 
 export class App extends Component {
@@ -25,7 +30,7 @@ export class App extends Component {
     setI18nConfig(); // set initial config
     setTimeout(() => {
       this.setState({currentScreen: NameScreen.LOGIN_SCREEN});
-    }, Const.TIME_SPLASH_SCREEN);
+    }, ConstTime.TIME_SPLASH_SCREEN);
   }
   componentDidMount() {
     RNLocalize.addEventListener('change', () => this.handleLocalizationChange);
