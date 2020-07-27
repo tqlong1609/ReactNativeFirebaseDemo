@@ -1,49 +1,123 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, TouchableOpacity} from 'react-native';
-import FlatItemMain from '../../containers/FlatItemMain';
-import {ADD_ITEM_SCREEN} from '../../lib/const/Screen.const';
+import {Text, View, FlatList, TouchableOpacity, ScrollView} from 'react-native';
 import MainStyle from './Main.Styles';
 import MainController from './Main.Controller';
 import {connect} from 'react-redux';
-import {translate} from '../../lib/locales';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import LottieView from 'lottie-react-native';
+import TodoList from '../../containers/TodoList';
+import {withTranslation} from 'react-i18next';
+
+const data = [
+  {
+    id: '1',
+    name: 'Plan a trip',
+    color: '#00CCCC',
+    todos: [{title: 'Book a flight', completed: false}],
+  },
+  {
+    id: '2',
+
+    name: 'Plan a trip 1',
+    color: '#9933FF',
+    todos: [
+      {title: 'Book a flight 1', completed: false},
+      {title: 'Book a flight 2', completed: true},
+    ],
+  },
+  {
+    id: '3',
+
+    name: 'Plan a trip 2',
+    color: '#CC66FF',
+    todos: [
+      {title: 'Book a flight 2', completed: false},
+      {title: 'Book a flight 3', completed: true},
+      {title: 'Book a flight 4', completed: false},
+      {title: 'Book a flight 5', completed: true},
+    ],
+  },
+  {
+    id: '4',
+
+    name: 'Plan a trip 2',
+    color: '#FF6666',
+    todos: [
+      {title: 'Book a flight 2', completed: false},
+      {title: 'Book a flight 3', completed: true},
+      {title: 'Book a flight 4', completed: false},
+      {title: 'Book a flight 5', completed: true},
+    ],
+  },
+  {
+    id: '5',
+
+    name: 'Plan a trip 2',
+    color: '#3366FF',
+    todos: [
+      {title: 'Book a flight 2', completed: false},
+      {title: 'Book a flight 3', completed: true},
+      {title: 'Book a flight 4', completed: false},
+      {title: 'Book a flight 5', completed: true},
+    ],
+  },
+  {
+    id: '6',
+
+    name: 'Plan a trip 2',
+    color: '#FF6600',
+    todos: [
+      {title: 'Book a flight 2', completed: false},
+      {title: 'Book a flight 3', completed: true},
+      {title: 'Book a flight 4', completed: true},
+      {title: 'Book a flight 5', completed: true},
+    ],
+  },
+];
+
 export class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      data: data,
       error: '',
     };
   }
-  static getDerivedStateFromProps(_props, _state) {
-    // if (_state.data === _props.data) {
-    //   return null;
-    // }
-    return {error: _props.error, data: _props.arrData};
-  }
-  clickAdd = () => {
-    this.props.navigation.navigate(ADD_ITEM_SCREEN);
-  };
-
-  componentDidMount() {}
 
   render() {
-    this.props.onLoad();
-
+    const {t, tReady} = this.props;
     return (
-      <View style={MainStyle.container}>
-        <FlatList
-          data={this.state.data}
-          keyExtractor={(item) => item.key}
-          renderItem={({item}) => <FlatItemMain value={item} />}
+      <ScrollView>
+        <LottieView
+          style={MainStyle.animationView}
+          source={require('../../assets/json/8216-working-room.json')}
+          autoPlay
+          loop
         />
-        <TouchableOpacity style={MainStyle.btnAdd} onPress={this.clickAdd}>
-          <Text>{translate('Add')}</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={MainStyle.containerTitle}>
+          <Text style={MainStyle.txtTodo}>
+            Todo <Text style={MainStyle.txtLists}>Lists</Text>
+          </Text>
+          <TouchableOpacity style={MainStyle.btnAddList}>
+            <Icon name="plus-circle" style={MainStyle.iconAdd} />
+            <Text style={MainStyle.txtAddList}>{t('Add list')}</Text>
+          </TouchableOpacity>
+        </View>
+        <FlatList
+          style={MainStyle.flatList}
+          data={this.state.data}
+          keyExtractor={(item) => item.id}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({item}) => (
+            <TodoList name={item.name} color={item.color} todos={item.todos} />
+          )}
+        />
+      </ScrollView>
     );
   }
 }
 export default connect(
   MainController.mapStateToProps,
   MainController.mapDispatchToProps,
-)(Main);
+)(withTranslation()(Main));

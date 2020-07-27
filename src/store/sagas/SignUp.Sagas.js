@@ -1,4 +1,7 @@
-import {SIGN_UP_ASYN_SUCCESS, SIGN_UP_ASYN_FAIL} from '../../store/actionTypes/action.const';
+import {
+  SIGN_UP_ASYN_SUCCESS,
+  SIGN_UP_ASYN_FAIL,
+} from '../../store/actionTypes/action.const';
 import FirebaseServices from '../../api/services/firebase/firebaseStore';
 import {put, call, take, takeEvery} from 'redux-saga/effects';
 import WarningSettingTimer from '../../lib/utils/WarningSettingTimer';

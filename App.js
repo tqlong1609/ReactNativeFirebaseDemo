@@ -62,8 +62,6 @@ export class App extends Component {
           component={LoginApp}
           options={{
             headerShown: false,
-            headerTintColor: 'white',
-            headerStyle: {backgroundColor: BACKGROUND_SCREEN},
           }}
         />
       );
@@ -71,14 +69,18 @@ export class App extends Component {
       <NavigationContainer>
         <Stack.Navigator>
           {screen}
-          <Stack.Screen name={NameScreen.MAIN_SCREEN} component={MainApp} />
+          <Stack.Screen
+            name={NameScreen.MAIN_SCREEN}
+            component={MainApp}
+            options={{
+              headerShown: false,
+            }}
+          />
           <Stack.Screen
             name={NameScreen.SIGN_UP_SCREEN}
             component={SignUpApp}
             options={{
               headerShown: false,
-              headerTintColor: 'white',
-              headerStyle: {backgroundColor: BACKGROUND_SCREEN},
             }}
           />
           <Stack.Screen

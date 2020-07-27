@@ -1,35 +1,42 @@
 import {StyleSheet} from 'react-native';
 import StyleApp from '../../styles';
-import {MARGIN_SMALL,FONT_SIZE_MEDIUM} from '../../styles/sizes';
-import {TEXT_BUTTON} from '../../styles/colors';
+import * as sizes from '../../styles/sizes';
+import * as colors from '../../styles/colors';
+
 const styles = StyleSheet.create({
-  btnAdd: {
-    ...StyleApp.Button.btnPrimary,
-    width: 100,
-    height: 50,
-    borderColor: 'black',
-    borderWidth: 1,
-    margin: MARGIN_SMALL,
-    borderRadius: 5,
-    justifyContent: 'center',
+  animationView: {
+    width: sizes.WIDTH_MEDIUM,
+    height: sizes.WIDTH_MEDIUM,
     alignSelf: 'center',
-    alignItems: 'center',
   },
-  btnChangeLanguaes:{
-    ...StyleApp.Button.btnPrimary,
-    width: 200,
-    height: 50,
-    borderColor: 'black',
-    borderWidth: 1,
-    margin: MARGIN_SMALL,
-    borderRadius: 5,
-    justifyContent: 'center',
+  containerTitle: {
     alignSelf: 'center',
-    alignItems: 'center',
   },
+  txtTodo: {
+    fontSize: sizes.FONT_SIZE_LARGE,
+    fontWeight: 'bold',
+    marginTop: -50,
+  },
+  txtLists: {
+    color: colors.BACKGROUND_SCREEN,
+    fontWeight: sizes.FONT_WEIGHT,
+  },
+  btnAddList: {
+    marginTop: 20,
+  },
+  iconAdd: {
+    fontSize: sizes.FONT_SIZE_ICON_MEDIUM,
+    alignSelf: 'center',
+    color: colors.BACKGROUND_SCREEN,
+  },
+  txtAddList: {alignSelf: 'center', color: colors.BACKGROUND_SCREEN},
   container: {
-    display: 'flex',
     flex: 1,
+  },
+  flatList: {
+    alignSelf: 'center',
+    marginTop: sizes.MARGIN_LARGE,
+    height: sizes.HEIGHT_MEDIUM,
   },
 });
 
