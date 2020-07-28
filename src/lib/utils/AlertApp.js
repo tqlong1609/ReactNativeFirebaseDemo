@@ -1,6 +1,12 @@
 import {Alert} from 'react-native';
 
 export function AlertApp(title, content, callback) {
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
   Alert.alert(
     title,
     content,
@@ -14,4 +20,23 @@ export function AlertApp(title, content, callback) {
     ],
     {cancelable: false},
   );
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
+  console.log('1123132123');
 }

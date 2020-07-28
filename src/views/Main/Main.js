@@ -24,7 +24,6 @@ const data = [
   },
   {
     id: '2',
-
     name: 'Plan a trip 1',
     color: '#9933FF',
     todos: [
@@ -46,7 +45,6 @@ const data = [
   },
   {
     id: '4',
-
     name: 'Plan a trip 2',
     color: '#FF6666',
     todos: [
@@ -102,7 +100,9 @@ export class Main extends Component {
           transparent={false}
           onRequestClose={() => console.log('modal close')}>
           <AddList
-            onCloseModal={() => this.setState({modalVisible: !this.state.modalVisible})}
+            onCloseModal={() =>
+              this.setState({modalVisible: !this.state.modalVisible})
+            }
           />
         </Modal>
         <LottieView
