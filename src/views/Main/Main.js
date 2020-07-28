@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, TouchableOpacity, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  ScrollView,
+  Modal,
+} from 'react-native';
 import MainStyle from './Main.Styles';
 import MainController from './Main.Controller';
 import {connect} from 'react-redux';
@@ -7,7 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import LottieView from 'lottie-react-native';
 import TodoList from '../../containers/TodoList';
 import {withTranslation} from 'react-i18next';
-
+import AddList from '../AddList/AddList';
 const data = [
   {
     id: '1',
@@ -81,6 +88,7 @@ export class Main extends Component {
     this.state = {
       data: data,
       error: '',
+      modalVisible: false,
     };
   }
 
@@ -88,6 +96,15 @@ export class Main extends Component {
     const {t, tReady} = this.props;
     return (
       <ScrollView>
+        <Modal
+          animationType="slide"
+          visible={this.state.modalVisible}
+          transparent={false}
+          onRequestClose={() => console.log('modal close')}>
+          <AddList
+            onCloseModal={() => this.setState({modalVisible: !this.state.modalVisible})}
+          />
+        </Modal>
         <LottieView
           style={MainStyle.animationView}
           source={require('../../assets/json/8216-working-room.json')}
@@ -98,7 +115,11 @@ export class Main extends Component {
           <Text style={MainStyle.txtTodo}>
             Todo <Text style={MainStyle.txtLists}>Lists</Text>
           </Text>
-          <TouchableOpacity style={MainStyle.btnAddList}>
+          <TouchableOpacity
+            style={MainStyle.btnAddList}
+            onPress={() =>
+              this.setState({modalVisible: !this.state.modalVisible})
+            }>
             <Icon name="plus-circle" style={MainStyle.iconAdd} />
             <Text style={MainStyle.txtAddList}>{t('Add list')}</Text>
           </TouchableOpacity>
