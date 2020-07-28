@@ -1,10 +1,10 @@
 import {Alert} from 'react-native';
 
 export function AlertApp(title, content, callback) {
+  console.log('qweqweqe');
   console.log('1123132123');
   console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
+  console.log('qweqe');
   console.log('1123132123');
   console.log('1123132123');
   Alert.alert(
@@ -12,11 +12,11 @@ export function AlertApp(title, content, callback) {
     content,
     [
       {
-        text: 'Cancel',
-        onPress: () => callback('Cancel'),
+        text: 'Cancel 2123123',
+        onPress: () => callback('Cancel 123123'),
         style: 'cancel',
       },
-      {text: 'OK', onPress: () => callback('OK')},
+      {text: 'OK', onPress: () => callback('OK 123131231')},
     ],
     {cancelable: false},
   );
@@ -26,17 +26,5 @@ export function AlertApp(title, content, callback) {
   console.log('1123132123');
   console.log('1123132123');
   console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
+  
 }
