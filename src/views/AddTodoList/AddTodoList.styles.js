@@ -10,10 +10,15 @@ const styles = StyleSheet.create({
     marginLeft: 70,
   },
   containerTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  txtTitle: {
     fontWeight: 'bold',
     fontSize: 30,
     alignSelf: 'center',
     marginRight: 20,
+    width: 180,
   },
   containerAddTodo: {
     flexDirection: 'row',
@@ -27,11 +32,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  animBrain: {width: 120, height: 120},
+  animBrain: {width: 120, height: 120, marginRight: 20},
   btnClose: {
     ...styleCommon.Button.btnClose,
   },
-  txtCount: {borderBottomWidth: 3, paddingBottom: 10, borderColor: 'red'},
   flatTodo: {
     marginLeft: 20,
     marginTop: 20,

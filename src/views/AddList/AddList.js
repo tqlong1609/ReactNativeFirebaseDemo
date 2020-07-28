@@ -18,6 +18,7 @@ export class AddList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      listName: '',
       backgroundColor: Const.COLOR_LIST_THEME_TODO[0],
       modalVisible: false,
     };
@@ -50,7 +51,11 @@ export class AddList extends Component {
           visible={this.state.modalVisible}
           transparent={false}
           onRequestClose={() => console.log('modal close')}>
-          <AddTodoList onCloseModal={() => this.changeModalVisible()}/>
+          <AddTodoList
+            listName={this.state.listName}
+            backgroundColor={this.state.backgroundColor}
+            onCloseModal={() => this.changeModalVisible()}
+          />
         </Modal>
         <ScrollView style={stylesAddList.containerScrollView}>
           <LottieView
@@ -62,6 +67,7 @@ export class AddList extends Component {
           <View style={stylesAddList.containerContent}>
             <Text style={stylesAddList.title}>{t('Create Todo List')}</Text>
             <TextInput
+              onChangeText={(listName) => this.setState({listName})}
               style={stylesAddList.inputListName}
               placeholder={t('List Name ?')}
             />

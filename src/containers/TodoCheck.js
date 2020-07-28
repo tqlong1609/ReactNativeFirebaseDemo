@@ -18,16 +18,24 @@ export class TodoCheck extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextStates) {
+    // console.log('nextStates ' + nextStates.state);
+    if (nextStates.state === this.state.state) {
+      return false;
+    }
+    return true;
+  }
+
   changeState = () => {
     this.setState({state: !this.state.state});
+    this.props.parrenFlatlist.updateCountTasks(this.state.state);
   };
   render() {
-    console.log('render1');
     return (
       <View style={{flexDirection: 'row', paddingVertical: 10}}>
         <TouchableOpacity onPress={() => this.changeState()}>
           {this.state.state ? (
-            <Icon name="square" style={{fontSize: 30, marginRight: 20}} />
+            <Icon name="square" style={[{fontSize: 30, marginRight: 20}]} />
           ) : (
             <Icon name="check-square" style={{fontSize: 30, marginRight: 20}} />
           )}
