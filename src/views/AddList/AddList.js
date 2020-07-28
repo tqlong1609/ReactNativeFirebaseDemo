@@ -6,90 +6,76 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-const backgroundColor = [
-  '#5CD859',
-  '#24A6D9',
-  '#595BD9',
-  '#8022D9',
-  '#D159D8',
-  '#D85963',
-  '#D88559',
-];
+import * as Const from '../../lib/const/Color.const';
+import stylesAddList from './AddList.styles';
+import {withTranslation} from 'react-i18next';
+import LottieView from 'lottie-react-native';
 
 export class AddList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      backgroundColor: Const.COLOR_LIST_THEME_TODO[0],
+    };
+  }
   renderColor = () => {
-    return backgroundColor.map((color) => {
+    return Const.COLOR_LIST_THEME_TODO.map((color) => {
       return (
         <TouchableOpacity
           key={color}
+          onPress={() => this.setState({backgroundColor: color})}
           style={[
             {
               backgroundColor: color,
-              width: 30,
-              height: 30,
-              borderRadius: 4,
             },
+            stylesAddList.btnColorChange,
           ]}
         />
       );
     });
   };
   render = () => {
+    const {t, tReady} = this.props;
     return (
-      <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
+      <View style={stylesAddList.container}>
+        <ScrollView style={stylesAddList.containerScrollView}>
+          <LottieView
+            style={stylesAddList.animateWork}
+            source={require('../../assets/json/25216-team-work.json')}
+            autoPlay
+            loop
+          />
+          <View style={stylesAddList.containerContent}>
+            <Text style={stylesAddList.title}>{t('Create Todo List')}</Text>
+            <TextInput
+              style={stylesAddList.inputListName}
+              placeholder={t('List Name ?')}
+            />
+            <View style={stylesAddList.containerListBtnColor}>
+              {this.renderColor()}
+            </View>
+            <TouchableOpacity
+              style={[
+                {
+                  backgroundColor: this.state.backgroundColor,
+                },
+                stylesAddList.btnCreate,
+              ]}>
+              <Text style={stylesAddList.txtCreate}>{t('Create')}</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
         <TouchableOpacity
           onPress={() => this.props.onCloseModal()}
-          style={{position: 'absolute', right: 10, top: 5}}>
-          <Icon name="times" style={{fontSize: 35, color: '#CC0000'}} />
+          style={stylesAddList.btnClose}>
+          <Icon name="times" style={stylesAddList.iconClose} />
         </TouchableOpacity>
-        <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-          <Text
-            style={{
-              alignSelf: 'center',
-              fontWeight: '700',
-              fontSize: 25,
-            }}>
-            Create Todo List
-          </Text>
-          <TextInput
-            style={{
-              borderWidth: StyleSheet.hairlineWidth,
-              width: '80%',
-              paddingHorizontal: 16,
-              fontSize: 15,
-              borderRadius: 6,
-              height: 50,
-              marginTop: 10,
-            }}
-            placeholder="List Name ?"
-          />
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '80%',
-              marginTop: 10,
-            }}>
-            {this.renderColor()}
-          </View>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: 'red',
-              width: '80%',
-              height: 50,
-              marginTop: 10,
-              borderRadius: 6,
-            }}>
-            <Text style={{color: 'white', fontWeight: '700'}}>Create</Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
+      </View>
     );
   };
 }
 
-export default AddList;
+export default withTranslation()(AddList);

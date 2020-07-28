@@ -19,5 +19,8 @@
     "Login with facebook": "Đăng nhập với facebook",
     "Add list":"Thêm công việc",
     "Remaining":"Còn lại",
-    "Completed":"Đã hoàn thành"
+    "Completed":"Đã hoàn thành",
+    "Create Todo List": "Tạo danh sách công việc",
+    "List Name ?": "Tên danh sách ?",
+    "Create":"Tạo"
 }
