@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import TodoCheck from '../../containers/TodoCheck';
 import {TextInput} from 'react-native-gesture-handler';
 import LottieView from 'lottie-react-native';
+import {getId} from '../../lib/utils/GetIdTimer';
 // import TaskTodo from '../../containers/TaskTodo'
 const dataTodo = [
   {id: '1', content: 'Book Flight', isCheck: false},
@@ -39,7 +40,8 @@ export class AddTodoList extends Component {
     this.state = {
       completedCount: 0,
       remainingCount: 0,
-      dataTodos: dataTodo,
+      dataTodos: [],
+      todo: '',
     };
   }
   updateCountTasks = (state) => {
@@ -69,6 +71,13 @@ export class AddTodoList extends Component {
   componentDidMount() {
     this.updateCountTasks(null);
   }
+  addTodo = () => {
+    const id = getId();
+    let {dataTodos} = this.state;
+    dataTodos.push({id: id, content: this.state.todo, isCheck: true});
+    this.updateCountTasks(null);
+    this.setState({todo: ''});
+  };
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -112,12 +121,15 @@ export class AddTodoList extends Component {
           />
           <View style={styles.containerAddTodo}>
             <TextInput
+              value={this.state.todo}
+              onChangeText={(todo) => this.setState({todo})}
               style={[
                 styles.txtAddTodo,
                 {borderColor: this.props.backgroundColor},
               ]}
             />
             <TouchableOpacity
+              onPress={() => this.addTodo()}
               style={[
                 styles.btnAdd,
                 {backgroundColor: this.props.backgroundColor},
