@@ -17,6 +17,11 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  btnClose: {
+    position: 'absolute',
+    right: 10,
+    top: 5,
+  },
 });
 
 export default Styles;

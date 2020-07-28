@@ -9,15 +9,13 @@ import TextInput from './TextInput.Styles';
 import Icon from './Icon.Style';
 import Text from './Test.Styles';
 import Picker from './Picker.styles';
+// import ButtonClose from './ButtonClose.styles';
 const AppStyle = {
   StyleCommon,
-  StyleMain,
-  StyleFlatItemMain,
-  StyleAddItem,
   Button,
   TextInput,
   Icon,
   Text,
-  Picker
+  Picker,
 };
 export default AppStyle;

@@ -5,7 +5,7 @@ import {
   KeyboardAvoidingView,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
+  Modal,
   ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -13,12 +13,13 @@ import * as Const from '../../lib/const/Color.const';
 import stylesAddList from './AddList.styles';
 import {withTranslation} from 'react-i18next';
 import LottieView from 'lottie-react-native';
-
+import AddTodoList from '../AddTodoList/AddTodoList';
 export class AddList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       backgroundColor: Const.COLOR_LIST_THEME_TODO[0],
+      modalVisible: false,
     };
   }
   renderColor = () => {
@@ -37,10 +38,20 @@ export class AddList extends Component {
       );
     });
   };
+  changeModalVisible = () => {
+    this.setState({modalVisible: !this.state.modalVisible});
+  };
   render = () => {
     const {t, tReady} = this.props;
     return (
       <View style={stylesAddList.container}>
+        <Modal
+          animationType="slide"
+          visible={this.state.modalVisible}
+          transparent={false}
+          onRequestClose={() => console.log('modal close')}>
+          <AddTodoList onCloseModal={() => this.changeModalVisible()}/>
+        </Modal>
         <ScrollView style={stylesAddList.containerScrollView}>
           <LottieView
             style={stylesAddList.animateWork}
@@ -58,6 +69,7 @@ export class AddList extends Component {
               {this.renderColor()}
             </View>
             <TouchableOpacity
+              onPress={() => this.changeModalVisible()}
               style={[
                 {
                   backgroundColor: this.state.backgroundColor,

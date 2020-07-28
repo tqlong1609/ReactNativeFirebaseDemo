@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import * as colors from '../../styles/colors';
 import * as sizes from '../../styles/sizes';
-
+import styleCommon from '../../styles';
 const styles = StyleSheet.create({
   btnColorChange: {
     width: sizes.WIDTH_SMALL_1,
@@ -30,12 +30,7 @@ const styles = StyleSheet.create({
     fontSize: sizes.FONT_SIZE_MEDIUM_LARGE_1,
   },
   inputListName: {
-    borderWidth: StyleSheet.hairlineWidth,
-    width: '80%',
-    paddingHorizontal: 16,
-    fontSize: sizes.FONT_SIZE_MEDIUM,
-    borderRadius: sizes.BODER_RADIUS_SMALL_2,
-    height: sizes.HEIGHT_SMALL_2,
+    ...styleCommon.TextInput.txtAddContent,
     marginTop: 10,
   },
   btnCreate: {
@@ -48,9 +43,7 @@ const styles = StyleSheet.create({
   },
   txtCreate: {color: 'white', fontWeight: sizes.FONT_WEIGHT_LARGE},
   btnClose: {
-    position: 'absolute',
-    right: 10,
-    top: 5,
+    ...styleCommon.Button.btnClose,
   },
   iconClose: {
     fontSize: sizes.FONT_SIZE_ICON_MEDIUM,
