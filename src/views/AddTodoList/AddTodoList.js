@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import TodoCheck from '../../containers/TodoCheck';
 import {TextInput} from 'react-native-gesture-handler';
 import LottieView from 'lottie-react-native';
-import {getId} from '../../lib/utils/GetIdTimer';
+import Controller from './AddTodoList.controller';
 // import TaskTodo from '../../containers/TaskTodo'
 const dataTodo = [
   {id: '1', content: 'Book Flight', isCheck: false},
@@ -43,15 +43,10 @@ export class AddTodoList extends Component {
       todo: '',
     };
   }
-  updateCountTasks = () => {
-    const isCheckCount = this.countIsCheck(this.state.dataTodos);
-    this.setState({completedCount: isCheckCount});
-  };
-  countIsCheck = (dataTodos) => {
-    // const {dataTodos} = this.state;
-    const isCheckCount = dataTodos.filter((item) => item.isCheck).length;
-    return isCheckCount;
-  };
+
+  componentDidMount() {
+    Controller.updateCountTasks(this);
+  }
   updateIsCheckItem = (id, value) => {
     let dataTodosNew = this.state.dataTodos;
     dataTodosNew.forEach((element) => {
@@ -59,23 +54,13 @@ export class AddTodoList extends Component {
         element.isCheck = value;
       }
     });
-    const isCheckCount = this.countIsCheck(this.state.dataTodos);
+    const isCheckCount = Controller.countIsCheck(this.state.dataTodos);
     this.setState({dataTodos: dataTodosNew, completedCount: isCheckCount});
-  };
-  componentDidMount() {
-    this.updateCountTasks();
-  }
-  addTodo = () => {
-    const id = getId();
-    let {dataTodos} = this.state;
-    dataTodos.push({id: id, content: this.state.todo, isCheck: true});
-    this.updateIsCheckItem(id, false);
-    this.setState({todo: ''});
   };
   handleDeleteTask = (itemId) => {
     let {dataTodos} = this.state;
     dataTodos = dataTodos.filter((item) => item.id !== itemId);
-    const countIsCheck = this.countIsCheck(dataTodos);
+    const countIsCheck = Controller.countIsCheck(dataTodos);
     this.setState({dataTodos: dataTodos, completedCount: countIsCheck});
   };
   renderItem(item) {
@@ -135,7 +120,7 @@ export class AddTodoList extends Component {
               ]}
             />
             <TouchableOpacity
-              onPress={() => this.addTodo()}
+              onPress={() => Controller.addTodo(this)}
               style={[
                 styles.btnAdd,
                 {backgroundColor: this.props.backgroundColor},
