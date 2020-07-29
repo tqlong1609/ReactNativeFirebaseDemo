@@ -46,14 +46,12 @@ export class TodoCheck extends Component {
               )}
             </TouchableOpacity>
             <Text
-              style={
-                (styles.txtContent,
-                [
-                  this.state.stateCheck
-                    ? {textDecorationLine: 'line-through', color: 'gray'}
-                    : {textDecorationLine: 'none', color: 'black'},
-                ])
-              }>
+              style={[
+                styles.txtContent,
+                this.state.stateCheck
+                  ? {textDecorationLine: 'line-through', color: 'gray'}
+                  : {textDecorationLine: 'none', color: 'black'},
+              ]}>
               {this.state.content}
             </Text>
           </View>

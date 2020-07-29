@@ -1,3 +1,6 @@
+//Todo: xữ lý khi thêm vào firebase thất bại
+//Todo: kiểm tra input đầu vào rổng
+
 import React, {Component} from 'react';
 import {
   Text,
@@ -15,28 +18,9 @@ import LottieView from 'lottie-react-native';
 import Controller from './AddTodoList.controller';
 import {withTranslation} from 'react-i18next';
 import {connect} from 'react-redux';
+import {OverLayLoading} from '../../containers/OverlayLoading';
 
 // import TaskTodo from '../../containers/TaskTodo'
-const dataTodo = [
-  {id: '1', content: 'Book Flight', isCheck: false},
-  {id: '2', content: 'Book Flight 1', isCheck: true},
-  {id: '3', content: 'Book Flight 2', isCheck: false},
-  {id: '4', content: 'Book Flight', isCheck: false},
-  {id: '5', content: 'Book Flight 1', isCheck: true},
-  {id: '6', content: 'Book Flight 2', isCheck: false},
-  {id: '7', content: 'Book Flight', isCheck: false},
-  {id: '8', content: 'Book Flight 1', isCheck: true},
-  {id: '9', content: 'Book Flight 2', isCheck: false},
-  {id: '10', content: 'Book Flight', isCheck: false},
-  {id: '11', content: 'Book Flight 1', isCheck: true},
-  {id: '12', content: 'Book Flight 2', isCheck: false},
-  {id: '13', content: 'Book Flight', isCheck: false},
-  {id: '14', content: 'Book Flight 1', isCheck: true},
-  {id: '15', content: 'Book Flight 2', isCheck: false},
-  {id: '16', content: 'Book Flight', isCheck: false},
-  {id: '17', content: 'Book Flight 1', isCheck: true},
-  {id: '18', content: 'Book Flight 2', isCheck: false},
-];
 export class AddTodoList extends Component {
   constructor(props) {
     super(props);
@@ -44,9 +28,28 @@ export class AddTodoList extends Component {
       completedCount: 0,
       dataTodos: [],
       todo: '',
+      isLoading: false,
+      isSuccess: false,
+      errorMessage: '',
     };
   }
-
+  shouldComponentUpdate(nextProps, nextState) {
+    return Controller.checkAddTodo(this, nextProps, nextState);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.isLoading) {
+      Controller.hideLoading(this);
+    }
+  }
+  static getDerivedStateFromProps(_props, _state) {
+    if (
+      _props.errorMessage === _state.errorMessage ||
+      _state.errorMessage === ''
+    ) {
+      return {errorMessage: _props.errorMessage, isSuccess: _props.isSuccess};
+    }
+    return null;
+  }
   componentDidMount() {
     Controller.updateCountTasks(this);
   }
@@ -80,9 +83,10 @@ export class AddTodoList extends Component {
   }
   render() {
     const {t, tReady} = this.props;
-    console.log('uid prop: ' + this.props.uid);
+    // console.log('hello: ' + this.props.isSuccess);
     return (
       <SafeAreaView style={styles.container}>
+        {this.state.isLoading && <OverLayLoading />}
         <View style={styles.containerContent}>
           <View style={styles.containerHeader}>
             <View style={styles.containerTitle}>
@@ -135,14 +139,7 @@ export class AddTodoList extends Component {
           </View>
         </View>
         <TouchableOpacity
-          onPress={() =>
-            this.props.saveDataTodos({
-              uid: this.props.uid,
-              listName: this.props.listName,
-              backgroundColor: this.props.backgroundColor,
-              listTodo: this.state.dataTodos,
-            })
-          }
+          onPress={() => Controller.onAddTodo(this)}
           style={styles.btnSave}>
           <Icon name="save" style={styles.iconSave} />
         </TouchableOpacity>
