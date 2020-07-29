@@ -6,7 +6,7 @@ import {combineReducers} from 'redux';
 import AddTodoListReducer from './addTodoListReducer';
 const reducers = combineReducers({
   login: LoginReducer,
-  signUp: SignUpReducer,
+  // signUp: SignUpReducer,
   addItem: AddItemReducer,
   main: MainReducer,
   addTodoList: AddTodoListReducer,

@@ -16,8 +16,9 @@ class HandleSignUp {
 
   mapStateToProps = (state) => {
     return {
-      errorMessage: state.signUp.error,
-      isSignUp: state.signUp.isSignUp,
+      // uid: state.login.uid,
+      errorMessage: state.login.errorSignUp,
+      isSignUp: state.login.logined,
     };
   };
 

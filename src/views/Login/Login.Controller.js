@@ -58,7 +58,7 @@ class HandleLogin {
   };
   mapStateToProps = (state) => {
     return {
-      error: state.login.error,
+      error: state.login.errorLogin,
       logined: state.login.logined,
     };
   };

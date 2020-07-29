@@ -27,6 +27,7 @@ class HandleAddTodoList {
     return {
       error: state.addTodoList.error,
       isSuccess: state.addTodoList.isSuccess,
+      uid: state.login.uid,
     };
   };
 }

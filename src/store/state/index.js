@@ -5,7 +5,7 @@ import MainState from './mainState';
 import AddTodoList from './addTodoListState';
 const State = {
   LoginState,
-  SignUpState,
+  // SignUpState,
   AddItemState,
   MainState,
   AddTodoList,

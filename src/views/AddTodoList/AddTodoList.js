@@ -80,7 +80,7 @@ export class AddTodoList extends Component {
   }
   render() {
     const {t, tReady} = this.props;
-
+    console.log('uid prop: ' + this.props.uid);
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.containerContent}>
@@ -135,7 +135,14 @@ export class AddTodoList extends Component {
           </View>
         </View>
         <TouchableOpacity
-          // onPress={() => this.props.onCloseModal()}
+          onPress={() =>
+            this.props.saveDataTodos({
+              uid: this.props.uid,
+              listName: this.props.listName,
+              backgroundColor: this.props.backgroundColor,
+              listTodo: this.state.dataTodos,
+            })
+          }
           style={styles.btnSave}>
           <Icon name="save" style={styles.iconSave} />
         </TouchableOpacity>

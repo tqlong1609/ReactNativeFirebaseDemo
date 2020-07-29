@@ -1,1 +1,8 @@
-export const loginState = {email: '', password: '', error: '', logined: false};
+export const loginState = {
+  email: '',
+  password: '',
+  errorLogin: '',
+  errorSignUp: '',
+  logined: false,
+  uid: '',
+};
