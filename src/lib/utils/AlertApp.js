@@ -2,11 +2,10 @@ import {Alert} from 'react-native';
 
 export function AlertApp(title, content, callback) {
   console.log('qweqweqe');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('qweqe');
-  console.log('1123132123');
-  console.log('1123132123');
+  console.log('Tao sua');
+  console.log('Tao sua');
+  console.log('Tao sua');
+  console.log('Tao sua');
   Alert.alert(
     title,
     content,
@@ -20,23 +19,8 @@ export function AlertApp(title, content, callback) {
     ],
     {cancelable: false},
   );
-  console.log('1123132123');
-  console.log('asdasd');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('asd');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('asd');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('asdasd');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
-  console.log('1123132123');
+  console.log('Tao sua');
+  console.log('Tao sua');
+
+  
 }
