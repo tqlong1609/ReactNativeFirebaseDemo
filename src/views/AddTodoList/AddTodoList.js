@@ -39,45 +39,57 @@ export class AddTodoList extends Component {
     super(props);
     this.state = {
       completedCount: 0,
-      remainingCount: 0,
       dataTodos: [],
       todo: '',
     };
   }
-  updateCountTasks = (state) => {
-    switch (state) {
-      case null:
-        const completedCount = this.state.dataTodos.filter(
-          (todo) => !todo.isCheck,
-        ).length;
-        const remainingCount = this.state.dataTodos.length;
-        this.setState({
-          completedCount: completedCount,
-          remainingCount: remainingCount,
-        });
-        break;
-      case false:
-        this.setState({
-          completedCount: this.state.completedCount - 1,
-        });
-        break;
-      case true:
-        this.setState({
-          completedCount: this.state.completedCount + 1,
-        });
-        break;
-    }
+  updateCountTasks = () => {
+    const isCheckCount = this.countIsCheck(this.state.dataTodos);
+    this.setState({completedCount: isCheckCount});
+  };
+  countIsCheck = (dataTodos) => {
+    // const {dataTodos} = this.state;
+    const isCheckCount = dataTodos.filter((item) => item.isCheck).length;
+    return isCheckCount;
+  };
+  updateIsCheckItem = (id, value) => {
+    let dataTodosNew = this.state.dataTodos;
+    dataTodosNew.forEach((element) => {
+      if (element.id === id) {
+        element.isCheck = value;
+      }
+    });
+    const isCheckCount = this.countIsCheck(this.state.dataTodos);
+    this.setState({dataTodos: dataTodosNew, completedCount: isCheckCount});
   };
   componentDidMount() {
-    this.updateCountTasks(null);
+    this.updateCountTasks();
   }
   addTodo = () => {
     const id = getId();
     let {dataTodos} = this.state;
     dataTodos.push({id: id, content: this.state.todo, isCheck: true});
-    this.updateCountTasks(null);
+    this.updateIsCheckItem(id, false);
     this.setState({todo: ''});
   };
+  handleDeleteTask = (itemId) => {
+    let {dataTodos} = this.state;
+    dataTodos = dataTodos.filter((item) => item.id !== itemId);
+    const countIsCheck = this.countIsCheck(dataTodos);
+    this.setState({dataTodos: dataTodos, completedCount: countIsCheck});
+  };
+  renderItem(item) {
+    return (
+      <TodoCheck
+        id={item.id}
+        stateCheck={item.isCheck}
+        content={item.content}
+        updateIsCheckItem={this.updateIsCheckItem}
+        handleDeleteTask={this.handleDeleteTask}
+        backgroundColor={this.props.backgroundColor}
+      />
+    );
+  }
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -103,7 +115,7 @@ export class AddTodoList extends Component {
                   color: this.props.backgroundColor,
                 },
               ]}>
-              {this.state.completedCount} of {this.state.remainingCount} tasks
+              {this.state.completedCount} of {this.state.dataTodos.length} tasks
             </Text>
           </View>
           <FlatList
@@ -111,13 +123,7 @@ export class AddTodoList extends Component {
             data={this.state.dataTodos}
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item) => item.id}
-            renderItem={({item}) => (
-              <TodoCheck
-                state={item.isCheck}
-                content={item.content}
-                parrenFlatlist={this}
-              />
-            )}
+            renderItem={({item}) => this.renderItem(item)}
           />
           <View style={styles.containerAddTodo}>
             <TextInput
