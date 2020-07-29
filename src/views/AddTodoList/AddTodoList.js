@@ -13,6 +13,9 @@ import TodoCheck from '../../containers/TodoCheck';
 import {TextInput} from 'react-native-gesture-handler';
 import LottieView from 'lottie-react-native';
 import Controller from './AddTodoList.controller';
+import {withTranslation} from 'react-i18next';
+import {connect} from 'react-redux';
+
 // import TaskTodo from '../../containers/TaskTodo'
 const dataTodo = [
   {id: '1', content: 'Book Flight', isCheck: false},
@@ -76,6 +79,8 @@ export class AddTodoList extends Component {
     );
   }
   render() {
+    const {t, tReady} = this.props;
+
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.containerContent}>
@@ -130,6 +135,11 @@ export class AddTodoList extends Component {
           </View>
         </View>
         <TouchableOpacity
+          // onPress={() => this.props.onCloseModal()}
+          style={styles.btnSave}>
+          <Icon name="save" style={styles.iconSave} />
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => this.props.onCloseModal()}
           style={styles.btnClose}>
           <Icon name="times" style={styles.iconClose} />
@@ -138,5 +148,7 @@ export class AddTodoList extends Component {
     );
   }
 }
-
-export default AddTodoList;
+export default connect(
+  Controller.mapStateToProps,
+  Controller.mapDispatchToProps,
+)(withTranslation()(AddTodoList));

@@ -6,3 +6,5 @@ export const FACEBOOK = '#4267B2';
 export const SHINING_FACEBOOK = '#6482C0';
 export const TEXT_HEADER = 'white';
 export const ICON_CLOSE = '#CC0000';
+export const ICON_SAVE = 'white';
+

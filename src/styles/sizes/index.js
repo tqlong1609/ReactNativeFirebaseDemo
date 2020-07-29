@@ -25,6 +25,8 @@ export const HEIGHT_SMALL_MEDIUM = 50;
 export const WIDTH_SMALL_1 = 30;
 export const HEIGHT_SMALL_1 = 30;
 export const HEIGHT_SMALL_2 = 50;
+export const WIDTH_SMALL_3 = 60;
+export const HEIGHT_SMALL_3 = 60;
 
 export const WIDTH_MEDIUM = 300;
 export const HEIGHT_MEDIUM = 250;

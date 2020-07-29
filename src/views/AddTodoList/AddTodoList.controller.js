@@ -1,5 +1,5 @@
 import {getId} from '../../lib/utils/GetIdTimer';
-
+import {saveTodos} from '../../store/actionTypes/AddTodoList.action';
 class HandleAddTodoList {
   updateCountTasks = (context) => {
     const isCheckCount = this.countIsCheck(context.state.dataTodos);
@@ -17,7 +17,18 @@ class HandleAddTodoList {
     context.updateIsCheckItem(id, false);
     context.setState({todo: ''});
   };
-  
+
+  mapDispatchToProps = (dispatch) => {
+    return {
+      saveDataTodos: (todos) => saveTodos(dispatch, todos),
+    };
+  };
+  mapStateToProps = (state) => {
+    return {
+      error: state.addTodoList.error,
+      isSuccess: state.addTodoList.isSuccess,
+    };
+  };
 }
 
 export default new HandleAddTodoList();

@@ -1,4 +1,3 @@
-
 import * as Const from '../../lib/const/Languages.const';
 import i18n from '../../lib/locales/i18n';
 import {MAIN_SCREEN} from '../../lib/const/Screen.const';
@@ -9,15 +8,6 @@ import {
   onClickFacebook,
 } from '../../store/actionTypes/Login.action';
 class HandleLogin {
-  mapDispatchToProps = (dispatch) => {
-    return {
-      resetData: () => resetData(dispatch),
-      onSignIn: (emailVal, passwordVal) =>
-        onSignIn(dispatch, emailVal, passwordVal),
-      onClickFacebook: () => onClickFacebook(dispatch),
-    };
-  };
-
   checkLogin = (context, nextProps, nextState) => {
     if (nextProps.logined) {
       nextState.isLoading = false;
@@ -58,7 +48,14 @@ class HandleLogin {
     context.props.resetData();
     context.props.onClickFacebook();
   };
-
+  mapDispatchToProps = (dispatch) => {
+    return {
+      resetData: () => resetData(dispatch),
+      onSignIn: (emailVal, passwordVal) =>
+        onSignIn(dispatch, emailVal, passwordVal),
+      onClickFacebook: () => onClickFacebook(dispatch),
+    };
+  };
   mapStateToProps = (state) => {
     return {
       error: state.login.error,
