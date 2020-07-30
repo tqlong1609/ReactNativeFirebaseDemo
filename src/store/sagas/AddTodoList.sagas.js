@@ -21,5 +21,18 @@ function* saveData(dispatch) {
     yield put({type: SAVE_TODOS_ASYN_FAIL, value: error});
   }
 }
+function* editData(dispatch) {
+  try {
+    const response = yield call(FirebaseServices.updateData, dispatch.values);
+    console.log(response);
+    yield put({
+      type: SAVE_TODOS_ASYN_SUCCESS,
+    });
+  } catch (error) {
+    console.log(error);
 
-export {saveData};
+    yield put({type: SAVE_TODOS_ASYN_FAIL, value: error});
+  }
+}
+
+export {saveData, editData};

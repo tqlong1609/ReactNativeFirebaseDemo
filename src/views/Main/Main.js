@@ -98,9 +98,10 @@ export class Main extends Component {
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => (
               <TodoList
-                idDelete={item.id}
+                idChoose={item.id}
                 uid={this.props.uid}
                 name={item.data.listName}
+                listTodo={item.data.listTodo}
                 color={item.data.backgroundColor}
                 todos={item.data.listTodo}
               />

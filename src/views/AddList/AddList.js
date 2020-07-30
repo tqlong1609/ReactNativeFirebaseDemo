@@ -54,6 +54,8 @@ export class AddList extends Component {
           <AddTodoList
             listName={this.state.listName}
             backgroundColor={this.state.backgroundColor}
+            data={[]}
+            isEdit={false}
             onCloseModal={() => this.changeModalVisible()}
           />
         </Modal>

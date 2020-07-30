@@ -7,6 +7,7 @@ import {
   SIGN_IN_WITH_FACEBOOK,
   SAVE_TODOS,
   DELETE_TODO,
+  EDIT_TODO
 } from '../../store/actionTypes/action.const';
 
 import * as Login from './Login.Sagas';
@@ -22,6 +23,7 @@ const rootSaga = function* someSaga() {
   yield takeEvery(SIGN_UP, SignUp.signUp);
   yield takeEvery(ADD_ITEM, AddItem.addItemWithFirebase);
   yield takeEvery(LOAD_DATA, Main.loadData);
+  yield takeEvery(EDIT_TODO, AddTodoList.editData);
   yield takeEvery(SAVE_TODOS, AddTodoList.saveData);
   yield takeEvery(DELETE_TODO, TodoList.deleteTodo);
 };

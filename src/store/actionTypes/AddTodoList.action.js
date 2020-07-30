@@ -3,6 +3,7 @@ import {
   RESET_STATE_SAVE_TODOS,
   RESET_IS_LOAD,
   RESET_IS_SUCCESS_DELETE,
+  EDIT_TODO,
 } from './action.const';
 
 export const saveTodos = (dispatch, todos) => {
@@ -23,5 +24,12 @@ export const resetUpdateData = (dispatch) => {
   });
   dispatch({
     type: RESET_IS_SUCCESS_DELETE,
+  });
+};
+
+export const editDataTodos = (dispatch, todos) => {
+  dispatch({
+    type: EDIT_TODO,
+    values: todos,
   });
 };

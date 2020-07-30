@@ -1,13 +1,23 @@
 import React, {Component} from 'react';
-import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+import {Text, View, TouchableOpacity, StyleSheet, Modal} from 'react-native';
 import {withTranslation} from 'react-i18next';
 import Controller from './TodoList.controller';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {connect} from 'react-redux';
+import AddTodoList from '../views/AddTodoList/AddTodoList';
 
 export class TodoList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalVisible: false,
+    };
+  }
   deleteTodo = () => {
-    this.props.onDelete(this.props.uid, this.props.idDelete);
+    this.props.onDelete(this.props.uid, this.props.idChoose);
+  };
+  changeModalVisible = () => {
+    this.setState({modalVisible: !this.state.modalVisible});
   };
   render() {
     const {t, tReady} = this.props;
@@ -15,13 +25,29 @@ export class TodoList extends Component {
       .length;
     const remainingCount = this.props.todos.length - completedCount;
     return (
-      <View
+      <TouchableOpacity
+        onPress={() => this.changeModalVisible()}
         style={[
           styles.container,
           {
             backgroundColor: this.props.color,
           },
         ]}>
+        <Modal
+          animationType="slide"
+          visible={this.state.modalVisible}
+          transparent={false}
+          onRequestClose={() => console.log('modal close')}>
+          <AddTodoList
+            listName={this.props.name}
+            data={[{content: 'A', id: '1596127222425', isCheck: true}]}
+            backgroundColor={this.props.color}
+            idChoose={this.props.idChoose}
+            listTodo={this.props.listTodo}
+            isEdit={true}
+            onCloseModal={() => this.changeModalVisible()}
+          />
+        </Modal>
         <TouchableOpacity onPressIn={() => this.deleteTodo()}>
           <Icon name="times" style={styles.iconDelete} />
         </TouchableOpacity>
@@ -36,7 +62,7 @@ export class TodoList extends Component {
           <Text style={styles.count}>{completedCount}</Text>
           <Text style={styles.txtContent}>{t('Completed')}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }

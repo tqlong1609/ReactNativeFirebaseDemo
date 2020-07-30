@@ -81,7 +81,6 @@ class FirebaseServices {
     return firebase.database().ref(node);
   };
   deleteData = (dispatch) => {
-    // console.log('dispatch: ' + JSON.stringify(dispatch));
     const node =
       Const.NameUserRoot +
       '/Profile/' +
@@ -92,6 +91,20 @@ class FirebaseServices {
       .database()
       .ref(node)
       .remove()
+      .then((response) => response);
+  };
+  updateData = (dispatch) => {
+    const node =
+      Const.NameUserRoot +
+      '/Profile/' +
+      dispatch.uid +
+      '/ListTodo/' +
+      dispatch.idChoose +
+      '/listTodo/';
+    return firebase
+      .database()
+      .ref(node)
+      .set(dispatch.listTodo)
       .then((response) => response);
   };
 }

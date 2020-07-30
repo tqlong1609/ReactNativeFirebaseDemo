@@ -1,5 +1,9 @@
 import {getId} from '../../lib/utils/GetIdTimer';
-import {saveTodos, resetData} from '../../store/actionTypes/AddTodoList.action';
+import {
+  saveTodos,
+  resetData,
+  editDataTodos,
+} from '../../store/actionTypes/AddTodoList.action';
 class HandleAddTodoList {
   updateCountTasks = (context) => {
     const isCheckCount = this.countIsCheck(context.state.dataTodos);
@@ -34,18 +38,33 @@ class HandleAddTodoList {
     return {
       resetData: () => resetData(dispatch),
       saveDataTodos: (todos) => saveTodos(dispatch, todos),
+      editDataTodos: (todos) => editDataTodos(dispatch, todos),
     };
   };
   onAddTodo = (context) => {
     try {
-      context.setState({isLoading: true, error: ''});
-      context.props.resetData();
-      context.props.saveDataTodos({
-        uid: context.props.uid,
-        listName: context.props.listName,
-        backgroundColor: context.props.backgroundColor,
-        listTodo: context.state.dataTodos,
-      });
+      // add todoList
+      if (!context.props.isEdit) {
+        context.setState({isLoading: true, error: ''});
+        context.props.resetData();
+        context.props.saveDataTodos({
+          uid: context.props.uid,
+          listName: context.props.listName,
+          backgroundColor: context.props.backgroundColor,
+          listTodo: context.state.dataTodos,
+        });
+      } // edit todoList
+      else {
+        context.setState({isLoading: true, error: ''});
+        context.props.resetData();
+        context.props.editDataTodos({
+          uid: context.props.uid,
+          listName: context.props.listName,
+          backgroundColor: context.props.backgroundColor,
+          listTodo: context.state.dataTodos,
+          idChoose: context.props.idChoose,
+        });
+      }
     } catch (error) {
       let errorMessage = error.toString();
       console.log(errorMessage);

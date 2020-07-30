@@ -42,6 +42,9 @@ export class AddTodoList extends Component {
     }
   }
   static getDerivedStateFromProps(_props, _state) {
+    if (_props.data.length !== 0) {
+      return {dataTodos: _props.listTodo};
+    }
     if (
       _props.errorMessage === _state.errorMessage ||
       _state.errorMessage === ''
@@ -83,7 +86,6 @@ export class AddTodoList extends Component {
   }
   render() {
     const {t, tReady} = this.props;
-    // console.log('hello: ' + this.props.isSuccess);
     return (
       <SafeAreaView style={styles.container}>
         {this.state.isLoading && <OverLayLoading />}
