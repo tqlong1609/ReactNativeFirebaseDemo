@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
   btnClose: {
     ...styleCommon.Button.btnClose,
   },
+  btnSave: {
+    ...styleCommon.Button.btnSave,
+  },
   flatTodo: {
     marginLeft: 20,
     marginTop: 20,
@@ -43,6 +46,10 @@ const styles = StyleSheet.create({
   iconClose: {
     fontSize: sizes.FONT_SIZE_ICON_MEDIUM,
     color: colors.ICON_CLOSE,
+  },
+  iconSave: {
+    fontSize: sizes.FONT_SIZE_ICON_MEDIUM,
+    color: colors.ICON_SAVE,
   },
   txtAddTodo: {
     ...styleCommon.TextInput.txtAddContent,

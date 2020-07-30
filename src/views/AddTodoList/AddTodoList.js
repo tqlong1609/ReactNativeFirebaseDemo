@@ -1,3 +1,6 @@
+//Todo: xữ lý khi thêm vào firebase thất bại
+//Todo: kiểm tra input đầu vào rổng
+
 import React, {Component} from 'react';
 import {
   Text,
@@ -12,75 +15,78 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import TodoCheck from '../../containers/TodoCheck';
 import {TextInput} from 'react-native-gesture-handler';
 import LottieView from 'lottie-react-native';
-import {getId} from '../../lib/utils/GetIdTimer';
+import Controller from './AddTodoList.controller';
+import {withTranslation} from 'react-i18next';
+import {connect} from 'react-redux';
+import {OverLayLoading} from '../../containers/OverlayLoading';
+
 // import TaskTodo from '../../containers/TaskTodo'
-const dataTodo = [
-  {id: '1', content: 'Book Flight', isCheck: false},
-  {id: '2', content: 'Book Flight 1', isCheck: true},
-  {id: '3', content: 'Book Flight 2', isCheck: false},
-  {id: '4', content: 'Book Flight', isCheck: false},
-  {id: '5', content: 'Book Flight 1', isCheck: true},
-  {id: '6', content: 'Book Flight 2', isCheck: false},
-  {id: '7', content: 'Book Flight', isCheck: false},
-  {id: '8', content: 'Book Flight 1', isCheck: true},
-  {id: '9', content: 'Book Flight 2', isCheck: false},
-  {id: '10', content: 'Book Flight', isCheck: false},
-  {id: '11', content: 'Book Flight 1', isCheck: true},
-  {id: '12', content: 'Book Flight 2', isCheck: false},
-  {id: '13', content: 'Book Flight', isCheck: false},
-  {id: '14', content: 'Book Flight 1', isCheck: true},
-  {id: '15', content: 'Book Flight 2', isCheck: false},
-  {id: '16', content: 'Book Flight', isCheck: false},
-  {id: '17', content: 'Book Flight 1', isCheck: true},
-  {id: '18', content: 'Book Flight 2', isCheck: false},
-];
 export class AddTodoList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       completedCount: 0,
-      remainingCount: 0,
       dataTodos: [],
       todo: '',
+      isLoading: false,
+      isSuccess: false,
+      errorMessage: '',
     };
   }
-  updateCountTasks = (state) => {
-    switch (state) {
-      case null:
-        const completedCount = this.state.dataTodos.filter(
-          (todo) => !todo.isCheck,
-        ).length;
-        const remainingCount = this.state.dataTodos.length;
-        this.setState({
-          completedCount: completedCount,
-          remainingCount: remainingCount,
-        });
-        break;
-      case false:
-        this.setState({
-          completedCount: this.state.completedCount - 1,
-        });
-        break;
-      case true:
-        this.setState({
-          completedCount: this.state.completedCount + 1,
-        });
-        break;
-    }
-  };
-  componentDidMount() {
-    this.updateCountTasks(null);
+  shouldComponentUpdate(nextProps, nextState) {
+    return Controller.checkAddTodo(this, nextProps, nextState);
   }
-  addTodo = () => {
-    const id = getId();
-    let {dataTodos} = this.state;
-    dataTodos.push({id: id, content: this.state.todo, isCheck: true});
-    this.updateCountTasks(null);
-    this.setState({todo: ''});
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.isLoading) {
+      Controller.hideLoading(this);
+    }
+  }
+  static getDerivedStateFromProps(_props, _state) {
+    if (
+      _props.errorMessage === _state.errorMessage ||
+      _state.errorMessage === ''
+    ) {
+      return {errorMessage: _props.errorMessage, isSuccess: _props.isSuccess};
+    }
+    return null;
+  }
+  componentDidMount() {
+    Controller.updateCountTasks(this);
+  }
+  updateIsCheckItem = (id, value) => {
+    let dataTodosNew = this.state.dataTodos;
+    dataTodosNew.forEach((element) => {
+      if (element.id === id) {
+        element.isCheck = value;
+      }
+    });
+    const isCheckCount = Controller.countIsCheck(this.state.dataTodos);
+    this.setState({dataTodos: dataTodosNew, completedCount: isCheckCount});
   };
+  handleDeleteTask = (itemId) => {
+    let {dataTodos} = this.state;
+    dataTodos = dataTodos.filter((item) => item.id !== itemId);
+    const countIsCheck = Controller.countIsCheck(dataTodos);
+    this.setState({dataTodos: dataTodos, completedCount: countIsCheck});
+  };
+  renderItem(item) {
+    return (
+      <TodoCheck
+        id={item.id}
+        stateCheck={item.isCheck}
+        content={item.content}
+        updateIsCheckItem={this.updateIsCheckItem}
+        handleDeleteTask={this.handleDeleteTask}
+        backgroundColor={this.props.backgroundColor}
+      />
+    );
+  }
   render() {
+    const {t, tReady} = this.props;
+    // console.log('hello: ' + this.props.isSuccess);
     return (
       <SafeAreaView style={styles.container}>
+        {this.state.isLoading && <OverLayLoading />}
         <View style={styles.containerContent}>
           <View style={styles.containerHeader}>
             <View style={styles.containerTitle}>
@@ -103,7 +109,7 @@ export class AddTodoList extends Component {
                   color: this.props.backgroundColor,
                 },
               ]}>
-              {this.state.completedCount} of {this.state.remainingCount} tasks
+              {this.state.completedCount} of {this.state.dataTodos.length} tasks
             </Text>
           </View>
           <FlatList
@@ -111,13 +117,7 @@ export class AddTodoList extends Component {
             data={this.state.dataTodos}
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item) => item.id}
-            renderItem={({item}) => (
-              <TodoCheck
-                state={item.isCheck}
-                content={item.content}
-                parrenFlatlist={this}
-              />
-            )}
+            renderItem={({item}) => this.renderItem(item)}
           />
           <View style={styles.containerAddTodo}>
             <TextInput
@@ -129,7 +129,7 @@ export class AddTodoList extends Component {
               ]}
             />
             <TouchableOpacity
-              onPress={() => this.addTodo()}
+              onPress={() => Controller.addTodo(this)}
               style={[
                 styles.btnAdd,
                 {backgroundColor: this.props.backgroundColor},
@@ -139,6 +139,11 @@ export class AddTodoList extends Component {
           </View>
         </View>
         <TouchableOpacity
+          onPress={() => Controller.onAddTodo(this)}
+          style={styles.btnSave}>
+          <Icon name="save" style={styles.iconSave} />
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => this.props.onCloseModal()}
           style={styles.btnClose}>
           <Icon name="times" style={styles.iconClose} />
@@ -147,5 +152,7 @@ export class AddTodoList extends Component {
     );
   }
 }
-
-export default AddTodoList;
+export default connect(
+  Controller.mapStateToProps,
+  Controller.mapDispatchToProps,
+)(withTranslation()(AddTodoList));

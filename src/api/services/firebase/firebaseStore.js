@@ -52,13 +52,29 @@ class FirebaseServices {
       })
       .then((response) => response);
   };
-  pushData = (data) => {
-    const dataPush = {Profile: data};
+  saveSetOnFirebase = (data, node) => {
     return firebase
       .database()
-      .ref(Const.NameUserRoot)
-      .push(dataPush)
+      .ref(node)
+      .set(data)
       .then((response) => response);
+  };
+  savePushOnFirebase = (data, node) => {
+    return firebase
+      .database()
+      .ref(node)
+      .push(data)
+      .then((response) => response);
+  };
+  pushData = (data) => {
+    // const dataPush = {Profile: data};
+    const node = Const.NameUserRoot + '/' + 'Profile/' + data.uid;
+    this.saveSetOnFirebase(data, node);
+  };
+  saveDataTodo = (data) => {
+    // const dataPushTodo = {ListToDo: data};
+    const node = Const.NameUserRoot + '/Profile/' + data.uid + '/ListTodo/';
+    this.savePushOnFirebase(data, node);
   };
   loadData = () => {
     return firebase.database().ref(Const.NameRoot);

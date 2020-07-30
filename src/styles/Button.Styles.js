@@ -22,6 +22,17 @@ const Styles = StyleSheet.create({
     right: 10,
     top: 5,
   },
+  btnSave: {
+    position: 'absolute',
+    left: 10,
+    top: 5,
+    backgroundColor: Colors.BACKGROUND_SCREEN,
+    width: Sizes.WIDTH_SMALL_3,
+    height: Sizes.HEIGHT_SMALL_3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: Sizes.BODER_MEDIUM,
+  },
 });
 
 export default Styles;

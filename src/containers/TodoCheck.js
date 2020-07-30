@@ -1,54 +1,61 @@
 import React, {Component} from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity, Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
+import TodoCheckController from './TodoCheck.controller';
+import styles from './TodoCheck.styles';
 export class TodoCheck extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      state: null,
-      content: null,
-    };
+    this.state = {stateCheck: null, content: null, id: null};
+    TodoCheckController.handleAnimationDelete(this);
   }
+
   static getDerivedStateFromProps(_props, _state) {
-    if (_state.state === null || _state.content === null) {
-      return {state: _props.state, content: _props.content};
-    } else {
-      return null;
-    }
+    return TodoCheckController.getPropsToState(_props, _state);
   }
 
   shouldComponentUpdate(nextProps, nextStates) {
-    // console.log('nextStates ' + nextStates.state);
-    if (nextStates.state === this.state.state) {
-      return false;
-    }
-    return true;
+    return TodoCheckController.checkUpdateRender(this, nextProps, nextStates);
   }
 
-  changeState = () => {
-    this.setState({state: !this.state.state});
-    this.props.parrenFlatlist.updateCountTasks(this.state.state);
-  };
   render() {
     return (
-      <View style={{flexDirection: 'row', paddingVertical: 10}}>
-        <TouchableOpacity onPress={() => this.changeState()}>
-          {this.state.state ? (
-            <Icon name="square" style={[{fontSize: 30, marginRight: 20}]} />
-          ) : (
-            <Icon name="check-square" style={{fontSize: 30, marginRight: 20}} />
-          )}
-        </TouchableOpacity>
-        <Text
-          style={[
-            {alignSelf: 'center', fontWeight: '700'},
-            !this.state.state
-              ? {textDecorationLine: 'line-through', color: 'gray'}
-              : {textDecorationLine: 'none', color: 'black'},
-          ]}>
-          {this.state.content}
-        </Text>
+      <View>
+        <View style={styles.containerTxtdelete}>
+          <Text
+            style={[
+              styles.txtDelete,
+              {
+                backgroundColor: this.props.backgroundColor,
+              },
+            ]}>
+            Delete
+          </Text>
+        </View>
+        <Animated.View
+          ref="task"
+          style={styles.containerAnimated}
+          {...this.panResponder.panHandlers}>
+          <View style={styles.containerContentItem}>
+            <TouchableOpacity
+              onPress={() => TodoCheckController.changeState(this)}>
+              {!this.state.stateCheck ? (
+                <Icon name="square" style={styles.iconCheck} />
+              ) : (
+                <Icon name="check-square" style={styles.iconCheck} />
+              )}
+            </TouchableOpacity>
+            <Text
+              style={[
+                styles.txtContent,
+                this.state.stateCheck
+                  ? {textDecorationLine: 'line-through', color: 'gray'}
+                  : {textDecorationLine: 'none', color: 'black'},
+              ]}>
+              {this.state.content}
+            </Text>
+          </View>
+        </Animated.View>
       </View>
     );
   }
