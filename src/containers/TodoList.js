@@ -1,3 +1,4 @@
+//Todo: translate
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet, Modal} from 'react-native';
 import {withTranslation} from 'react-i18next';
@@ -5,7 +6,7 @@ import Controller from './TodoList.controller';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {connect} from 'react-redux';
 import AddTodoList from '../views/AddTodoList/AddTodoList';
-
+import styles from './TodoList.styles';
 export class TodoList extends Component {
   constructor(props) {
     super(props);
@@ -13,12 +14,7 @@ export class TodoList extends Component {
       modalVisible: false,
     };
   }
-  deleteTodo = () => {
-    this.props.onDelete(this.props.uid, this.props.idChoose);
-  };
-  changeModalVisible = () => {
-    this.setState({modalVisible: !this.state.modalVisible});
-  };
+
   render() {
     const {t, tReady} = this.props;
     const completedCount = this.props.todos.filter((todo) => todo.isCheck)
@@ -26,7 +22,7 @@ export class TodoList extends Component {
     const remainingCount = this.props.todos.length - completedCount;
     return (
       <TouchableOpacity
-        onPress={() => this.changeModalVisible()}
+        onPress={() => Controller.changeModalVisible(this)}
         style={[
           styles.container,
           {
@@ -45,10 +41,10 @@ export class TodoList extends Component {
             idChoose={this.props.idChoose}
             listTodo={this.props.listTodo}
             isEdit={true}
-            onCloseModal={() => this.changeModalVisible()}
+            onCloseModal={() => Controller.changeModalVisible(this)}
           />
         </Modal>
-        <TouchableOpacity onPressIn={() => this.deleteTodo()}>
+        <TouchableOpacity onPressIn={() => Controller.deleteTodo(this)}>
           <Icon name="times" style={styles.iconDelete} />
         </TouchableOpacity>
         <Text numberOfLines={1} style={styles.title}>
@@ -66,29 +62,7 @@ export class TodoList extends Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {width: 200, marginHorizontal: 12, borderRadius: 6},
-  iconDelete: {fontSize: 30, paddingTop: 5, paddingLeft: 5, color: '#CC0000'},
-  title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: 'white',
-    alignSelf: 'center',
-  },
-  containerContent: {
-    alignItems: 'center',
-    marginTop: 5,
-  },
-  count: {
-    fontSize: 35,
-    color: 'white',
-  },
-  txtContent: {
-    fontWeight: '700',
-    color: 'white',
-    fontSize: 12,
-  },
-});
+
 export default connect(
   Controller.mapStateToProps,
   Controller.mapDispatchToProps,

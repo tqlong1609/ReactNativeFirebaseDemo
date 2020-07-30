@@ -8,7 +8,6 @@ const Styles = StyleSheet.create({
     paddingTop: Sizes.PADDING_MEDIUM,
     paddingLeft: Sizes.PADDING_MEDIUM_1,
     paddingRight: Sizes.PADDING_MEDIUM_1,
-    // backgroundColor: BACKGROUND_BUTTON,
     alignSelf: 'center',
     width: '90%',
     borderRadius: Sizes.BODER_MEDIUM,

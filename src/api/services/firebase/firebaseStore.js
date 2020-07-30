@@ -9,12 +9,15 @@ class FirebaseServices {
       this.initFirebase();
     }
   }
+
   isInit = () => {
     return firebase.app.length === 0 ? false : true;
   };
+
   initFirebase = () => {
     firebase.initializeApp(Config);
   };
+
   loginWithEmailAndPassword = (userParam) => {
     return firebase
       .auth()
@@ -24,6 +27,7 @@ class FirebaseServices {
       )
       .then((response) => response);
   };
+
   signUpWithEmailAndPassword = (userParam) => {
     return firebase
       .auth()
@@ -33,6 +37,7 @@ class FirebaseServices {
       )
       .then((response) => response);
   };
+
   signUpWithFacebookApi = () => {
     return LoginManager.logInWithPermissions(['public_profile'])
       .then((result) => {
@@ -52,6 +57,7 @@ class FirebaseServices {
       })
       .then((response) => response);
   };
+
   saveSetOnFirebase = (data, node) => {
     return firebase
       .database()
@@ -59,6 +65,7 @@ class FirebaseServices {
       .set(data)
       .then((response) => response);
   };
+
   savePushOnFirebase = (data, node) => {
     return firebase
       .database()
@@ -66,20 +73,22 @@ class FirebaseServices {
       .push(data)
       .then((response) => response);
   };
+
   pushData = (data) => {
-    // const dataPush = {Profile: data};
     const node = Const.NameUserRoot + '/' + 'Profile/' + data.uid;
     this.saveSetOnFirebase(data, node);
   };
+
   saveDataTodo = (data) => {
-    // const dataPushTodo = {ListToDo: data};
     const node = Const.NameUserRoot + '/Profile/' + data.uid + '/ListTodo/';
     this.savePushOnFirebase(data, node);
   };
+
   loadData = (uid) => {
     const node = Const.NameUserRoot + '/Profile/' + uid + '/ListTodo/';
     return firebase.database().ref(node);
   };
+
   deleteData = (dispatch) => {
     const node =
       Const.NameUserRoot +
@@ -93,6 +102,7 @@ class FirebaseServices {
       .remove()
       .then((response) => response);
   };
+  
   updateData = (dispatch) => {
     const node =
       Const.NameUserRoot +

@@ -5,7 +5,6 @@ import {
   RESET_IS_LOAD
 } from '../actionTypes/action.const';
 import State from '../state';
-// import State from '../../store/state';
 
 const addItemReducer = (state = State.AddTodoList, action) => {
   const newState = {...state};
@@ -25,7 +24,6 @@ const addItemReducer = (state = State.AddTodoList, action) => {
     case SAVE_TODOS_ASYN_FAIL:
       newState.isSuccess = false;
       newState.error = action.value.toString();
-      // console.log(action.value.toString());
       break;
   }
   return newState;

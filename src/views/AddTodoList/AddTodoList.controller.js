@@ -26,7 +26,6 @@ class HandleAddTodoList {
       nextState.isSuccess = false;
       context.props.resetData();
       context.props.onCloseModal();
-      // context.props.navigation.navigate(MAIN_SCREEN);
       return false;
     }
     return true;

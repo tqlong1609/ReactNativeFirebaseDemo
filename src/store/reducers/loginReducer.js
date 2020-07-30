@@ -20,8 +20,6 @@ const loginReducer = (state = State.LoginState, action) => {
     case SIGN_IN_ASYN_SUCCESS:
       newState.logined = true;
       newState.uid = action.value.user.uid;
-      // console.log('myid: ' + newState.uid);
-      // console.log('login: ' + JSON.stringify(action.value.user.uid));
       break;
     case SIGN_IN_ASYN_FAIL:
       newState.logined = false;

@@ -1,4 +1,3 @@
-//Todo: xữ lý khi thêm vào firebase thất bại
 //Todo: kiểm tra input đầu vào rổng
 
 import React, {Component} from 'react';
@@ -20,7 +19,6 @@ import {withTranslation} from 'react-i18next';
 import {connect} from 'react-redux';
 import {OverLayLoading} from '../../containers/OverlayLoading';
 
-// import TaskTodo from '../../containers/TaskTodo'
 export class AddTodoList extends Component {
   constructor(props) {
     super(props);

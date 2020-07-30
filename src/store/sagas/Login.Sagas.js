@@ -8,7 +8,6 @@ function* login(dispatch) {
       FirebaseServices.loginWithEmailAndPassword,
       dispatch,
     );
-    // console.log('User Saga Response', JSON.stringify(response));
     yield put({
       type: SIGN_IN_ASYN_SUCCESS,
       value: response,

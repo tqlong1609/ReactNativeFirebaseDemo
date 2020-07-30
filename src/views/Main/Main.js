@@ -29,17 +29,11 @@ export class Main extends Component {
     };
   }
   static getDerivedStateFromProps(_props, _state) {
-    if (_props.isLoad || _props.isSuccess) {
-      _props.onLoad(_props.uid);
-      _props.resetData();
-      return {data: _props.arrData, error: _props.error, isLoading: true};
-    }
-    return {data: _props.arrData, error: _props.error};
+    return MainController.getStateFromProps(_props, _state);
   }
 
   componentDidMount() {
-    // this.props.onLoad(this.props.uid);
-    this.loadData();
+    MainController.loadData(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -47,13 +41,7 @@ export class Main extends Component {
       this.setState({isLoading: false, errorMessage: ''});
     }
   }
-
-  loadData = () => {
-    this.setState({isLoading: true, error: ''});
-    // context.props.resetData();
-    this.props.onLoad(this.props.uid);
-  };
-
+  
   render() {
     const {t, tReady} = this.props;
     return (

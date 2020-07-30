@@ -1,11 +1,6 @@
 import {Alert} from 'react-native';
 
 export function AlertApp(title, content, callback) {
-  console.log('qweqweqe');
-  console.log('Tao sua');
-  console.log('Tao sua');
-  console.log('Tao sua');
-  console.log('Tao sua');
   Alert.alert(
     title,
     content,
@@ -19,8 +14,4 @@ export function AlertApp(title, content, callback) {
     ],
     {cancelable: false},
   );
-  console.log('Tao sua');
-  console.log('Tao sua');
-
-  
 }

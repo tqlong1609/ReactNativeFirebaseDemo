@@ -4,13 +4,11 @@ import * as RNLocalize from 'react-native-localize';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, HeaderBackground} from '@react-navigation/stack';
-import {BACKGROUND_SCREEN} from './src/styles/colors';
 
 // view
 import MainApp from './src/views/Main/Main';
 import LoginApp from './src/views/Login/Login';
 import SignUpApp from './src/views/SingUp/SignUp';
-import AddItemAdd from './src/views/AddItem/AddItem';
 import Splash from './src/views/Splash/Splash';
 
 // const
@@ -82,10 +80,6 @@ export class App extends Component {
             options={{
               headerShown: false,
             }}
-          />
-          <Stack.Screen
-            name={NameScreen.ADD_ITEM_SCREEN}
-            component={AddItemAdd}
           />
         </Stack.Navigator>
       </NavigationContainer>

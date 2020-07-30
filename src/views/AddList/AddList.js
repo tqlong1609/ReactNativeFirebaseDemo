@@ -14,6 +14,7 @@ import stylesAddList from './AddList.styles';
 import {withTranslation} from 'react-i18next';
 import LottieView from 'lottie-react-native';
 import AddTodoList from '../AddTodoList/AddTodoList';
+import Controller from './AddList.controller';
 export class AddList extends Component {
   constructor(props) {
     super(props);
@@ -39,9 +40,7 @@ export class AddList extends Component {
       );
     });
   };
-  changeModalVisible = () => {
-    this.setState({modalVisible: !this.state.modalVisible});
-  };
+
   render = () => {
     const {t, tReady} = this.props;
     return (
@@ -56,7 +55,7 @@ export class AddList extends Component {
             backgroundColor={this.state.backgroundColor}
             data={[]}
             isEdit={false}
-            onCloseModal={() => this.changeModalVisible()}
+            onCloseModal={() => Controller.changeModalVisible(this)}
           />
         </Modal>
         <ScrollView style={stylesAddList.containerScrollView}>
@@ -77,7 +76,7 @@ export class AddList extends Component {
               {this.renderColor()}
             </View>
             <TouchableOpacity
-              onPress={() => this.changeModalVisible()}
+              onPress={() => Controller.changeModalVisible(this)}
               style={[
                 {
                   backgroundColor: this.state.backgroundColor,

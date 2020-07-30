@@ -7,7 +7,6 @@ import {put, call, take, takeEvery} from 'redux-saga/effects';
 import WarningSettingTimer from '../../lib/utils/WarningSettingTimer';
 function* signUp(dispatch) {
   try {
-    // sign up into firebase
     const response = yield call(
       FirebaseServices.signUpWithEmailAndPassword,
       dispatch,
@@ -20,12 +19,6 @@ function* signUp(dispatch) {
     // save name and email into database firebase
     WarningSettingTimer();
     const responseSaveUser = yield call(FirebaseServices.pushData, data);
-    // const listResponse = {
-    //   response: response,
-    //   responseSaveUser: responseSaveUser,
-    // };
-    // console.log(responseSaveUser);
-    // console.log(data);
     yield put({
       type: SIGN_IN_ASYN_SUCCESS,
       value: response,
