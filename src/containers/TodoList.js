@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import {withTranslation} from 'react-i18next';
-
+import Controller from './TodoList.controller';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {connect} from 'react-redux';
 
 export class TodoList extends Component {
+  deleteTodo = () => {
+    this.props.onDelete(this.props.uid, this.props.idDelete);
+  };
   render() {
     const {t, tReady} = this.props;
     const completedCount = this.props.todos.filter((todo) => todo.isCheck)
@@ -18,7 +22,7 @@ export class TodoList extends Component {
             backgroundColor: this.props.color,
           },
         ]}>
-        <TouchableOpacity>
+        <TouchableOpacity onPressIn={() => this.deleteTodo()}>
           <Icon name="times" style={styles.iconDelete} />
         </TouchableOpacity>
         <Text numberOfLines={1} style={styles.title}>
@@ -59,4 +63,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 });
-export default withTranslation()(TodoList);
+export default connect(
+  Controller.mapStateToProps,
+  Controller.mapDispatchToProps,
+)(withTranslation()(TodoList));

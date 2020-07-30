@@ -80,5 +80,19 @@ class FirebaseServices {
     const node = Const.NameUserRoot + '/Profile/' + uid + '/ListTodo/';
     return firebase.database().ref(node);
   };
+  deleteData = (dispatch) => {
+    // console.log('dispatch: ' + JSON.stringify(dispatch));
+    const node =
+      Const.NameUserRoot +
+      '/Profile/' +
+      dispatch.values.uid +
+      '/ListTodo/' +
+      dispatch.values.idDelete;
+    return firebase
+      .database()
+      .ref(node)
+      .remove()
+      .then((response) => response);
+  };
 }
 export default new FirebaseServices();

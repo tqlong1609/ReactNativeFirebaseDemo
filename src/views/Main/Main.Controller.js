@@ -1,12 +1,12 @@
 import {LOAD_DATA} from '../../store/actionTypes/action.const';
 import {onLoad} from '../../store/actionTypes/Main.action';
-import {resetData} from '../../store/actionTypes/AddTodoList.action';
+import {resetUpdateData} from '../../store/actionTypes/AddTodoList.action';
 
 class HandleMain {
   mapDispatchToProps = (dispatch) => {
     return {
       onLoad: (uid) => onLoad(dispatch, uid),
-      resetData: () => resetData(dispatch),
+      resetData: () => resetUpdateData(dispatch),
     };
   };
 
@@ -16,6 +16,7 @@ class HandleMain {
       arrData: state.main.arrData,
       uid: state.login.uid,
       isLoad: state.addTodoList.isLoad,
+      isSuccess: state.todoList.isSuccess,
     };
   };
 }

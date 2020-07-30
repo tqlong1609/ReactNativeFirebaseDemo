@@ -1,5 +1,5 @@
 import {getId} from '../../lib/utils/GetIdTimer';
-import {saveTodos,resetData} from '../../store/actionTypes/AddTodoList.action';
+import {saveTodos, resetData} from '../../store/actionTypes/AddTodoList.action';
 class HandleAddTodoList {
   updateCountTasks = (context) => {
     const isCheckCount = this.countIsCheck(context.state.dataTodos);
