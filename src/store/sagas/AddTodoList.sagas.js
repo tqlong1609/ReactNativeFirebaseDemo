@@ -14,7 +14,6 @@ function* saveData(dispatch) {
       FirebaseServices.saveDataTodo,
       dispatch.values,
     );
-
     yield put({
       type: SAVE_TODOS_ASYN_SUCCESS,
     });

@@ -15,81 +15,28 @@ import LottieView from 'lottie-react-native';
 import TodoList from '../../containers/TodoList';
 import {withTranslation} from 'react-i18next';
 import AddList from '../AddList/AddList';
-const data = [
-  {
-    id: '1',
-    name: 'Plan a trip',
-    color: '#00CCCC',
-    todos: [{title: 'Book a flight', completed: false}],
-  },
-  {
-    id: '2',
-    name: 'Plan a trip 1',
-    color: '#9933FF',
-    todos: [
-      {title: 'Book a flight 1', completed: false},
-      {title: 'Book a flight 2', completed: true},
-    ],
-  },
-  {
-    id: '3',
-
-    name: 'Plan a trip 2',
-    color: '#CC66FF',
-    todos: [
-      {title: 'Book a flight 2', completed: false},
-      {title: 'Book a flight 3', completed: true},
-      {title: 'Book a flight 4', completed: false},
-      {title: 'Book a flight 5', completed: true},
-    ],
-  },
-  {
-    id: '4',
-    name: 'Plan a trip 2',
-    color: '#FF6666',
-    todos: [
-      {title: 'Book a flight 2', completed: false},
-      {title: 'Book a flight 3', completed: true},
-      {title: 'Book a flight 4', completed: false},
-      {title: 'Book a flight 5', completed: true},
-    ],
-  },
-  {
-    id: '5',
-
-    name: 'Plan a trip 2',
-    color: '#3366FF',
-    todos: [
-      {title: 'Book a flight 2', completed: false},
-      {title: 'Book a flight 3', completed: true},
-      {title: 'Book a flight 4', completed: false},
-      {title: 'Book a flight 5', completed: true},
-    ],
-  },
-  {
-    id: '6',
-
-    name: 'Plan a trip 2',
-    color: '#FF6600',
-    todos: [
-      {title: 'Book a flight 2', completed: false},
-      {title: 'Book a flight 3', completed: true},
-      {title: 'Book a flight 4', completed: true},
-      {title: 'Book a flight 5', completed: true},
-    ],
-  },
-];
-
 export class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: data,
+      data: null,
       error: '',
       modalVisible: false,
     };
   }
+  static getDerivedStateFromProps(_props, _state) {
+    if (_props.isLoad) {
+      _props.onLoad(_props.uid);
+      _props.resetData();
+    }
+    return {
+      data: _props.arrData,
+    };
+  }
 
+  componentDidMount() {
+    this.props.onLoad(this.props.uid);
+  }
   render() {
     const {t, tReady} = this.props;
     return (
@@ -131,7 +78,11 @@ export class Main extends Component {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           renderItem={({item}) => (
-            <TodoList name={item.name} color={item.color} todos={item.todos} />
+            <TodoList
+              name={item.data.listName}
+              color={item.data.backgroundColor}
+              todos={item.data.listTodo}
+            />
           )}
         />
       </ScrollView>

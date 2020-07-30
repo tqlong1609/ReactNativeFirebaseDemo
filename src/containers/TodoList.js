@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 export class TodoList extends Component {
   render() {
     const {t, tReady} = this.props;
-    const completedCount = this.props.todos.filter((todo) => todo.completed)
+    const completedCount = this.props.todos.filter((todo) => todo.isCheck)
       .length;
     const remainingCount = this.props.todos.length - completedCount;
     return (

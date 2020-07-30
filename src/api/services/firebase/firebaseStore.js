@@ -76,8 +76,9 @@ class FirebaseServices {
     const node = Const.NameUserRoot + '/Profile/' + data.uid + '/ListTodo/';
     this.savePushOnFirebase(data, node);
   };
-  loadData = () => {
-    return firebase.database().ref(Const.NameRoot);
+  loadData = (uid) => {
+    const node = Const.NameUserRoot + '/Profile/' + uid + '/ListTodo/';
+    return firebase.database().ref(node);
   };
 }
 export default new FirebaseServices();
