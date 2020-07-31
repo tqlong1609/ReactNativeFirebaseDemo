@@ -22,5 +22,8 @@
     "Completed": "Completed",
     "Create Todo List": "Create Todo List",
     "List Name ?": "List Name ?",
-    "Create": "Create"
+    "Create": "Create",
+    "Enter your task": "Enter your task",
+    "tasks": "tasks",
+    "of": "of"
 }

@@ -4,6 +4,8 @@ import {
   RESET_IS_LOAD,
   RESET_IS_SUCCESS_DELETE,
   EDIT_TODO,
+  SAVE_TODOS_ASYN_FAIL,
+  SAVE_TODOS_ASYN_SUCCESS,
 } from './action.const';
 
 export const saveTodos = (dispatch, todos) => {
@@ -32,4 +34,14 @@ export const editDataTodos = (dispatch, todos) => {
     type: EDIT_TODO,
     values: todos,
   });
+};
+
+export const saveTodoSuccess = () => {
+  return {
+    type: SAVE_TODOS_ASYN_SUCCESS,
+  };
+};
+
+export const saveTodoFail = (error) => {
+  return {type: SAVE_TODOS_ASYN_FAIL, value: error};
 };

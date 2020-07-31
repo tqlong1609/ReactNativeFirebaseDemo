@@ -109,7 +109,8 @@ export class AddTodoList extends Component {
                   color: this.props.backgroundColor,
                 },
               ]}>
-              {this.state.completedCount} of {this.state.dataTodos.length} tasks
+              {this.state.completedCount} {t('of')}{' '}
+              {this.state.dataTodos.length} {t('tasks')}
             </Text>
           </View>
           <FlatList
@@ -121,6 +122,7 @@ export class AddTodoList extends Component {
           />
           <View style={styles.containerAddTodo}>
             <TextInput
+              placeholder={t('Enter your task')}
               value={this.state.todo}
               onChangeText={(todo) => this.setState({todo})}
               style={[

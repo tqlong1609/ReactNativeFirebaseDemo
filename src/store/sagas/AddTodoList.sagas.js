@@ -5,6 +5,7 @@ import {
 import FirebaseServices from '../../api/services/firebase/firebaseStore';
 import {put, call, take, takeEvery} from 'redux-saga/effects';
 import WarningSettingTimer from '../../lib/utils/WarningSettingTimer';
+import {saveTodoSuccess, saveTodoFail} from '../actionTypes/AddTodoList.action';
 function* saveData(dispatch) {
   try {
     WarningSettingTimer();
@@ -12,23 +13,19 @@ function* saveData(dispatch) {
       FirebaseServices.saveDataTodo,
       dispatch.values,
     );
-    yield put({
-      type: SAVE_TODOS_ASYN_SUCCESS,
-    });
+    yield put(saveTodoSuccess());
   } catch (error) {
-    yield put({type: SAVE_TODOS_ASYN_FAIL, value: error});
+    yield put(saveTodoFail(error));
   }
 }
 function* editData(dispatch) {
   try {
     const response = yield call(FirebaseServices.updateData, dispatch.values);
     console.log(response);
-    yield put({
-      type: SAVE_TODOS_ASYN_SUCCESS,
-    });
+    yield put(saveTodoSuccess());
   } catch (error) {
     console.log(error);
-    yield put({type: SAVE_TODOS_ASYN_FAIL, value: error});
+    yield put(saveTodoFail(error));
   }
 }
 

@@ -4,14 +4,15 @@ import {
 } from '../../store/actionTypes/action.const';
 import FirebaseServices from '../../api/services/firebase/firebaseStore';
 import {put, call, take, takeEvery} from 'redux-saga/effects';
+import {deleteSuccess, deleteFail} from '../actionTypes/TodoList.action';
 
 function* deleteTodo(dispatch) {
   try {
     const response = yield call(FirebaseServices.deleteData, dispatch);
-    yield put({type: DELETE_TODO_SUCCESS});
+    yield put(deleteSuccess());
   } catch (error) {
     console.log(error);
-    yield put({type: DELETE_TODO_FAIL, value: error});
+    yield put(deleteFail(error));
   }
 }
 

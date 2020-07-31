@@ -17,10 +17,13 @@
     "Cost": "Giá",
     "Change Languages": "Thay đổi ngôn ngữ",
     "Login with facebook": "Đăng nhập với facebook",
-    "Add list":"Thêm công việc",
-    "Remaining":"Còn lại",
-    "Completed":"Đã hoàn thành",
+    "Add list": "Thêm công việc",
+    "Remaining": "Còn lại",
+    "Completed": "Đã hoàn thành",
     "Create Todo List": "Tạo danh sách công việc",
     "List Name ?": "Tên danh sách ?",
-    "Create":"Tạo"
+    "Create": "Tạo",
+    "Enter your task": "Nhập công việc của bạn",
+    "tasks": "công việc",
+    "of": "của"
 }
